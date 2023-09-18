@@ -1,27 +1,27 @@
 "use client";
-import moment from "moment";
-import Image from "next/image";
-import axios from "axios";
 import { useRef, useState, useEffect, useMemo } from "react";
+import axios from "axios";
+import moment from "moment";
 
-//helper
-function getWeekNumber(d: any) {
+// Helper function to get the week number
+function getWeekNumber(d: Date) {
   d = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
   d.setUTCDate(d.getUTCDate() + 4 - (d.getUTCDay() || 7));
   const yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
-  const weekNo = Math.ceil(((d - yearStart) / 86400000 + 1) / 7);
+  const weekNo = Math.ceil(
+    ((d.getTime() - yearStart.getTime()) / 86400000 + 1) / 7
+  );
   return weekNo;
 }
 
 async function getSchedule(
   scheduleId: string,
   setState: Function,
-  date?: Date,
+  date: Date = new Date(),
   weekOfTheYear?: number,
   dayOfTheWeek?: number,
   isNextDay?: boolean
 ) {
-  date = date || new Date();
   let year = date.getFullYear();
   weekOfTheYear = weekOfTheYear || getWeekNumber(date);
   dayOfTheWeek = dayOfTheWeek || date.getDay();
@@ -37,30 +37,24 @@ async function getSchedule(
 
     if (noMoreLessonsToday(result, date)) {
       if (isNextDay) {
-        // If it is already fetching for the next day, stop further recursive calls
         setState(result);
         return;
       }
 
-      // Increment the day and check if it goes beyond the week
       dayOfTheWeek += 1;
       if (dayOfTheWeek > 6) {
         dayOfTheWeek = 0;
         weekOfTheYear += 1;
-
-        // Check if it goes beyond the year
         if (weekOfTheYear > 52) {
           weekOfTheYear = 1;
           year += 1;
         }
       }
 
-      // Set the new date to check the correct week number
       date = new Date(year, 0, 1);
       date.setDate(date.getDate() + (weekOfTheYear - 1) * 7 + dayOfTheWeek);
       weekOfTheYear = getWeekNumber(date);
 
-      // Recursive call with updated date values
       getSchedule(
         scheduleId,
         setState,
@@ -74,11 +68,9 @@ async function getSchedule(
     }
   } catch (error) {
     console.error("Error fetching schedule:", error);
-    // Handle error appropriately here, potentially with a retry logic
   }
 }
 
-//helper
 function noMoreLessonsToday(lessons: Array<any>, currentTime: Date) {
   return (
     findCurrentLesson(lessons, currentTime) === undefined &&
@@ -87,9 +79,10 @@ function noMoreLessonsToday(lessons: Array<any>, currentTime: Date) {
 }
 
 function findCurrentLesson(lessons: Array<any>, currentTime: Date) {
+  const currentDate = currentTime.toISOString().split("T")[0];
   const currentLesson = lessons.find((lesson) => {
-    const timeStart = new Date(`2023-09-18T${lesson.timeStart}`);
-    const timeEnd = new Date(`2023-09-18T${lesson.timeEnd}`);
+    const timeStart = new Date(`${currentDate}T${lesson.timeStart}`);
+    const timeEnd = new Date(`${currentDate}T${lesson.timeEnd}`);
     return currentTime >= timeStart && currentTime <= timeEnd;
   });
 
@@ -97,31 +90,24 @@ function findCurrentLesson(lessons: Array<any>, currentTime: Date) {
 }
 
 function findNextLesson(lessons: Array<any>, currentTime: Date) {
-  // Format the current time to 'YYYY-MM-DD' format
   const currentDate = currentTime.toISOString().split("T")[0];
-
   const dayOfWeek = ((currentTime.getDay() + 6) % 7) + 1;
 
-  //if the lessons are from tomorrow
-  //console.log("wjfiowejfuwejhfiow", lessons[0].dayOfWeekNumber, dayOfWeek);
-  let lessonsAreFromTomorrow: any = false;
-  if (lessons[0].dayOfWeekNumber === dayOfWeek + 1) {
+  let lessonsAreFromTomorrow = false;
+  if (lessons[0] && lessons[0].dayOfWeekNumber === dayOfWeek + 1) {
     lessonsAreFromTomorrow = true;
   }
 
-  // Sort the lessons by start time
   const sortedLessons = lessons.sort((a, b) => {
     const startA = new Date(`${currentDate}T${a.timeStart}`);
     const startB = new Date(`${currentDate}T${b.timeStart}`);
     return startA.getTime() - startB.getTime();
   });
 
-  // Find the next lesson
   const nextLesson = sortedLessons.find((lesson) => {
     const timeStart = new Date(`${currentDate}T${lesson.timeStart}`);
-
     if (lessonsAreFromTomorrow) {
-      return currentTime < new Date(timeStart.setDate(timeStart.getDate() + 1));
+      timeStart.setDate(timeStart.getDate() + 1);
     }
     return currentTime < timeStart;
   });
@@ -134,51 +120,41 @@ export default function Home() {
   const [date, setDate] = useState(new Date());
   const [timeLeftOfOrTilLesson, setTimeLeftOfLesson] = useState(0);
 
-  const inputIdFieldRef = useRef(null);
+  const inputIdFieldRef = useRef<HTMLInputElement>(null);
 
-  const currentLesson = useMemo(() => {
-    if (schedule.length !== 0) {
-      const returnValue = findCurrentLesson(schedule, date);
-      return returnValue;
-    }
-  }, [date, schedule]);
-
-  const nextLesson = useMemo(() => {
-    if (schedule.length !== 0) {
-      if (findNextLesson(schedule, date) === undefined) {
-        console.log("this will be undeff");
-        console.log(date);
-        console.log(schedule);
-      }
-      return findNextLesson(schedule, date);
-    }
-  }, [date, schedule]);
+  const currentLesson = useMemo(
+    () => findCurrentLesson(schedule, date),
+    [date, schedule]
+  );
+  const nextLesson = useMemo(
+    () => findNextLesson(schedule, date),
+    [date, schedule]
+  );
 
   useEffect(() => {
     if (schedule.length !== 0) {
       let lessonTime;
       if (currentLesson === undefined) {
-        lessonTime = moment(`2023-09-18T${nextLesson.timeStart}`);
+        lessonTime = moment(
+          `${date.toISOString().split("T")[0]}T${nextLesson.timeStart}`
+        );
       } else {
-        lessonTime = moment(`2023-09-18T${currentLesson.timeEnd}`);
+        lessonTime = moment(
+          `${date.toISOString().split("T")[0]}T${currentLesson.timeEnd}`
+        );
       }
       const now = moment(date);
 
       const duration = moment.duration(lessonTime.diff(now));
-      const minutes = duration.asMinutes().toFixed(2);
+      const minutes = parseFloat(duration.asMinutes().toFixed(2));
 
       setTimeLeftOfLesson(minutes);
     }
   }, [date, schedule]);
 
   useEffect(() => {
-    const timerID = setInterval(() => {
-      let date = new Date();
-      setDate(date);
-    }, 1000);
-    return () => {
-      clearInterval(timerID);
-    };
+    const timerID = setInterval(() => setDate(new Date()), 1000);
+    return () => clearInterval(timerID);
   }, []);
 
   return (
@@ -193,20 +169,21 @@ export default function Home() {
       />
       <button
         onClick={() => {
-          getSchedule(inputIdFieldRef.current.value, setSchedule, date);
+          if (inputIdFieldRef.current) {
+            getSchedule(inputIdFieldRef.current.value, setSchedule, date);
+          }
         }}
         className="bg-sky-400 px-4 py-2 font-semibold text-white rounded-xl"
       >
         Spara
       </button>
-
       <span className=" font-extrabold text-2xl">
         {currentLesson === undefined
           ? "nästa lektion börjar om:"
           : "lektionen slutar om:"}
       </span>
       <span className="text-[6rem] font-bold">
-        {Math.abs(timeLeftOfOrTilLesson)}
+        {Math.abs(parseFloat(String(timeLeftOfOrTilLesson)))}
       </span>
       <span className=" font-extrabold text-2xl">minuter</span>
     </div>

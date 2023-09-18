@@ -21,3 +21,4 @@ Det ska vara en väldigt enkel sida gjort för att få svar på: _När slutar le
 - spara schemat i localstorage
 - göra ui lite finare
 - köp domän
+- fixa så att det visas minuter och sekunder; inte decimaler av minuter

@@ -205,7 +205,7 @@ export default function Home() {
           ? "nästa lektion börjar om:"
           : "lektionen slutar om:"}
       </span>
-      <span className="text-[12rem] font-bold">
+      <span className="text-[6rem] font-bold">
         {Math.abs(timeLeftOfOrTilLesson)}
       </span>
       <span className=" font-extrabold text-2xl">minuter</span>

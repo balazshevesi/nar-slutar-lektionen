@@ -15,10 +15,12 @@ Det ska vara en väldigt enkel sida gjort för att få svar på: _När slutar le
 
 ## Todo
 
-- skriva om koden (det e fkn kaos nu, men det funkar)
-- låta användaren ändra skola
+- skriva om koden (det e fkn kaos nu)
+- flytta frontend-logiken till backend APIn
+- fixa så att det visas minuter och sekunder; inte decimaler av minuter
+- om det är något fel med schema id; visa det
 - spara schema-id i localstorage
+- låta användaren ändra skola
 - spara schemat i localstorage
 - göra ui lite finare
 - köp domän
-- fixa så att det visas minuter och sekunder; inte decimaler av minuter

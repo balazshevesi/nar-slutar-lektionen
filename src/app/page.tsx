@@ -1,113 +1,214 @@
-import Image from 'next/image'
+"use client";
+import moment from "moment";
+import Image from "next/image";
+import axios from "axios";
+import { useRef, useState, useEffect, useMemo } from "react";
+
+//helper
+function getWeekNumber(d: any) {
+  d = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
+  d.setUTCDate(d.getUTCDate() + 4 - (d.getUTCDay() || 7));
+  const yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
+  const weekNo = Math.ceil(((d - yearStart) / 86400000 + 1) / 7);
+  return weekNo;
+}
+
+async function getSchedule(
+  scheduleId: string,
+  setState: Function,
+  date?: Date,
+  weekOfTheYear?: number,
+  dayOfTheWeek?: number,
+  isNextDay?: boolean
+) {
+  date = date || new Date();
+  let year = date.getFullYear();
+  weekOfTheYear = weekOfTheYear || getWeekNumber(date);
+  dayOfTheWeek = dayOfTheWeek || date.getDay();
+
+  try {
+    const response = await axios.post("api/getSchedule", {
+      scheduleId,
+      year,
+      weekOfTheYear,
+      dayOfTheWeek,
+    });
+    const result = response.data.data.lessonInfo;
+
+    if (noMoreLessonsToday(result, date)) {
+      if (isNextDay) {
+        // If it is already fetching for the next day, stop further recursive calls
+        setState(result);
+        return;
+      }
+
+      // Increment the day and check if it goes beyond the week
+      dayOfTheWeek += 1;
+      if (dayOfTheWeek > 6) {
+        dayOfTheWeek = 0;
+        weekOfTheYear += 1;
+
+        // Check if it goes beyond the year
+        if (weekOfTheYear > 52) {
+          weekOfTheYear = 1;
+          year += 1;
+        }
+      }
+
+      // Set the new date to check the correct week number
+      date = new Date(year, 0, 1);
+      date.setDate(date.getDate() + (weekOfTheYear - 1) * 7 + dayOfTheWeek);
+      weekOfTheYear = getWeekNumber(date);
+
+      // Recursive call with updated date values
+      getSchedule(
+        scheduleId,
+        setState,
+        date,
+        weekOfTheYear,
+        dayOfTheWeek,
+        true
+      );
+    } else {
+      setState(result);
+    }
+  } catch (error) {
+    console.error("Error fetching schedule:", error);
+    // Handle error appropriately here, potentially with a retry logic
+  }
+}
+
+//helper
+function noMoreLessonsToday(lessons: Array<any>, currentTime: Date) {
+  return (
+    findCurrentLesson(lessons, currentTime) === undefined &&
+    findNextLesson(lessons, currentTime) === undefined
+  );
+}
+
+function findCurrentLesson(lessons: Array<any>, currentTime: Date) {
+  const currentLesson = lessons.find((lesson) => {
+    const timeStart = new Date(`2023-09-18T${lesson.timeStart}`);
+    const timeEnd = new Date(`2023-09-18T${lesson.timeEnd}`);
+    return currentTime >= timeStart && currentTime <= timeEnd;
+  });
+
+  return currentLesson ? currentLesson : undefined;
+}
+
+function findNextLesson(lessons: Array<any>, currentTime: Date) {
+  // Format the current time to 'YYYY-MM-DD' format
+  const currentDate = currentTime.toISOString().split("T")[0];
+
+  const dayOfWeek = ((currentTime.getDay() + 6) % 7) + 1;
+
+  //if the lessons are from tomorrow
+  //console.log("wjfiowejfuwejhfiow", lessons[0].dayOfWeekNumber, dayOfWeek);
+  let lessonsAreFromTomorrow: any = false;
+  if (lessons[0].dayOfWeekNumber === dayOfWeek + 1) {
+    lessonsAreFromTomorrow = true;
+  }
+
+  // Sort the lessons by start time
+  const sortedLessons = lessons.sort((a, b) => {
+    const startA = new Date(`${currentDate}T${a.timeStart}`);
+    const startB = new Date(`${currentDate}T${b.timeStart}`);
+    return startA.getTime() - startB.getTime();
+  });
+
+  // Find the next lesson
+  const nextLesson = sortedLessons.find((lesson) => {
+    const timeStart = new Date(`${currentDate}T${lesson.timeStart}`);
+
+    if (lessonsAreFromTomorrow) {
+      return currentTime < new Date(timeStart.setDate(timeStart.getDate() + 1));
+    }
+    return currentTime < timeStart;
+  });
+
+  return nextLesson ? nextLesson : undefined;
+}
 
 export default function Home() {
+  const [schedule, setSchedule] = useState([]);
+  const [date, setDate] = useState(new Date());
+  const [timeLeftOfOrTilLesson, setTimeLeftOfLesson] = useState(0);
+
+  const inputIdFieldRef = useRef(null);
+
+  const currentLesson = useMemo(() => {
+    if (schedule.length !== 0) {
+      const returnValue = findCurrentLesson(schedule, date);
+      return returnValue;
+    }
+  }, [date, schedule]);
+
+  const nextLesson = useMemo(() => {
+    if (schedule.length !== 0) {
+      if (findNextLesson(schedule, date) === undefined) {
+        console.log("this will be undeff");
+        console.log(date);
+        console.log(schedule);
+      }
+      return findNextLesson(schedule, date);
+    }
+  }, [date, schedule]);
+
+  useEffect(() => {
+    if (schedule.length !== 0) {
+      let lessonTime;
+      if (currentLesson === undefined) {
+        lessonTime = moment(`2023-09-18T${nextLesson.timeStart}`);
+      } else {
+        lessonTime = moment(`2023-09-18T${currentLesson.timeEnd}`);
+      }
+      const now = moment(date);
+
+      const duration = moment.duration(lessonTime.diff(now));
+      const minutes = duration.asMinutes().toFixed(2);
+
+      setTimeLeftOfLesson(minutes);
+    }
+  }, [date, schedule]);
+
+  useEffect(() => {
+    const timerID = setInterval(() => {
+      let date = new Date();
+      setDate(date);
+    }, 1000);
+    return () => {
+      clearInterval(timerID);
+    };
+  }, []);
+
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">src/app/page.tsx</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
+    <div className="flex flex-col items-center justify-center">
+      <div>skola: haganässkolan</div>
+      <label htmlFor="schema-id">schema-id</label>
+      <input
+        ref={inputIdFieldRef}
+        id="schema-id"
+        type="text"
+        className="bg-zinc-300"
+      />
+      <button
+        onClick={() => {
+          getSchedule(inputIdFieldRef.current.value, setSchedule, date);
+        }}
+        className="bg-sky-400 px-4 py-2 font-semibold text-white rounded-xl"
+      >
+        Spara
+      </button>
 
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px] z-[-1]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className="mb-32 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Docs{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Learn{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Templates{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Explore the Next.js 13 playground.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Deploy{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
-  )
+      <span className=" font-extrabold text-2xl">
+        {currentLesson === undefined
+          ? "nästa lektion börjar om:"
+          : "lektionen slutar om:"}
+      </span>
+      <span className="text-[12rem] font-bold">
+        {Math.abs(timeLeftOfOrTilLesson)}
+      </span>
+      <span className=" font-extrabold text-2xl">minuter</span>
+    </div>
+  );
 }

@@ -5,6 +5,7 @@ _När slutar lektionen?_ är bland de vanligaste frågorna man ställer i skolan
 Detta projekt ska vara ett svar på den frågan. Det ska vara en väldigt enkel hemsida.
 
 Hemsidan ska använda sig av skola24s api, det finns dock ingen dokumentation om den, så jag får gissa mig fram med hjälp av chrome dev tools.
+Denna uppgift är ett projekt till teknik specialiserings kursen
 
 ## Stack
 
@@ -20,7 +21,7 @@ Det ska vara en väldigt enkel sida gjort för att få svar på: _När slutar le
 - fixa så att det visas minuter och sekunder; inte decimaler av minuter
 - om det är något fel med schema id; visa det
 - spara schema-id i localstorage
-- låta användaren ändra skola
+- låta användaren ändra skola, och ta reda på hur api:n fungerar
 - spara schemat i localstorage
 - göra ui lite finare
 - köp domän

@@ -20,32 +20,38 @@ export default function Bread({
     );
 
   return (
-    <div className="flex items-center p-2 text-center text-sm font-semibold italic text-slate-500">
-      <Link href={"/"} className="hover:underline">
+    <div className="flex items-center gap-1 p-2 text-center font-mono text-sm font-semibold italic text-slate-500">
+      <Link href={"/"} className="hover:underline hover:opacity-80">
         hem
       </Link>
       {kommun && (
         <>
-          <ChevronRightIcon className="heroicon-sw-2 h-5 w-5" />
-          <Link href={`/${kommun}`} className="hover:underline">
+          <ChevronRightIcon className="heroicon-sw-3 h-4 w-4" />
+          <Link
+            href={`/${kommun}`}
+            className="hover:underline hover:opacity-80"
+          >
             {kommun}
           </Link>
         </>
       )}
       {skola && (
         <>
-          <ChevronRightIcon className="heroicon-sw-2 h-5 w-5" />
-          <Link href={`/${kommun}/${skola}`} className="hover:underline">
+          <ChevronRightIcon className="heroicon-sw-3 h-4 w-4" />
+          <Link
+            href={`/${kommun}/${skola}`}
+            className="hover:underline hover:opacity-80"
+          >
             {skola}
           </Link>
         </>
       )}
       {schemaId && (
         <>
-          <ChevronRightIcon className="heroicon-sw-2 h-5 w-5" />
+          <ChevronRightIcon className="heroicon-sw-3 h-4 w-4" />
           <Link
             href={`/${kommun}/${skola}/${schemaId}`}
-            className="hover:underline"
+            className="hover:underline hover:opacity-80"
           >
             {schemaId}
           </Link>

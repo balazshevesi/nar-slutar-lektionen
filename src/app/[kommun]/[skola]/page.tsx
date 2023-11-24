@@ -27,7 +27,7 @@ export default function Page({
       <div className=" flex items-center gap-2">
         <input
           type="text"
-          className="relative flex w-40 items-center justify-center gap-1 overflow-hidden rounded-xl border border-slate-100 bg-gradient-to-t from-slate-100 to-white py-2 text-center shadow outline-2 outline-offset-2  outline-sky-400 focus:outline"
+          className="relative flex w-40 items-center justify-center gap-1 overflow-hidden rounded-xl border border-slate-100 bg-gradient-to-t from-slate-100 to-white py-2 text-center shadow outline-2 outline-offset-2 outline-slate-400 focus:outline"
           onInput={(e: React.ChangeEvent<HTMLInputElement>) => {
             setSchemaId(e.target.value);
           }}
@@ -41,7 +41,7 @@ export default function Page({
           onClick={() => {
             search(schemaId);
           }}
-          className="relative flex h-full w-20 items-center justify-center gap-1 overflow-hidden rounded-xl border border-slate-100 bg-gradient-to-t from-slate-100 to-white py-2 text-center shadow outline-2 outline-offset-2  outline-sky-400 focus:outline"
+          className="relative flex h-full w-20 items-center justify-center gap-1 overflow-hidden rounded-xl border border-slate-100 bg-gradient-to-t from-slate-100 to-white py-2 text-center shadow outline-2 outline-offset-2 outline-slate-400 focus:outline"
         >
           <MagnifyingGlassIcon className="h-5 w-5" />
           <Ripples color="black" opacity={0.3} blur={2} on="mouseDown" />

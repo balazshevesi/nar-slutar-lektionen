@@ -14,6 +14,8 @@ export async function GET(
   const skola = params.skola;
   const schemaId = params["schema-id"];
 
+  console.log("helo", kommun, skola, schemaId);
+
   /**
    * * hard coded for haganäskolan älmhult
    * TODO make dynamic
@@ -21,13 +23,12 @@ export async function GET(
   if (kommun === "almhult" && skola === "haganasskolan") {
     //
 
+    console.log("schemaId", schemaId);
     const signature = await getSignature(schemaId);
-    const key = await getKey();
-    const timetable = await getTimetable(signature, key, 2023, 47, 5);
-
     console.log("signature", signature);
+    const key = await getKey();
     console.log("key", key);
-    console.log("timetable", timetable);
+    const timetable = await getTimetable(signature, key, 2023, 47, 5);
 
     //
 

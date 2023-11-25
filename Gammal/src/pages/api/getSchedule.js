@@ -10,7 +10,8 @@ async function getKey() {
           "Content-Type": "application/json",
           "X-Scope": "8a22163c-8662-4535-9050-bc5e1923df48",
         },
-      }
+        body: JSON.stringify({}),
+      },
     );
 
     if (!response.ok) {
@@ -35,7 +36,7 @@ async function getSignature(id) {
           "X-Scope": "8a22163c-8662-4535-9050-bc5e1923df48",
         },
         body: JSON.stringify({ signature: id }),
-      }
+      },
     );
 
     if (!response.ok) {
@@ -54,7 +55,7 @@ async function fetchTimetable(
   key,
   year,
   weekOfTheYear,
-  dayOfTheWeek
+  dayOfTheWeek,
 ) {
   try {
     const response = await fetch(
@@ -87,7 +88,7 @@ async function fetchTimetable(
           privateSelectionMode: null,
           customerKey: "",
         }),
-      }
+      },
     );
 
     if (!response.ok) {
@@ -120,7 +121,7 @@ export default async function getSchedule(req, res) {
       key,
       year,
       weekOfTheYear,
-      dayOfTheWeek
+      dayOfTheWeek,
     );
     console.log("Schedule:", schedule);
 

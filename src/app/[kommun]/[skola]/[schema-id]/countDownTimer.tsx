@@ -1,8 +1,7 @@
 "use client";
-import { ucs2 } from "punycode";
 import React, { useState, useEffect } from "react";
 
-interface CountdownProps {
+interface CountDownProps {
   targetDate: Date;
   isCurrentLesson: boolean;
 }
@@ -14,10 +13,10 @@ interface TimeLeft {
   seconds: number;
 }
 
-const CountdownTimer: React.FC<CountdownProps> = ({
+export default function CountdownTimer({
   targetDate,
   isCurrentLesson,
-}) => {
+}: CountDownProps) {
   const [timeLeft, setTimeLeft] = useState<TimeLeft>({
     days: 0,
     hours: 0,
@@ -66,6 +65,4 @@ const CountdownTimer: React.FC<CountdownProps> = ({
       </div>
     </div>
   );
-};
-
-export default CountdownTimer;
+}

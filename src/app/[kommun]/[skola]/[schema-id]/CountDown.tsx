@@ -3,7 +3,7 @@ import { FetchSchedule } from "./fetchSchedule";
 import getCurrentWeekNumber from "@/app/utils/getCurrentWeekNumber";
 import getNextMondayIfWeekend from "@/app/api/utils/getNextMondayIfWeekend";
 import addDaysToDate from "@/app/api/utils/addDaysToDate";
-import CountdownTimer from "./CountDownTimer";
+import CountdownTimer from "../../../components/CountDownTimer";
 
 interface CountDown {
   komun: string;

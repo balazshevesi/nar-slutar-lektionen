@@ -7,7 +7,7 @@ export interface FetchSchedule {
 export default async function fetchSchedule(options: FetchSchedule) {
   revalidatePath("/");
   const response = await fetch(
-    `http://${process.env.DOMAIN}/api/${options.schedule.komun}/${options.schedule.skola}/${options.schedule.schemaId}`,
+    `${process.env.DOMAIN}/api/${options.schedule.komun}/${options.schedule.skola}/${options.schedule.schemaId}`,
     {
       method: "post",
       body: JSON.stringify({

@@ -26,8 +26,6 @@ export async function POST(
    * TODO make dynamic
    * */
   if (kommun === "almhult" && skola === "Haganässkolan") {
-    //
-
     const signature = await getSignature(schemaId);
     const key = await getKey();
     const timetable = await getTimetable(
@@ -37,13 +35,6 @@ export async function POST(
       week,
       dayOfTheWeek,
     );
-    console.log(signature, key, year, week, dayOfTheWeek);
-    console.log(reqbody);
-    console.log(schemaId);
-
-    //
-
-    console.log("timetable", timetable);
 
     return NextResponse.json(
       { kommun, skola, schemaId, timetable },

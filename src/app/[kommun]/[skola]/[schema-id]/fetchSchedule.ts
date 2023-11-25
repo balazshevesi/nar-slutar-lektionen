@@ -1,9 +1,12 @@
+import { revalidatePath } from "next/cache";
+
 export interface FetchSchedule {
   schedule: { komun: string; skola: string; schemaId: string };
   date: { year: number; week: number; dayOfTheWeek: number };
 }
 
 export default async function fetchSchedule(options: FetchSchedule) {
+  revalidatePath("/");
   const response = await fetch(
     `http://localhost:3001/api/${options.schedule.komun}/${options.schedule.skola}/${options.schedule.schemaId}`,
     {

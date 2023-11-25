@@ -1,46 +1,64 @@
 "use client";
+import { ucs2 } from "punycode";
 import React, { useState, useEffect } from "react";
 
-interface CountdownTimerProps {
-  timeUntilStart: number; // time in minutes
+interface CountdownProps {
+  targetDate: Date;
+  isCurrentLesson: boolean;
 }
 
-const CountdownTimer: React.FC<CountdownTimerProps> = ({ timeUntilStart }) => {
-  const [timeLeftInSeconds, setTimeLeftInSeconds] = useState(
-    timeUntilStart * 60,
-  );
+interface TimeLeft {
+  days: number;
+  hours: number;
+  minutes: number;
+  seconds: number;
+}
+
+const CountdownTimer: React.FC<CountdownProps> = ({
+  targetDate,
+  isCurrentLesson,
+}) => {
+  const [timeLeft, setTimeLeft] = useState<TimeLeft>({
+    days: 0,
+    hours: 0,
+    minutes: 0,
+    seconds: 0,
+  });
 
   useEffect(() => {
-    // Update the countdown every second
-    const timer = setInterval(() => {
-      setTimeLeftInSeconds((prevTime) => (prevTime > 0 ? prevTime - 1 : 0));
-    }, 1000); // 1000 milliseconds = 1 second
+    const interval = setInterval(() => {
+      const now = new Date();
+      const timeOffsetInMS = now.getTimezoneOffset() * 60000;
+      const nowAdjusted = new Date(now.getTime() - timeOffsetInMS);
 
-    // Clear interval on component unmount
-    return () => clearInterval(timer);
-  }, []);
+      const difference = targetDate.getTime() - nowAdjusted.getTime();
 
-  useEffect(() => {
-    // Update timeLeftInSeconds when timeUntilStart prop changes
-    setTimeLeftInSeconds(timeUntilStart * 60);
-  }, [timeUntilStart]);
+      if (difference > 0) {
+        const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((difference / (1000 * 60 * 60)) % 24);
+        const minutes = Math.floor((difference / 1000 / 60) % 60);
+        const seconds = Math.floor((difference / 1000) % 60);
 
-  const minutes = Math.floor(timeLeftInSeconds / 60);
-  const seconds = Math.floor(timeLeftInSeconds % 60);
+        // setTimeLeft(`${days}d ${hours}h ${minutes}m ${seconds}s`);
+        setTimeLeft({ days, hours, minutes, seconds });
+      } else {
+        clearInterval(interval);
+        setTimeLeft("Time reached!");
+      }
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [targetDate]);
 
   return (
-    <div>
-      {timeLeftInSeconds > 0 ? (
-        <h3 className=" font-mono">
-          Nästa lektion börjar om <br />
-          <span className="text-4xl">{minutes}</span>{" "}
-          <span className="text-lg font-bold">minuter och</span> <br />
-          <span className="text-4xl">{seconds}</span>{" "}
-          <span className="text-lg font-bold">sekunder</span>
-        </h3>
-      ) : (
-        <h3>Lektionen har börjat!</h3>
-      )}
+    <div className=" font-mono">
+      <h2>
+        {isCurrentLesson ? "Lektionen slutar om" : "Nästa lektion börjar om"}
+      </h2>
+      <div>{timeLeft.days && timeLeft.days} dagar</div>
+      <div>{timeLeft.hours && timeLeft.hours} timmar</div>
+      <div>{timeLeft.minutes && timeLeft.minutes} minuter</div>
+      <div>{timeLeft.seconds && timeLeft.seconds} sekunder</div>
     </div>
   );
 };

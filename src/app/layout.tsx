@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import FavoritesShortCut from "./components/FavoritesShortCut";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,6 +18,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className + " selection:bg-sky-200"}>
+        {/* <FavoritesShortCut /> */}
         {children}
       </body>
     </html>

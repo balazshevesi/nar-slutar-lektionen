@@ -40,7 +40,9 @@ function getCurrentOrNextLesson(lessons: Lesson[], todaysDate: Date) {
     (lesson) => new Date(lesson.timeStartDate!) > now,
   );
   upcomingLessons.sort(
-    (a, b) => new Date(a.timeStartDate) - new Date(b.timeStartDate),
+    (a, b) =>
+      new Date(a.timeStartDate!).getTime() -
+      new Date(b.timeStartDate!).getTime(),
   );
 
   const nextLesson = upcomingLessons.length > 0 ? upcomingLessons[0] : null;
@@ -135,7 +137,7 @@ export default async function CountDown({ komun, skola, schemaId }: CountDown) {
   console.log("today: ", todaysDate);
 
   return (
-    <div>
+    <div className="font-mono text-lg">
       <CountdownTimer
         isCurrentLesson={currentOrNextLesson.isCurrentLesson}
         targetDate={
@@ -144,7 +146,27 @@ export default async function CountDown({ komun, skola, schemaId }: CountDown) {
             : currentOrNextLesson.lesson?.timeStartDate!
         }
       />
-      testingtt
+      <br />
+      <div className=" text-right">
+        <div>
+          Kurs:{" "}
+          <span className="font-bold">
+            {currentOrNextLesson.lesson?.texts[0]}
+          </span>
+        </div>
+        <div>
+          Lärare:{" "}
+          <span className="font-bold">
+            {currentOrNextLesson.lesson?.texts[1]}
+          </span>
+        </div>
+        <div>
+          Sal:{" "}
+          <span className="font-bold">
+            {currentOrNextLesson.lesson?.texts[2]}
+          </span>
+        </div>
+      </div>
     </div>
   );
 }

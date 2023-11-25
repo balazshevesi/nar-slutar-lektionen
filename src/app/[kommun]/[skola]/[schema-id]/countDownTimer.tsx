@@ -43,7 +43,7 @@ const CountdownTimer: React.FC<CountdownProps> = ({
         setTimeLeft({ days, hours, minutes, seconds });
       } else {
         clearInterval(interval);
-        setTimeLeft("Time reached!");
+        // setTimeLeft("Time reached!");
       }
     }, 1000);
 
@@ -51,14 +51,19 @@ const CountdownTimer: React.FC<CountdownProps> = ({
   }, [targetDate]);
 
   return (
-    <div className=" font-mono">
-      <h2>
+    <div>
+      <h2 className=" text-xl">
         {isCurrentLesson ? "Lektionen slutar om" : "Nästa lektion börjar om"}
       </h2>
-      <div>{timeLeft.days && timeLeft.days} dagar</div>
-      <div>{timeLeft.hours && timeLeft.hours} timmar</div>
-      <div>{timeLeft.minutes && timeLeft.minutes} minuter</div>
-      <div>{timeLeft.seconds && timeLeft.seconds} sekunder</div>
+      <br />
+      <div>{timeLeft.days + (timeLeft.days > 1 ? " dagar" : " dag")}</div>
+      <div>{timeLeft.hours + (timeLeft.hours > 1 ? " timmar" : " timme")}</div>
+      <div>
+        {timeLeft.minutes + (timeLeft.minutes > 1 ? " minuter" : " minut")}
+      </div>
+      <div>
+        {timeLeft.seconds + (timeLeft.seconds > 1 ? " sekunder" : " sekund")}
+      </div>
     </div>
   );
 };

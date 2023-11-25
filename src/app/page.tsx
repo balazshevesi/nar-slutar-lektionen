@@ -7,9 +7,6 @@ export default function Home() {
       <h2 className="mb-2 text-lg font-medium">Välj din kommun:</h2>
       <div className="flex flex-col gap-2">
         <NavigateBtn namn="Älmhult" routeName="/almhult" />
-        <NavigateBtn namn="Blekinge" routeName="/blekinge" />
-        <NavigateBtn namn="Dalarna" routeName="/dalarna" />
-        <NavigateBtn namn="Gotland" routeName="/gotland" />
       </div>
     </div>
   );

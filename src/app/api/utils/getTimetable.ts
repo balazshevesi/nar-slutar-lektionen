@@ -2,7 +2,7 @@ export default async function getTimetable(
   signature: string,
   key: string,
   year: number,
-  weekOfTheYear: number,
+  week: number,
   dayOfTheWeek: number,
 ) {
   try {
@@ -16,21 +16,22 @@ export default async function getTimetable(
         },
         body: JSON.stringify({
           renderKey: String(key),
+          selection: String(signature),
+          scheduleDay: dayOfTheWeek,
+          week: week,
+          year: year,
+
           host: "almhult.skola24.se",
           unitGuid: "OTU1MGZkNTktZGYzMi1mMTRkLWJhZDUtYzI4YWI0MDliZGU3",
           schoolYear: "bb76aa4b-03d4-4c97-83ca-5dc08bd00b1c",
           startDate: null,
           endDate: null,
-          scheduleDay: dayOfTheWeek, //! only work for thursday (4) rn?? why??
           blackAndWhite: false,
           width: 125,
           height: 550,
           selectionType: 4,
-          selection: String(signature),
           showHeader: false,
           periodText: "",
-          week: weekOfTheYear,
-          year: year,
           privateFreeTextMode: false,
           privateSelectionMode: null,
           customerKey: "",

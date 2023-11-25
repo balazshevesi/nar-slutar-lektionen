@@ -31,7 +31,7 @@ export default function Bread({
             href={`/${kommun}`}
             className="hover:underline hover:opacity-80"
           >
-            {kommun}
+            {decodeURIComponent(kommun)}
           </Link>
         </>
       )}
@@ -39,21 +39,21 @@ export default function Bread({
         <>
           <ChevronRightIcon className="heroicon-sw-3 h-4 w-4" />
           <Link
-            href={`/${kommun}/${skola}`}
+            href={`/${kommun}/${decodeURIComponent(skola)}`}
             className="hover:underline hover:opacity-80"
           >
-            {skola}
+            {decodeURIComponent(skola)}
           </Link>
         </>
       )}
-      {schemaId && (
+      {skola && schemaId && (
         <>
           <ChevronRightIcon className="heroicon-sw-3 h-4 w-4" />
           <Link
-            href={`/${kommun}/${skola}/${schemaId}`}
+            href={`/${kommun}/${decodeURIComponent(skola)}/${schemaId}`}
             className="hover:underline hover:opacity-80"
           >
-            {schemaId}
+            {decodeURIComponent(schemaId)}
           </Link>
         </>
       )}

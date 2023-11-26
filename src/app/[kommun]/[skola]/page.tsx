@@ -54,7 +54,7 @@ export default async function Page({
       <div className=" mt-8 flex flex-col items-center gap-2 pb-24">
         <div className=" text-center text-sm opacity-70">
           (OBS, använd helst ditt personliga schema ID, eftersom hemsidan kan
-          visa fel när när det finnns överlappande lektioner)
+          visa fel om det finnns överlappande lektioner)
         </div>
         {klassLista.map((item: any, i: number) => {
           return (

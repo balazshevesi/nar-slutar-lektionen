@@ -20,7 +20,7 @@ export default function Page({
       <h2 className="mb-2 flex items-center gap-1 text-lg font-medium">
         {/* {schemaId} <Favourite schemaId={schemaId} listOfFavsProp={listOfFavs} /> */}
       </h2>
-      <Suspense fallback={<h3>laddar...</h3>}>
+      <Suspense fallback={<h3 className=" font-mono">laddar...</h3>}>
         <CountDown komun={komun} skola={skola} schemaId={schemaId} />
       </Suspense>
     </div>

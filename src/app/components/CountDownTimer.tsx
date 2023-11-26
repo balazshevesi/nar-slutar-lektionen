@@ -24,27 +24,32 @@ export default function CountdownTimer({
     seconds: 0,
   });
 
+  const [firstTime, setFirstTime] = useState(true);
+
   useEffect(() => {
-    const interval = setInterval(() => {
-      const now = new Date();
-      const timeOffsetInMS = now.getTimezoneOffset() * 60000;
-      const nowAdjusted = new Date(now.getTime() - timeOffsetInMS);
+    const interval = setInterval(
+      () => {
+        const now = new Date();
+        const timeOffsetInMS = now.getTimezoneOffset() * 60000;
+        const nowAdjusted = new Date(now.getTime() - timeOffsetInMS);
 
-      const difference = targetDate.getTime() - nowAdjusted.getTime();
+        const difference = targetDate.getTime() - nowAdjusted.getTime();
 
-      if (difference > 0) {
-        const days = Math.floor(difference / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((difference / (1000 * 60 * 60)) % 24);
-        const minutes = Math.floor((difference / 1000 / 60) % 60);
-        const seconds = Math.floor((difference / 1000) % 60);
+        if (difference > 0) {
+          const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+          const hours = Math.floor((difference / (1000 * 60 * 60)) % 24);
+          const minutes = Math.floor((difference / 1000 / 60) % 60);
+          const seconds = Math.floor((difference / 1000) % 60);
 
-        // setTimeLeft(`${days}d ${hours}h ${minutes}m ${seconds}s`);
-        setTimeLeft({ days, hours, minutes, seconds });
-      } else {
-        clearInterval(interval);
-        // setTimeLeft("Time reached!");
-      }
-    }, 1000);
+          // setTimeLeft(`${days}d ${hours}h ${minutes}m ${seconds}s`);
+          setTimeLeft({ days, hours, minutes, seconds });
+        } else {
+          clearInterval(interval);
+          // setTimeLeft("Time reached!"); //* lektionen har börjat
+        }
+      },
+      !firstTime ? 1000 : 0,
+    );
 
     return () => clearInterval(interval);
   }, [targetDate]);

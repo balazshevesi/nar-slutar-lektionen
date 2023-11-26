@@ -1,6 +1,5 @@
 import NavigateBtn from "../components/NavigateBtn";
 import Bread from "../components/Bread";
-import { json } from "stream/consumers";
 
 export default async function Page({ params }: { params: { kommun: string } }) {
   const kommun = params.kommun;

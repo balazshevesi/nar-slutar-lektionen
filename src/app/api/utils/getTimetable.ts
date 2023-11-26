@@ -4,6 +4,7 @@ export default async function getTimetable(
   year: number,
   week: number,
   dayOfTheWeek: number,
+  unitGuid: string = "OTU1MGZkNTktZGYzMi1mMTRkLWJhZDUtYzI4YWI0MDliZGU3", //id för skola typ
 ) {
   try {
     const response = await fetch(
@@ -22,7 +23,7 @@ export default async function getTimetable(
           year: year,
 
           host: "almhult.skola24.se",
-          unitGuid: "OTU1MGZkNTktZGYzMi1mMTRkLWJhZDUtYzI4YWI0MDliZGU3",
+          unitGuid: unitGuid,
           schoolYear: "bb76aa4b-03d4-4c97-83ca-5dc08bd00b1c",
           startDate: null,
           endDate: null,

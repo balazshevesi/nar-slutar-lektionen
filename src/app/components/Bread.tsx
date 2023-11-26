@@ -22,7 +22,7 @@ export default function Bread({
   return (
     <div className="flex items-center gap-1 p-2 text-center font-mono text-sm font-semibold italic text-slate-500">
       <Link href={"/"} className="hover:underline hover:opacity-80">
-        hem
+        Hem
       </Link>
       {kommun && (
         <>

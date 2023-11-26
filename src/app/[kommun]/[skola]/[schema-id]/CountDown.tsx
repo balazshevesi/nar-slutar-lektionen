@@ -4,8 +4,8 @@ import getCurrentWeekNumber from "@/app/utils/getCurrentWeekNumber";
 import getNextMondayIfWeekend from "@/app/api/utils/getNextMondayIfWeekend";
 import addDaysToDate from "@/app/api/utils/addDaysToDate";
 import CountdownTimer from "../../../components/CountDownTimer";
-
-interface CountDown {
+import FelaktigID from "@/app/components/FelaktigID";
+export interface CountDownInterface {
   komun: string;
   skola: string;
   schemaId: string;
@@ -79,7 +79,11 @@ function mapDateToLessonTimes(date: Date, lessonInfo: Lesson[]) {
   return mapped;
 }
 
-export default async function CountDown({ komun, skola, schemaId }: CountDown) {
+export default async function CountDown({
+  komun,
+  skola,
+  schemaId,
+}: CountDownInterface) {
   const now = new Date();
   const timeOffsetInMS = now.getTimezoneOffset() * 60000;
   const todaysDate = new Date(now.getTime() - timeOffsetInMS);
@@ -99,8 +103,8 @@ export default async function CountDown({ komun, skola, schemaId }: CountDown) {
       },
     };
     const response = await fetchSchedule(options);
+    if (response == "Felaktigt ID") return "Felaktigt ID";
     const lessonInfo = response.timetable.data.lessonInfo;
-
     if (!lessonInfo) {
       return getValidSchedule(todaysDate, recursionCount + 1);
     }
@@ -108,6 +112,9 @@ export default async function CountDown({ komun, skola, schemaId }: CountDown) {
   }
 
   let schedule = await getValidSchedule(todaysDate);
+  if (typeof schedule === "string" || schedule instanceof String) {
+    return <FelaktigID komun={komun} skola={skola} />;
+  }
   let scheduleMappedTimes = mapDateToLessonTimes(
     schedule.scheduleDate,
     schedule.lessonInfo,
@@ -122,6 +129,9 @@ export default async function CountDown({ komun, skola, schemaId }: CountDown) {
     nextDay.setHours(1, 0, 0, 0);
     console.log("nextDay", nextDay);
     schedule = await getValidSchedule(nextDay);
+    if (typeof schedule === "string" || schedule instanceof String) {
+      return <FelaktigID komun={komun} skola={skola} />;
+    }
     scheduleMappedTimes = mapDateToLessonTimes(
       schedule.scheduleDate,
       schedule.lessonInfo,

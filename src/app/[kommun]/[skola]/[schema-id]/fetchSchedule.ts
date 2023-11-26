@@ -5,6 +5,7 @@ export interface FetchSchedule {
 }
 
 export default async function fetchSchedule(options: FetchSchedule) {
+  console.log("fetching schedule....");
   revalidatePath("/");
   const response = await fetch(
     `${process.env.DOMAIN}/api/${options.schedule.komun}/${options.schedule.skola}/${options.schedule.schemaId}`,
@@ -18,5 +19,12 @@ export default async function fetchSchedule(options: FetchSchedule) {
     },
   );
   const data = await response.json();
+
+  try {
+    const schemaIDIsInvalid =
+      data.timetable.validation[0].message === "Felaktigt ID";
+    if (schemaIDIsInvalid) return "Felaktigt ID";
+  } catch {}
+
   return data;
 }

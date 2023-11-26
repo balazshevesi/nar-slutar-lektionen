@@ -1,6 +1,7 @@
 import { ArrowRightIcon } from "@heroicons/react/24/solid";
 import { Ripples } from "react-ripples-continued";
 import Link from "next/link";
+import InvalidNavigate from "./sub-components/InvalidNavigate";
 
 export default function NavigateBtn({
   namn,
@@ -9,6 +10,12 @@ export default function NavigateBtn({
   namn: string;
   routeName: string;
 }) {
+  const includesASlash = namn.includes("/");
+
+  if (includesASlash) {
+    return <InvalidNavigate namn={namn} />;
+  }
+
   return (
     <Link
       href={`${routeName}`}

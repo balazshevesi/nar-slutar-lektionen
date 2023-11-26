@@ -1,9 +1,6 @@
 import Bread from "@/app/components/Bread";
 import CountDown from "./CountDown";
 import { Suspense } from "react";
-import Favourite from "./Favourite";
-
-import { cookies } from "next/headers";
 
 export default function Page({
   params,
@@ -23,6 +20,11 @@ export default function Page({
       <Suspense fallback={<h3 className=" font-mono">laddar...</h3>}>
         <CountDown komun={komun} skola={skola} schemaId={schemaId} />
       </Suspense>
+      <div className="relative mt-auto select-none pb-16 text-center font-mono opacity-20">
+        <span>hemsida skapad av</span>
+        <br />
+        <span className="font-bold">Balazs Hevesi</span>
+      </div>
     </div>
   );
 }

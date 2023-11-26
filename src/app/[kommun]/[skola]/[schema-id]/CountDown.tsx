@@ -158,24 +158,30 @@ export default async function CountDown({
       />
       <br />
       <div className=" text-right">
-        <div>
-          Kurs:{" "}
-          <span className="font-bold">
-            {currentOrNextLesson.lesson?.texts[0]}
-          </span>
-        </div>
-        <div>
-          Lärare:{" "}
-          <span className="font-bold">
-            {currentOrNextLesson.lesson?.texts[1]}
-          </span>
-        </div>
-        <div>
-          Sal:{" "}
-          <span className="font-bold">
-            {currentOrNextLesson.lesson?.texts[2]}
-          </span>
-        </div>
+        {currentOrNextLesson.lesson?.texts[0] && (
+          <div>
+            Kurs:{" "}
+            <span className="font-bold">
+              {currentOrNextLesson.lesson?.texts[0]}
+            </span>
+          </div>
+        )}{" "}
+        {currentOrNextLesson.lesson?.texts[1] && (
+          <div>
+            Lärare:{" "}
+            <span className="font-bold">
+              {currentOrNextLesson.lesson?.texts[1]}
+            </span>
+          </div>
+        )}{" "}
+        {currentOrNextLesson.lesson?.texts[2] && (
+          <div>
+            Sal:{" "}
+            <span className="font-bold">
+              {currentOrNextLesson.lesson?.texts[2]}
+            </span>
+          </div>
+        )}{" "}
       </div>
     </div>
   );

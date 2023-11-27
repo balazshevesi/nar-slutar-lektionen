@@ -12,6 +12,7 @@ För hosting använder jag AWS amplify, men _nästan_ default inställningarna f
 
 ## TODO
 
+- [ ] BUG FIX: när servern renderar CountDown komponenten så använder den inte samma tid som klienten
 - [ ] Det ska egentligen gå att använda "/" i namn, man behöver bara encode:a namnet _först_, sedan lägga den i URLen
 - [ ] Bestäm URL, sedan köp (.net eller .se ???)
 - [ ] Bygga ut något "genväg" system som låter dig ha koll på de 5 senaste scheman du kollade på, och dina "favorit"-scheman, och låta dig välja ett "default"-schema, dit ska man bli redirectad om man går till base-url:en. Det blir nog bäst att lagra det i local storage (förutom "default"-schemat), cookies har en gräns på 4000 tecken, och om man lagrar hela adresser så kan det blir mycket.

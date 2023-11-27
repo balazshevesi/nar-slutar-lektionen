@@ -27,8 +27,6 @@ export async function POST(
    *   TODO make dynamic
    * */
   const unitGuid = await getUnitGuidFromSkola(skola);
-  console.log("unitGuid", unitGuid);
-
   if (kommun === "Älmhult") {
     const signature = await getSignature(schemaId);
     const key = await getKey();

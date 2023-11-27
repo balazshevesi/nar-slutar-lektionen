@@ -13,7 +13,6 @@ export default async function Page({
   const skola = params.skola;
 
   const unitGuid = await getUnitGuidFromSkola(decodeURIComponent(skola));
-  console.log("unitGuidddddd", unitGuid);
 
   async function fetchKlassLista() {
     // revalidatePath("/");

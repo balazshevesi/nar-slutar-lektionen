@@ -52,9 +52,13 @@ export default async function Page({
       <Bread kommun={kommun} skola={skola} />
       <AngeSchemaID skola={skola} />
       <div className=" mt-8 flex flex-col items-center gap-2 pb-24">
-        <div className=" text-center text-sm opacity-70">
-          (OBS, använd helst ditt personliga schema ID, eftersom hemsidan kan
-          visa fel om det finnns överlappande lektioner)
+        <div
+          className=" text-center text-sm opacity-70"
+          //@ts-ignore
+          style={{ textWrap: "balance" }}
+        >
+          (OBS, använd helst ditt personliga schema ID, hemsidan kan visa fel om
+          det finnns överlappande lektioner)
         </div>
         {klassLista.map((item: any, i: number) => {
           return (

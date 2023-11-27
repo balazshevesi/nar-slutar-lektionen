@@ -88,6 +88,8 @@ export default async function CountDown({
   const timeOffsetInMS = now.getTimezoneOffset() * 60000;
   const todaysDate = new Date(now.getTime() - timeOffsetInMS);
 
+  console.log("server time:", todaysDate);
+
   async function getValidSchedule(todaysDate: Date, recursionCount = 0) {
     if (recursionCount > 7) {
       throw new Error("recursionCount went above 7");

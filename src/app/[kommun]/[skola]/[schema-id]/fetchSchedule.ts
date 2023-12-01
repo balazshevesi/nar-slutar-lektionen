@@ -5,7 +5,6 @@ export interface FetchSchedule {
 }
 
 export default async function fetchSchedule(options: FetchSchedule) {
-  console.log("fetching schedule....");
   revalidatePath("/");
   const response = await fetch(
     `${process.env.DOMAIN}/api/${options.schedule.komun}/${options.schedule.skola}/${options.schedule.schemaId}`,

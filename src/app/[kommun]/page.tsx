@@ -19,7 +19,6 @@ export default async function Page({ params }: { params: { kommun: string } }) {
   );
   const data = await response.json();
   const listOfUnits = data.data.getTimetableViewerUnitsResponse.units;
-  console.log("listOfUnits", listOfUnits);
 
   return (
     <div className="flex h-[100dvh] flex-col items-center p-8">

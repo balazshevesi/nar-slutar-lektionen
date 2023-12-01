@@ -18,9 +18,6 @@ export default async function getUnitGuidFromSkola(skola: string) {
   const theUnit = list.filter((item: any) => {
     return item.unitId === skola;
   });
-  console.log("skolaaaa", skola);
-  console.log("listtt", list);
-  console.log("getUnitGuidFromSkola", theUnit);
   const theUnitGuid = theUnit[0].unitGuid;
   return theUnitGuid;
 }

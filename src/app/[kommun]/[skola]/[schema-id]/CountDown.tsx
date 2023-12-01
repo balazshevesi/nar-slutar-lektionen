@@ -129,7 +129,6 @@ export default async function CountDown({
   if (!currentOrNextLesson.lesson) {
     const nextDay = addDaysToDate(todaysDate, 1);
     nextDay.setHours(1, 0, 0, 0);
-    console.log("nextDay", nextDay);
     schedule = await getValidSchedule(nextDay);
     if (typeof schedule === "string" || schedule instanceof String) {
       return <FelaktigID komun={komun} skola={skola} />;
@@ -138,15 +137,11 @@ export default async function CountDown({
       schedule.scheduleDate,
       schedule.lessonInfo,
     );
-    console.log("scheduleMappedTimes", scheduleMappedTimes);
     currentOrNextLesson = getCurrentOrNextLesson(
       scheduleMappedTimes,
       todaysDate,
     );
   }
-
-  console.log("targetDate: ", currentOrNextLesson.lesson?.timeStartDate);
-  console.log("today: ", todaysDate);
 
   return (
     <div className="font-mono text-lg">

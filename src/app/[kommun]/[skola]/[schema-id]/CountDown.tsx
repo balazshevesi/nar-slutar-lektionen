@@ -84,9 +84,10 @@ export default async function CountDown({
   skola,
   schemaId,
 }: CountDownInterface) {
-  const now = new Date();
+  const now = new Date(); //creates new date object
   const timeOffsetInMS = now.getTimezoneOffset() * 60000;
-  const todaysDate = new Date(now.getTime() - timeOffsetInMS);
+  const todaysDate = new Date(now.getTime() - timeOffsetInMS); //corrects for the right timezon
+  todaysDate.setHours(todaysDate.getHours() + +process.env.ADJUST_TIME!); //correct by .env
 
   console.log("server time:", todaysDate);
 

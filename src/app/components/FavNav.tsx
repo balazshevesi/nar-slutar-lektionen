@@ -5,6 +5,7 @@ import {
   PlusIcon,
   TrashIcon,
   HeartIcon,
+  PencilIcon,
 } from "@heroicons/react/24/outline";
 
 import { HeartIcon as HeartIconSolid } from "@heroicons/react/24/solid";
@@ -102,6 +103,17 @@ export default function FavNav() {
     }
   };
 
+  const handleRename = (itemToRename: Entry) => {
+    const newName =
+      prompt(`Ge namn till ${itemToRename.pathname} `) || itemToRename.kod;
+    const newItems = favoriterState.map((item) => {
+      if (item.pathname === itemToRename.pathname)
+        return { ...item, namn: newName };
+      return item;
+    });
+    setFavoriterState(newItems);
+  };
+
   function ListItem({ item }: { item: Entry }) {
     return (
       <div
@@ -110,12 +122,24 @@ export default function FavNav() {
       >
         <Link
           href={item.pathname}
+          onClick={() => setIsOpen(false)}
           className="w-full px-4 py-2 text-left hover:bg-slate-100"
         >
-          <div>{item.namn}</div>
+          <div>
+            {item.namn}{" "}
+            {item.namn !== item.kod && (
+              <span className=" text-sm text-slate-400">({item.kod})</span>
+            )}
+          </div>
           <div className="text-sm text-slate-300">{item.pathname}</div>
         </Link>
         <div className="absolute right-0 flex h-full overflow-hidden rounded-lg shadow">
+          <button
+            onClick={() => handleRename(item)}
+            className=" items-center justify-center bg-white px-4  hover:bg-slate-100"
+          >
+            <PencilIcon className="h-5 w-5" />
+          </button>
           <button
             className="items-center justify-center bg-white px-4 hover:bg-slate-100"
             onClick={() => handleSuperFav(item)}

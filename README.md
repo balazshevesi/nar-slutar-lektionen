@@ -16,3 +16,4 @@ För hosting använder jag AWS amplify, men _nästan_ default inställningarna f
 - [x] Det ska egentligen gå att använda "/" i namn, man behöver bara encode:a namnet _först_, sedan lägga den i URLen
 - [ ] Bestäm URL, sedan köp (.net eller .se ???)
 - [x] Bygga ut något "genväg" system som låter dig ha koll på de 5 senaste scheman du kollade på, och dina "favorit"-scheman, och låta dig välja ett "default"-schema, dit ska man bli redirectad om man går till base-url:en. Det blir nog bäst att lagra det i local storage (förutom "default"-schemat), cookies har en gräns på 4000 tecken, och om man lagrar hela adresser så kan det blir mycket.
+- [ ] fixa så att det händer nått när man når 0 (typ ladda om fliken)

@@ -32,7 +32,6 @@ export default function CountdownTimer({
         const now = new Date();
         const timeOffsetInMS = now.getTimezoneOffset() * 60000;
         const nowAdjusted = new Date(now.getTime() - timeOffsetInMS);
-
         const difference = targetDate.getTime() - nowAdjusted.getTime();
 
         if (difference > 0) {
@@ -42,6 +41,7 @@ export default function CountdownTimer({
           const seconds = Math.floor((difference / 1000) % 60);
 
           // setTimeLeft(`${days}d ${hours}h ${minutes}m ${seconds}s`);
+          document.title = `${days && days}`;
           setTimeLeft({ days, hours, minutes, seconds });
         } else {
           clearInterval(interval);

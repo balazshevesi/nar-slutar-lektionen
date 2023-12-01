@@ -91,9 +91,19 @@ export default async function CountDown({
 
   console.log("server time:", todaysDate);
 
-  async function getValidSchedule(todaysDate: Date, recursionCount = 0) {
+  async function getValidSchedule(
+    todaysDate: Date,
+    recursionCount = 0,
+  ): Promise<
+    | "couldn't find any lessons for the comming 7 days"
+    | "Felaktigt ID"
+    | {
+        lessonInfo: any;
+        scheduleDate: Date;
+      }
+  > {
     if (recursionCount > 7) {
-      throw new Error("recursionCount went above 7");
+      return "couldn't find any lessons for the comming 7 days";
     }
     const scheduleDate = getNextMondayIfWeekend(todaysDate);
     const intrementedScheduleDate = addDaysToDate(scheduleDate, recursionCount);
@@ -115,9 +125,12 @@ export default async function CountDown({
   }
 
   let schedule = await getValidSchedule(todaysDate);
-  if (typeof schedule === "string" || schedule instanceof String) {
+  if (schedule === "Felaktigt ID") {
     return <FelaktigID komun={komun} skola={skola} />;
+  } else if (schedule === "couldn't find any lessons for the comming 7 days") {
+    return <div>Det ser ut som att du har lov!</div>;
   }
+
   let scheduleMappedTimes = mapDateToLessonTimes(
     schedule.scheduleDate,
     schedule.lessonInfo,
@@ -131,8 +144,12 @@ export default async function CountDown({
     const nextDay = addDaysToDate(todaysDate, 1);
     nextDay.setHours(1, 0, 0, 0);
     schedule = await getValidSchedule(nextDay);
-    if (typeof schedule === "string" || schedule instanceof String) {
+    if (schedule === "Felaktigt ID") {
       return <FelaktigID komun={komun} skola={skola} />;
+    } else if (
+      schedule === "couldn't find any lessons for the comming 7 days"
+    ) {
+      return <div>Det ser ut som att du har lov!</div>;
     }
     scheduleMappedTimes = mapDateToLessonTimes(
       schedule.scheduleDate,
@@ -145,7 +162,7 @@ export default async function CountDown({
   }
 
   return (
-    <div className="font-mono text-lg">
+    <div className=" w-full max-w-md text-center font-mono text-lg">
       <CountdownTimer
         isCurrentLesson={currentOrNextLesson.isCurrentLesson}
         targetDate={
@@ -155,7 +172,7 @@ export default async function CountDown({
         }
       />
       <br />
-      <div className=" text-right">
+      <div>
         {currentOrNextLesson.lesson?.texts[0] && (
           <div>
             Kurs:{" "}

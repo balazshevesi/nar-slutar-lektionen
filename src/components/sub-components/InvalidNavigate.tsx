@@ -1,6 +1,8 @@
 "use client";
-import { ArrowRightIcon } from "@heroicons/react/24/solid";
+
 import { Ripples } from "react-ripples-continued";
+
+import { ArrowRightIcon } from "@heroicons/react/24/solid";
 
 export default function InvalidNavigate({ namn }: { namn: string }) {
   return (

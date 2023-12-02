@@ -1,5 +1,10 @@
 "use client";
 
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+
+import { useEffect, useMemo, useState } from "react";
+
 import {
   ChevronUpIcon,
   PlusIcon,
@@ -7,11 +12,10 @@ import {
   HeartIcon,
   PencilIcon,
 } from "@heroicons/react/24/outline";
-
 import { HeartIcon as HeartIconSolid } from "@heroicons/react/24/solid";
 
-import { useEffect, useMemo, useState } from "react";
-import { usePathname } from "next/navigation";
+import { setCookie } from "../app/utils/cookeis";
+import { deleteCookie } from "../app/utils/cookeis";
 
 interface Entry {
   kod: string;
@@ -19,11 +23,6 @@ interface Entry {
   pathname: string;
   default: boolean;
 }
-
-import { setCookie } from "../app/utils/cookeis";
-import { deleteCookie } from "../app/utils/cookeis";
-
-import Link from "next/link";
 
 export default function FavNav() {
   console.log("FavNav rendered");

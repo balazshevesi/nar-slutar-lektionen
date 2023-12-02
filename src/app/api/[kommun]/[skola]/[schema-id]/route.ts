@@ -1,9 +1,10 @@
-import { sign } from "crypto";
 import { NextResponse, NextRequest } from "next/server";
-import getSignature from "@/app/api/utils/getSignature";
+
 import getKey from "@/app/api/utils/getKey";
+import getSignature from "@/app/api/utils/getSignature";
 import getTimetable from "@/app/api/utils/getTimetable";
 import getUnitGuidFromSkola from "@/app/api/utils/getUnitGuidFromSkola";
+import { sign } from "crypto";
 
 export async function POST(
   request: Request,

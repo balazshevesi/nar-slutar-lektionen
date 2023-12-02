@@ -1,8 +1,11 @@
 "use client";
-import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
+
+import { useRouter } from "next/navigation";
+
 import { useState } from "react";
 import { Ripples } from "react-ripples-continued";
-import { useRouter } from "next/navigation";
+
+import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
 
 export default function AngeSchemaID({ skola }: { skola: string }) {
   const [schemaId, setSchemaId] = useState("");

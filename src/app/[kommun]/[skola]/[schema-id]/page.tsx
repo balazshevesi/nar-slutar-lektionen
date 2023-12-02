@@ -1,6 +1,8 @@
-import Bread from "@/components/Bread";
-import CountDown from "./CountDown";
 import { Suspense } from "react";
+
+import Bread from "@/components/Bread";
+
+import CountDown from "./CountDown";
 
 export default function Page({
   params,

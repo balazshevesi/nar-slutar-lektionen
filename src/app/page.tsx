@@ -1,5 +1,6 @@
 import Bread from "../components/Bread";
 import NavigateBtn from "../components/NavigateBtn";
+
 export default function Home() {
   return (
     <div className="flex h-[100dvh] flex-col items-center p-8">

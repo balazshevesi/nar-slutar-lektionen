@@ -1,16 +1,16 @@
-import { Inter } from "next/font/google";
-import "./globals.css";
 import dynamic from "next/dynamic";
-
+import { Inter } from "next/font/google";
 import { cookies } from "next/headers";
+import { headers } from "next/headers";
 import { redirect } from "next/navigation";
+
+import { metadataGlobal } from "../metadata";
+import "./globals.css";
 
 //disable ssr for FavNav
 const FavNav = dynamic(() => import("../components/FavNav"), {
   ssr: false,
 });
-import { headers } from "next/headers";
-import { metadataGlobal } from "../metadata";
 
 const inter = Inter({ subsets: ["latin"] });
 export const metadata = metadataGlobal;

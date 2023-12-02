@@ -1,6 +1,9 @@
-import { ArrowRightIcon } from "@heroicons/react/24/solid";
-import { Ripples } from "react-ripples-continued";
 import Link from "next/link";
+
+import { Ripples } from "react-ripples-continued";
+
+import { ArrowRightIcon } from "@heroicons/react/24/solid";
+
 import InvalidNavigate from "./sub-components/InvalidNavigate";
 
 export default function NavigateBtn({

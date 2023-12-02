@@ -1,5 +1,5 @@
-import NavigateBtn from "../../components/NavigateBtn";
 import Bread from "../../components/Bread";
+import NavigateBtn from "../../components/NavigateBtn";
 
 export default async function Page({ params }: { params: { kommun: string } }) {
   const kommun = params.kommun;

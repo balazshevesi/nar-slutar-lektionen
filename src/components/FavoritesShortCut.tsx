@@ -1,8 +1,11 @@
 "use client";
-import { getCookie } from "../app/utils/cookeis";
-import { useState } from "react";
+
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+
+import { useState } from "react";
+
+import { getCookie } from "../app/utils/cookeis";
 
 export default function FavoritesShortCut() {
   const listOfFavsCookie = getCookie("listOfFavs") || "[]";

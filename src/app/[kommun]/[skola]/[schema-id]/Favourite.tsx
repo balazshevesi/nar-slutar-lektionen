@@ -1,7 +1,9 @@
 "use client";
+
+import { useState } from "react";
+
 import { HeartIcon as HeartIconOutline } from "@heroicons/react/24/outline";
 import { HeartIcon as HeartIconSolid } from "@heroicons/react/24/solid";
-import { useState } from "react";
 
 import { setCookie } from "@/app/utils/cookeis";
 import { getCookie } from "@/app/utils/cookeis";

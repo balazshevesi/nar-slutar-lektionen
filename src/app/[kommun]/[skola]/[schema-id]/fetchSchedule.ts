@@ -1,5 +1,7 @@
 import { revalidatePath } from "next/cache";
+
 import removeQuotes from "@/app/api/utils/removeQoutes";
+
 export interface FetchSchedule {
   schedule: { komun: string; skola: string; schemaId: string };
   date: { year: number; week: number; dayOfTheWeek: number };

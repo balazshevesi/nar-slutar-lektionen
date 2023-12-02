@@ -1,11 +1,13 @@
+import FelaktigID from "@/components/FelaktigID";
+
+import CountdownTimer from "../../../../components/CountDownTimer";
 import fetchSchedule from "./fetchSchedule";
 import { FetchSchedule } from "./fetchSchedule";
-import getCurrentWeekNumber from "@/app/utils/getCurrentWeekNumber";
-import getNextMondayIfWeekend from "@/app/api/utils/getNextMondayIfWeekend";
 import addDaysToDate from "@/app/api/utils/addDaysToDate";
-import CountdownTimer from "../../../../components/CountDownTimer";
-import FelaktigID from "@/components/FelaktigID";
+import getNextMondayIfWeekend from "@/app/api/utils/getNextMondayIfWeekend";
 import removeQuotes from "@/app/api/utils/removeQoutes";
+import getCurrentWeekNumber from "@/app/utils/getCurrentWeekNumber";
+
 export interface CountDownInterface {
   komun: string;
   skola: string;

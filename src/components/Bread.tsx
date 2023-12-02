@@ -1,4 +1,5 @@
 import Link from "next/link";
+
 import { ChevronRightIcon } from "@heroicons/react/24/outline";
 
 export default function Bread({

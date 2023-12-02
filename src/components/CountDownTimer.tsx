@@ -1,6 +1,9 @@
 "use client";
+
 import React, { useState, useEffect } from "react";
+
 import { metadataGlobal } from "../metadata";
+
 // import { metadata } from "../layout";
 interface CountDownProps {
   targetDate: Date;

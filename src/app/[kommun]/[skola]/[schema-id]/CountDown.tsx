@@ -5,9 +5,7 @@ import getNextMondayIfWeekend from "@/app/api/utils/getNextMondayIfWeekend";
 import addDaysToDate from "@/app/api/utils/addDaysToDate";
 import CountdownTimer from "../../../../components/CountDownTimer";
 import FelaktigID from "@/components/FelaktigID";
-
-import { ConsoleLogger } from "aws-amplify/utils";
-
+import removeQuotes from "@/app/api/utils/removeQoutes";
 export interface CountDownInterface {
   komun: string;
   skola: string;
@@ -90,11 +88,12 @@ export default async function CountDown({
   const now = new Date(); //creates new date object
   const timeOffsetInMS = now.getTimezoneOffset() * 60000;
   const todaysDate = new Date(now.getTime() - timeOffsetInMS); //corrects for the right timezon
-  todaysDate.setHours(todaysDate.getHours() + +process.env.ADJUST_TIME!); //correct by .env
 
-  const logger = new ConsoleLogger("CountDown servercomponent logger");
+  todaysDate.setHours(
+    todaysDate.getHours() + Number(removeQuotes(process.env.ADJUST_TIME!)),
+  ); //correct by .env
+
   console.log("server time:", todaysDate);
-  logger.info(`server time: ${todaysDate}`);
 
   //TODO abstract and write test
   async function getValidSchedule(

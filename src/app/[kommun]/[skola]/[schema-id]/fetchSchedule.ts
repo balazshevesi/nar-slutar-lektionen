@@ -1,12 +1,10 @@
 import { revalidatePath } from "next/cache";
+import removeQuotes from "@/app/api/utils/removeQoutes";
 export interface FetchSchedule {
   schedule: { komun: string; skola: string; schemaId: string };
   date: { year: number; week: number; dayOfTheWeek: number };
 }
 
-function removeQuotes(str: string) {
-  return str.replace(/^"(.+(?="$))"$/, "$1");
-}
 
 export default async function fetchSchedule(options: FetchSchedule) {
   revalidatePath("/");

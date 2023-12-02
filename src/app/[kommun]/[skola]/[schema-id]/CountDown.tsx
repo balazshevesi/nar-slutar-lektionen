@@ -6,7 +6,6 @@ import addDaysToDate from "@/app/api/utils/addDaysToDate";
 import CountdownTimer from "../../../../components/CountDownTimer";
 import FelaktigID from "@/components/FelaktigID";
 
-//@ts-ignore
 import { ConsoleLogger } from "aws-amplify/utils";
 
 export interface CountDownInterface {

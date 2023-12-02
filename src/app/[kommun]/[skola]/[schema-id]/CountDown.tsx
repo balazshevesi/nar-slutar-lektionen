@@ -95,6 +95,7 @@ export default async function CountDown({
   );
 
   console.log("todaysDate", todaysDate);
+  console.log("process.env.ADJUST_TIME", process.env.ADJUST_TIME);
 
   todaysDate.setHours(
     todaysDate.getHours() + Number(removeQuotes(process.env.ADJUST_TIME!)),

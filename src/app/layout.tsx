@@ -27,8 +27,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className + " selection:bg-sky-200"}>
-        {/* <FavoritesShortCut /> */}
-        {children}
+        <div className=" relative z-10">{children}</div>
         <FavNav />
       </body>
     </html>

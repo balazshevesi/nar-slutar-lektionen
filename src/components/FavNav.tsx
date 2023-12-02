@@ -165,7 +165,7 @@ export default function FavNav() {
     <div
       className={`${
         isOpen ? "translate-y-0" : "translate-y-[calc(100%-66px)]"
-      } bottom fixed bottom-0 left-0 w-full  justify-center px-2 transition-all`}
+      } bottom fixed bottom-0 left-0 z-50 w-full  justify-center px-2 transition-all`}
     >
       <div className="mx-auto flex max-w-sm flex-col rounded-t-xl shadow">
         <button

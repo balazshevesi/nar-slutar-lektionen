@@ -119,6 +119,7 @@ export default async function CountDown({
     };
     const response = await fetchSchedule(options);
     if (response == "Felaktigt ID") return "Felaktigt ID";
+    //* bug is caused by not finding lessonInfo... problem is from response
     const lessonInfo = response.timetable.data.lessonInfo;
     if (!lessonInfo) {
       //* potential source of bug

@@ -12,9 +12,9 @@ För hosting använder jag AWS amplify, men _nästan_ default inställningarna f
 
 ## TODO
 
+- [ ] BUG fix servern är fuckaddd
 - [x] Bug fix "/" i bread crums nav
 - [ ] Fix local storage ssr stuffs
-- [ ] BUG fix servern är fuckaddd
 - [ ] Write tests g
 - [ ] Fix prettier config, add import sort
 - [ ] Make folder structure better
@@ -23,3 +23,5 @@ För hosting använder jag AWS amplify, men _nästan_ default inställningarna f
 - [ ] Bestäm URL, sedan köp (.net eller .se ???)
 - [x] Bygga ut något "genväg" system som låter dig ha koll på de 5 senaste scheman du kollade på, och dina "favorit"-scheman, och låta dig välja ett "default"-schema, dit ska man bli redirectad om man går till base-url:en. Det blir nog bäst att lagra det i local storage (förutom "default"-schemat), cookies har en gräns på 4000 tecken, och om man lagrar hela adresser så kan det blir mycket.
 - [ ] fixa så att det händer nått när countdownen når 0 (typ ladda om fliken)
+- [ ] fixa finare loading screens
+- [ ] fixa bread crums så att den är med i layout.tsx, för snyggare loading states

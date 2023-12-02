@@ -22,7 +22,7 @@ export default async function Page({ params }: { params: { kommun: string } }) {
 
   return (
     <div className="flex h-[100dvh] flex-col items-center p-8">
-      <Bread kommun={kommun} />
+      <Bread/>
       <h2 className="mb-2 text-lg font-medium">Välj din skola:</h2>
       <div className=" flex flex-col gap-2">
         {listOfUnits.map((unit: any) => {

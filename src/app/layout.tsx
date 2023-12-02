@@ -4,6 +4,8 @@ import { cookies } from "next/headers";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 
+import Bread from "@/components/layout/Bread";
+
 import { metadataGlobal } from "../metadata";
 import "./globals.css";
 

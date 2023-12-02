@@ -49,7 +49,7 @@ export default async function Page({
 
   return (
     <div className="flex h-[100dvh] flex-col items-center p-8">
-      <Bread kommun={kommun} skola={skola} />
+      <Bread/>
       <AngeSchemaID skola={skola} />
       <div className=" mt-8 flex flex-col items-center gap-2 pb-24">
         <div

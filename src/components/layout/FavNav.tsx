@@ -264,7 +264,7 @@ export default function FavNav() {
         isOpen ? "translate-y-0" : "translate-y-[calc(100%-66px)]"
       } bottom fixed bottom-0 left-0 z-50 w-full  justify-center px-2 transition-all`}
     >
-      <div className="mx-auto flex max-w-sm flex-col rounded-t-xl shadow">
+      <div className="ml-auto mr-auto flex max-w-sm flex-col rounded-t-xl shadow lg:mr-4">
         <button
           onClick={() => {
             setIsOpen(!isOpen);

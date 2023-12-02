@@ -1,17 +1,15 @@
+import { headers } from "next/headers";
 import Link from "next/link";
 
 import { ChevronRightIcon } from "@heroicons/react/24/outline";
 
-export default function Bread({
-  kommun,
-  skola,
-  schemaId,
-}: {
-  kommun?: string;
-  skola?: string;
-  schemaId?: string;
-  params?: string;
-}) {
+export default function Bread() {
+  const headersList = headers();
+  const pathname = headersList.get("x-pathname") || "";
+  const kommun = pathname.split("/")[1];
+  const skola = pathname.split("/")[2];
+  const schemaId = pathname.split("/")[3];
+
   if (!kommun && !skola && !schemaId)
     return (
       <div className="p-2 text-center italic text-slate-500">

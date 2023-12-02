@@ -14,14 +14,14 @@ export default function Bread() {
     return (
       <div className="p-2 text-center italic text-slate-500">
         Välkommen till{" "}
-        <span className="font-mono underline">när-slutar-lektionen.se</span>
+        <span className="font-mono underline">när-slutar-lektionen.net</span>
       </div>
     );
 
   return (
     <div className="flex items-center gap-1 p-2 text-center font-mono text-sm font-semibold italic text-slate-500">
       <Link href={"/"} className="hover:underline hover:opacity-80">
-        Hem
+        när-slutar-lektionen.net
       </Link>
       {kommun && (
         <>

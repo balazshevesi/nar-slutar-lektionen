@@ -20,11 +20,6 @@ export default function Page({
       <Suspense fallback={<h3 className="font-mono">hämtar schema...</h3>}>
         <CountDown komun={komun} skola={skola} schemaId={schemaId} />
       </Suspense>
-      <div className="relative mt-auto select-none pb-16 text-center font-mono opacity-20">
-        <span>hemsida skapad av</span>
-        <br />
-        <span className="font-bold">Balazs Hevesi</span>
-      </div>
     </Section>
   );
 }

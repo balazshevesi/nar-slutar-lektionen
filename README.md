@@ -12,6 +12,8 @@ För hosting använder jag AWS amplify, men _nästan_ default inställningarna f
 
 ## TODO
 
+- [x] Bug fix "/" i bread crums nav
+- [ ] Write tests g
 - [ ] BUG FIX: när servern renderar CountDown komponenten så använder den inte samma tid som klienten (jag _tror_ att det är fixat nu)
 - [x] Det ska egentligen gå att använda "/" i namn, man behöver bara encode:a namnet _först_, sedan lägga den i URLen
 - [ ] Bestäm URL, sedan köp (.net eller .se ???)

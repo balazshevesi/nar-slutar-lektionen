@@ -102,6 +102,7 @@ export default async function CountDown({
         scheduleDate: Date;
       }
   > {
+    //! BUG on AWS amplify?? but works locally??
     if (recursionCount > 7) {
       return "couldn't find any lessons for the comming 7 days";
     }

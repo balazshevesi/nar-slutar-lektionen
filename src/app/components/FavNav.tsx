@@ -193,7 +193,13 @@ export default function FavNav() {
           <div className="relative mt-4 flex max-h-[40dvh] flex-col gap-2 overflow-auto border-y-2 border-slate-200 px-1 py-4">
             {favoriterState!.map((item: any) => {
               return <ListItem key={0} item={item} />;
-            })}{" "}
+            })}
+            {favoriterState.length === 0 && (
+              <div className=" text-center text-slate-500">
+                Det ser ganska tomot ut här :( <br /> <br />
+                Gå till ett schema för att kunna lägga till genvägar
+              </div>
+            )}
           </div>
         </div>
       </div>

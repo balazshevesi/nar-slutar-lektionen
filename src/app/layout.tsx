@@ -8,7 +8,7 @@ import { metadataGlobal } from "../metadata";
 import "./globals.css";
 
 //disable ssr for FavNav
-const FavNav = dynamic(() => import("../components/FavNav"), {
+const FavNav = dynamic(() => import("../components/layout/FavNav"), {
   ssr: false,
 });
 

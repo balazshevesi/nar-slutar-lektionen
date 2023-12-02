@@ -13,17 +13,18 @@ För hosting använder jag AWS amplify, men _nästan_ default inställningarna f
 ## TODO
 
 - [ ] Standardisera layouted med componenter typ
-- [ ] Fix prettier config, add import sort
-- [ ] Make folder structure better
+- [ ] Bestäm URL, sedan köp (.net eller .se ???)
+- [ ] Fixa så att det händer nått när countdownen når 0 (typ ladda om fliken)
+- [ ] Fixa finare loading screens
+- [ ] Fixa bread crums så att den är med i layout.tsx, för snyggare loading states
+- [ ] Fixa så att man kan flytta favoriterna upp och ner
+- [ ] Write tests g (bruhhhh dunno howw?)
+
+- [x] Make folder structure better
 - [x] Fix local storage ssr stuffs (fixed by diabling ssr)
 - [x] BUG fix servern är fuckaddd (funkar på render dock??, kanske borde setta upp nån api som jag kan "logga till" eftersom det typ är omöjligt att logga på amplify) (bug med date objekt)
 - [x] BUG FIX: när servern renderar CountDown komponenten så använder den inte samma tid som klienten (jag _tror_ att det är fixat nu, på render borde det fungera)
 - [x] Det ska egentligen gå att använda "/" i namn, man behöver bara encode:a namnet _först_, sedan lägga den i URLen
 - [x] Bug fix "/" i bread crums nav
-- [ ] Bestäm URL, sedan köp (.net eller .se ???)
-- [ ] fixa så att det händer nått när countdownen når 0 (typ ladda om fliken)
+- [x] Fix prettier config, add import sort
 - [x] Bygga ut något "genväg" system som låter dig ha koll på de 5 senaste scheman du kollade på, och dina "favorit"-scheman, och låta dig välja ett "default"-schema, dit ska man bli redirectad om man går till base-url:en. Det blir nog bäst att lagra det i local storage (förutom "default"-schemat), cookies har en gräns på 4000 tecken, och om man lagrar hela adresser så kan det blir mycket.
-- [ ] fixa finare loading screens
-- [ ] fixa bread crums så att den är med i layout.tsx, för snyggare loading states
-- [ ] Fixa så att man kan flytta favoriterna upp och ner
-- [ ] Write tests g (bruhhhh dunno howw?)

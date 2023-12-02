@@ -4,8 +4,6 @@ import { Ripples } from "react-ripples-continued";
 
 import { ArrowRightIcon } from "@heroicons/react/24/solid";
 
-import InvalidNavigate from "./sub-components/InvalidNavigate";
-
 export default function NavigateBtn({
   namn,
   routeName,

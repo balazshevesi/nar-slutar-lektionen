@@ -1,4 +1,4 @@
-import Bread from "../../components/Bread";
+import Bread from "../../components/layout/Bread";
 import NavigateBtn from "../../components/NavigateBtn";
 
 export default async function Page({ params }: { params: { kommun: string } }) {

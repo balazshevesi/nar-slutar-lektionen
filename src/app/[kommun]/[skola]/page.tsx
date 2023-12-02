@@ -1,6 +1,6 @@
 // import { revalidatePath } from "next/cache";
-import AngeSchemaID from "@/components/AngeSchemaID";
-import Bread from "@/components/Bread";
+import AngeSchemaID from "@/app/[kommun]/[skola]/AngeSchemaID";
+import Bread from "@/components/layout/Bread";
 import NavigateBtn from "@/components/NavigateBtn";
 
 import getUnitGuidFromSkola from "@/app/api/utils/getUnitGuidFromSkola";

@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 
-import { metadataGlobal } from "../metadata";
+import { metadataGlobal } from "../../../../../metadata";
 
 // import { metadata } from "../layout";
 interface CountDownProps {

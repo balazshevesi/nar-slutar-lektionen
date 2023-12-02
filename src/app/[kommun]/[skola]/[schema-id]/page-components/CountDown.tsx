@@ -1,8 +1,8 @@
-import FelaktigID from "@/components/FelaktigID";
+import FelaktigID from "@/app/[kommun]/[skola]/[schema-id]/page-components/FelaktigID";
 
-import CountdownTimer from "../../../../components/CountDownTimer";
-import fetchSchedule from "./fetchSchedule";
-import { FetchSchedule } from "./fetchSchedule";
+import CountdownTimer from "./CountDownTimer";
+import fetchSchedule from "../fetchSchedule";
+import { FetchSchedule } from "../fetchSchedule";
 import addDaysToDate from "@/app/api/utils/addDaysToDate";
 import getNextMondayIfWeekend from "@/app/api/utils/getNextMondayIfWeekend";
 import removeQuotes from "@/app/api/utils/removeQoutes";

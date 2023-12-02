@@ -14,8 +14,9 @@ import {
 } from "@heroicons/react/24/outline";
 import { HeartIcon as HeartIconSolid } from "@heroicons/react/24/solid";
 
-import { setCookie } from "../app/utils/cookeis";
-import { deleteCookie } from "../app/utils/cookeis";
+import { setCookie } from "../../app/utils/cookeis";
+import { deleteCookie } from "../../app/utils/cookeis";
+import { arrayMoveImmutable } from "array-move";
 
 interface Entry {
   kod: string;
@@ -113,6 +114,11 @@ export default function FavNav() {
     setFavoriterState(newItems);
   };
 
+  const handleMoveUp = (itemToMoveUp) => {
+    const index = favoriterState.findIndex((item) => item === itemToMoveUp);
+    console.log("index", index);
+  };
+
   function ListItem({ item }: { item: Entry }) {
     return (
       <div
@@ -133,6 +139,18 @@ export default function FavNav() {
           <div className="text-sm text-slate-300">{item.pathname}</div>
         </Link>
         <div className="absolute right-0 flex h-full overflow-hidden rounded-lg shadow">
+          <div className="flex flex-col items-stretch justify-center bg-white">
+            <button
+              onClick={() => handleMoveUp(item)}
+              className=" w-full flex-1 px-2 hover:bg-slate-100"
+            >
+              <ChevronUpIcon className="h-5 w-5" />
+            </button>
+            <button className=" w-full flex-1 px-2 hover:bg-slate-100">
+              <ChevronUpIcon className="h-5 w-5 rotate-180" />
+            </button>
+          </div>
+
           <button
             onClick={() => handleRename(item)}
             className=" items-center justify-center bg-white px-4  hover:bg-slate-100"
@@ -195,7 +213,7 @@ export default function FavNav() {
             })}
             {favoriterState.length === 0 && (
               <div className=" text-center text-slate-500">
-                Det ser ganska tomot ut här :( <br /> <br />
+                Det ser ganska tomt ut här :( <br /> <br />
                 Gå till ett schema för att kunna lägga till genvägar
               </div>
             )}

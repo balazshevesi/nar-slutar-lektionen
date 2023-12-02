@@ -26,8 +26,8 @@ import { deleteCookie } from "../app/utils/cookeis";
 import Link from "next/link";
 
 export default function FavNav() {
-  //! going to fail the build, check if browser g
-  //create localstorage key if non-existant
+  console.log("FavNav rendered");
+
   !localStorage.getItem("favoriter") &&
     localStorage.setItem("favoriter", JSON.stringify([]));
 
@@ -105,7 +105,7 @@ export default function FavNav() {
 
   const handleRename = (itemToRename: Entry) => {
     const newName =
-      prompt(`Ge namn till ${itemToRename.pathname} `) || itemToRename.kod;
+      prompt(`Ge namn till ${itemToRename.pathname}`) || itemToRename.kod;
     const newItems = favoriterState.map((item) => {
       if (item.pathname === itemToRename.pathname)
         return { ...item, namn: newName };
@@ -187,7 +187,7 @@ export default function FavNav() {
               className="mb-4 flex w-full items-center justify-center gap-2 rounded-lg bg-white py-1 text-center shadow"
             >
               <p>Lägg till &quot;{currentCode}&quot;</p>
-              <PlusIcon className=" h-5 w-5" />
+              <PlusIcon className="h-5 w-5" />
             </button>
           )}
           <div className="relative mt-4 flex max-h-[40dvh] flex-col gap-2 overflow-auto border-y-2 border-slate-200 px-1 py-4">

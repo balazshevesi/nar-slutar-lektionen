@@ -4,8 +4,6 @@ export interface FetchSchedule {
   schedule: { komun: string; skola: string; schemaId: string };
   date: { year: number; week: number; dayOfTheWeek: number };
 }
-
-
 export default async function fetchSchedule(options: FetchSchedule) {
   revalidatePath("/");
   const response = await fetch(

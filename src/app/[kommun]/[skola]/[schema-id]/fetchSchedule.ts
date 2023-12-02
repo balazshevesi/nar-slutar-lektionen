@@ -4,10 +4,16 @@ export interface FetchSchedule {
   date: { year: number; week: number; dayOfTheWeek: number };
 }
 
+function removeQuotes(str: string) {
+  return str.replace(/^"(.+(?="$))"$/, "$1");
+}
+
 export default async function fetchSchedule(options: FetchSchedule) {
   revalidatePath("/");
   const response = await fetch(
-    `${process.env.DOMAIN}/api/${options.schedule.komun}/${options.schedule.skola}/${options.schedule.schemaId}`,
+    `${removeQuotes(process.env.DOMAIN!)}/api/${options.schedule.komun}/${
+      options.schedule.skola
+    }/${options.schedule.schemaId}`,
     {
       method: "post",
       body: JSON.stringify({

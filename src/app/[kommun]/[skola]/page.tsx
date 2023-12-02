@@ -1,8 +1,8 @@
-import Bread from "@/app/components/Bread";
-import NavigateBtn from "@/app/components/NavigateBtn";
+import Bread from "@/components/Bread";
+import NavigateBtn from "@/components/NavigateBtn";
 import getUnitGuidFromSkola from "@/app/api/utils/getUnitGuidFromSkola";
 // import { revalidatePath } from "next/cache";
-import AngeSchemaID from "@/app/components/AngeSchemaID";
+import AngeSchemaID from "@/components/AngeSchemaID";
 
 export default async function Page({
   params,

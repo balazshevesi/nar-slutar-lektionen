@@ -3,8 +3,8 @@ import { FetchSchedule } from "./fetchSchedule";
 import getCurrentWeekNumber from "@/app/utils/getCurrentWeekNumber";
 import getNextMondayIfWeekend from "@/app/api/utils/getNextMondayIfWeekend";
 import addDaysToDate from "@/app/api/utils/addDaysToDate";
-import CountdownTimer from "../../../components/CountDownTimer";
-import FelaktigID from "@/app/components/FelaktigID";
+import CountdownTimer from "../../../../components/CountDownTimer";
+import FelaktigID from "@/components/FelaktigID";
 export interface CountDownInterface {
   komun: string;
   skola: string;
@@ -91,6 +91,7 @@ export default async function CountDown({
 
   console.log("server time:", todaysDate);
 
+  //TODO abstract and write test
   async function getValidSchedule(
     todaysDate: Date,
     recursionCount = 0,
@@ -120,6 +121,7 @@ export default async function CountDown({
     if (response == "Felaktigt ID") return "Felaktigt ID";
     const lessonInfo = response.timetable.data.lessonInfo;
     if (!lessonInfo) {
+      //* potential source of bug
       return getValidSchedule(todaysDate, recursionCount + 1);
     }
     return { lessonInfo, scheduleDate: scheduleDate };

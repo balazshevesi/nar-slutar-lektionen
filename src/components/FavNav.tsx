@@ -20,8 +20,8 @@ interface Entry {
   default: boolean;
 }
 
-import { setCookie } from "../utils/cookeis";
-import { deleteCookie } from "../utils/cookeis";
+import { setCookie } from "../app/utils/cookeis";
+import { deleteCookie } from "../app/utils/cookeis";
 
 import Link from "next/link";
 

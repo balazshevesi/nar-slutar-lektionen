@@ -1,19 +1,15 @@
-import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
-import FavNav from "./components/FavNav";
+import FavNav from "../components/FavNav";
 import { headers } from "next/headers";
+import { metadataGlobal } from "../metadata";
 
 const inter = Inter({ subsets: ["latin"] });
-
-export const metadata: Metadata = {
-  title: "När Slutar Lektionen?",
-  description: "När Slutar Lektionen?",
-};
+export const metadata = metadataGlobal;
 
 export default function RootLayout({
   children,

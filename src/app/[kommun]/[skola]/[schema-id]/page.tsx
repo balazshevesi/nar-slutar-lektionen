@@ -1,4 +1,4 @@
-import Bread from "@/app/components/Bread";
+import Bread from "@/components/Bread";
 import CountDown from "./CountDown";
 import { Suspense } from "react";
 

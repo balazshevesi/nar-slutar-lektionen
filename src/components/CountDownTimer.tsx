@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
-
+import { metadataGlobal } from "../metadata";
+// import { metadata } from "../layout";
 interface CountDownProps {
   targetDate: Date;
   isCurrentLesson: boolean;
@@ -47,11 +48,11 @@ export default function CountdownTimer({
         days,
         "dag",
         "dagar",
-      )} ${formatTimeUnit(hours, "timme", "timmar")} ${formatTimeUnit(
+      )}, ${formatTimeUnit(hours, "timme", "timmar")}, ${formatTimeUnit(
         minutes,
         "minut",
         "minuter",
-      )} ${formatTimeUnit(minutes, "minut", "minuter")} ${formatTimeUnit(
+      )}, ${formatTimeUnit(minutes, "minut", "minuter")}, ${formatTimeUnit(
         seconds,
         "sekund",
         "sekunder",
@@ -67,7 +68,11 @@ export default function CountdownTimer({
   useEffect(() => {
     calculateTimeLeft();
     const interval = setInterval(calculateTimeLeft, 1000);
-    return () => clearInterval(interval);
+    return () => {
+      //reset docTitle on unmount, could also be done in a template.tsx file tho
+      document.title = "" + metadataGlobal.title!;
+      return clearInterval(interval);
+    };
   }, [targetDate]);
 
   return (

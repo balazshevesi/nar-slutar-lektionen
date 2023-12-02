@@ -1,5 +1,5 @@
 "use client";
-import { getCookie } from "../utils/cookeis";
+import { getCookie } from "../app/utils/cookeis";
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";

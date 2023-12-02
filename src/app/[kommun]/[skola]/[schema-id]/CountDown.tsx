@@ -89,6 +89,13 @@ export default async function CountDown({
   const timeOffsetInMS = now.getTimezoneOffset() * 60000;
   const todaysDate = new Date(now.getTime() - timeOffsetInMS); //corrects for the right timezon
 
+  console.log(
+    "Number(removeQuotes(process.env.ADJUST_TIME!))",
+    Number(removeQuotes(process.env.ADJUST_TIME!)),
+  );
+
+  console.log("todaysDate", todaysDate);
+
   todaysDate.setHours(
     todaysDate.getHours() + Number(removeQuotes(process.env.ADJUST_TIME!)),
   ); //correct by .env

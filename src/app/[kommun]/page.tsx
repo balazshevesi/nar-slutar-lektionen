@@ -1,5 +1,7 @@
-import Bread from "../../components/layout/Bread";
+import Section from "@/components/layout/Section";
+
 import NavigateBtn from "../../components/NavigateBtn";
+import Bread from "../../components/layout/Bread";
 
 export default async function Page({ params }: { params: { kommun: string } }) {
   const kommun = params.kommun;
@@ -21,8 +23,8 @@ export default async function Page({ params }: { params: { kommun: string } }) {
   const listOfUnits = data.data.getTimetableViewerUnitsResponse.units;
 
   return (
-    <div className="flex h-[100dvh] flex-col items-center p-8">
-      <Bread/>
+    <Section>
+      <Bread />
       <h2 className="mb-2 text-lg font-medium">Välj din skola:</h2>
       <div className=" flex flex-col gap-2">
         {listOfUnits.map((unit: any) => {
@@ -35,6 +37,6 @@ export default async function Page({ params }: { params: { kommun: string } }) {
           );
         })}
       </div>
-    </div>
+    </Section>
   );
 }

@@ -1,8 +1,9 @@
 // import { revalidatePath } from "next/cache";
-import AngeSchemaID from "@/app/[kommun]/[skola]/AngeSchemaID";
-import Bread from "@/components/layout/Bread";
 import NavigateBtn from "@/components/NavigateBtn";
+import Bread from "@/components/layout/Bread";
+import Section from "@/components/layout/Section";
 
+import AngeSchemaID from "@/app/[kommun]/[skola]/AngeSchemaID";
 import getUnitGuidFromSkola from "@/app/api/utils/getUnitGuidFromSkola";
 
 export default async function Page({
@@ -48,10 +49,10 @@ export default async function Page({
   const klassLista = await fetchKlassLista();
 
   return (
-    <div className="flex h-[100dvh] flex-col items-center p-8">
-      <Bread/>
+    <Section>
+      <Bread />
       <AngeSchemaID skola={skola} />
-      <div className=" mt-8 flex flex-col items-center gap-2 pb-24">
+      <div className=" mt-8 flex flex-col items-center gap-2">
         <div
           className=" text-center text-sm opacity-70"
           //@ts-ignore
@@ -70,6 +71,6 @@ export default async function Page({
           );
         })}
       </div>
-    </div>
+    </Section>
   );
 }

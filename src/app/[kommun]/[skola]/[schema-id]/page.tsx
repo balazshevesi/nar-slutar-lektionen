@@ -1,6 +1,7 @@
 import { Suspense } from "react";
 
 import Bread from "@/components/layout/Bread";
+import Section from "@/components/layout/Section";
 
 import CountDown from "./page-components/CountDown";
 
@@ -14,7 +15,7 @@ export default function Page({
   const schemaId = params["schema-id"];
 
   return (
-    <div className="flex h-[100dvh] flex-col items-center p-8">
+    <Section>
       <Bread />
       <Suspense fallback={<h3 className="font-mono">hämtar schema...</h3>}>
         <CountDown komun={komun} skola={skola} schemaId={schemaId} />
@@ -24,6 +25,6 @@ export default function Page({
         <br />
         <span className="font-bold">Balazs Hevesi</span>
       </div>
-    </div>
+    </Section>
   );
 }

@@ -233,9 +233,9 @@ export default function FavNav() {
 
   function ListItem({ item }: { item: Entry }) {
     return (
-      <div
+      <li
         key={item.kod}
-        className="relative flex shrink-0 items-center gap-4 overflow-auto whitespace-nowrap rounded-lg bg-white shadow"
+        className="relative flex shrink-0 items-center gap-4 overflow-hidden whitespace-nowrap rounded-lg bg-white shadow"
       >
         <Link
           href={item.pathname}
@@ -254,7 +254,7 @@ export default function FavNav() {
           <div className="text-sm text-slate-300">{item.pathname}</div>
         </Link>
         <ListItemMenue item={item} />
-      </div>
+      </li>
     );
   }
 
@@ -262,9 +262,9 @@ export default function FavNav() {
     <div
       className={`${
         isOpen ? "translate-y-0" : "translate-y-[calc(100%-66px)]"
-      } bottom fixed bottom-0 left-0 z-50 w-full  justify-center px-2 transition-all`}
+      } bottom fixed bottom-0 z-50 mx-auto w-full justify-end px-2 transition-all lg:right-4 lg:w-[24rem]`}
     >
-      <div className="ml-auto mr-auto flex max-w-sm flex-col rounded-t-xl shadow lg:mr-4">
+      <div className="mx-auto mr-auto flex max-w-sm flex-col rounded-t-xl shadow">
         <button
           onClick={() => {
             setIsOpen(!isOpen);
@@ -277,7 +277,7 @@ export default function FavNav() {
             className={`${isOpen && "rotate-180"} h-5 w-5 transition-all`}
           />
         </button>
-        <div className="relative z-0 bg-slate-100 p-4">
+        <nav className="relative z-0 bg-slate-100 p-4">
           {currentCode && !currentAdressIsAlredyFav && (
             <button
               onClick={handleAddFav}
@@ -287,18 +287,18 @@ export default function FavNav() {
               <PlusIcon className="h-5 w-5" />
             </button>
           )}
-          <div className="relative mt-4 flex max-h-[40dvh] flex-col gap-2 overflow-auto border-y-2 border-slate-200 px-1 py-4">
+          <ul className="relative mt-4 flex max-h-[40dvh] flex-col gap-2 overflow-auto border-y-2 border-slate-200 px-1 py-4">
             {favoriterState!.map((item: any) => {
               return <ListItem key={item.pathname} item={item} />;
             })}
             {favoriterState.length === 0 && (
-              <div className=" text-center text-slate-500">
+              <li className=" text-center text-slate-500">
                 Det ser ganska tomt ut här :( <br /> <br />
                 Gå till ett schema för att kunna lägga till genvägar
-              </div>
+              </li>
             )}
-          </div>
-        </div>
+          </ul>
+        </nav>
       </div>
     </div>
   );

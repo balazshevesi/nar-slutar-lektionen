@@ -2,13 +2,26 @@
 
 "När slutar lektionen?" Är bland de vanligaste frågorna man ställer i skolan. Detta projekt ska besvara frågan. Det är en relativt enkel webb-app byggd med React och Next.js.
 
+## Stack
+
+### Production dependencies
+
+- **Meta Framework:** Next.js, med app router och server komponenter
+- **Styling:** TailwindCSS
+
+### Development dependencies
+
+- **Code Formating:** Prettier, med import-sort-plugin och tailwind-plugin
+- **Linting:** ESlint, med inställningarna som Next.js kommer med
+- **Språk:** Typescript
+
 ## skola24as API
 
 Skola24as API är odkumenterad så jag var tvungen att "reverse-engeneer"a delar av den, den är skit noga med att skickar headersen, så därför var jag tjungen att ibland använda axios, och ibland fetch.
 
 ## Hosting
 
-För hosting använder jag AWS amplify, men _nästan_ default inställningarna för next.js, jag har bara bytt build imagen till "Amazon Linux:2023 image" och laggt till " - nvm use 18" i build commands. Jag har gjort de ändringarna eftersom den inte ville bygga annars.
+För hosting använder jag AWS amplify, med _nästan_ default inställningarna för next.js, jag har bara bytt build imagen till "Amazon Linux:2023 image" och laggt till " - nvm use 18" i build commands. Jag har gjort de ändringarna eftersom den inte ville bygga annars.
 
 ## TODO
 

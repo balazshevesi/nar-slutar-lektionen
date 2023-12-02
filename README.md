@@ -14,12 +14,12 @@ För hosting använder jag AWS amplify, men _nästan_ default inställningarna f
 
 - [ ] Standardisera layouted med componenter typ
 - [ ] Bestäm URL, sedan köp (.net eller .se ???)
-- [ ] Fixa så att det händer nått när countdownen når 0 (typ ladda om fliken)
 - [ ] Fixa finare loading screens
 - [ ] Fixa bread crums så att den är med i layout.tsx, för snyggare loading states
-- [ ] Fixa så att man kan flytta favoriterna upp och ner
 - [ ] Write tests g (bruhhhh dunno howw?)
 
+- [x] Fixa så att det händer nått när countdownen når 0 (typ ladda om fliken)
+- [x] Fixa så att man kan flytta favoriterna upp och ner
 - [x] Make folder structure better
 - [x] Fix local storage ssr stuffs (fixed by diabling ssr)
 - [x] BUG fix servern är fuckaddd (funkar på render dock??, kanske borde setta upp nån api som jag kan "logga till" eftersom det typ är omöjligt att logga på amplify) (bug med date objekt)

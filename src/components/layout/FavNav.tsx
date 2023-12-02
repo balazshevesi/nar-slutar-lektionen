@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 import { useEffect, useMemo, useState } from "react";
+import React from "react";
 
 import {
   ChevronUpIcon,
@@ -23,11 +24,10 @@ interface Entry {
   namn: string;
   pathname: string;
   default: boolean;
+  menueIsOpen: boolean;
 }
 
 export default function FavNav() {
-  console.log("FavNav rendered");
-
   !localStorage.getItem("favoriter") &&
     localStorage.setItem("favoriter", JSON.stringify([]));
 
@@ -105,7 +105,7 @@ export default function FavNav() {
 
   const handleRename = (itemToRename: Entry) => {
     const newName =
-      prompt(`Ge namn till ${itemToRename.pathname}`) || itemToRename.kod;
+      prompt(`Döp om ${itemToRename.pathname}`) || itemToRename.namn;
     const newItems = favoriterState.map((item) => {
       if (item.pathname === itemToRename.pathname)
         return { ...item, namn: newName };
@@ -114,9 +114,121 @@ export default function FavNav() {
     setFavoriterState(newItems);
   };
 
-  const handleMoveUp = (itemToMoveUp) => {
-    const index = favoriterState.findIndex((item) => item === itemToMoveUp);
-    console.log("index", index);
+  const handleMoveUp = (itemToMoveUp: Entry) => {
+    const indexOfTheItemToMove = favoriterState.findIndex(
+      (item) => item === itemToMoveUp,
+    );
+    const newState = arrayMoveImmutable(
+      favoriterState,
+      indexOfTheItemToMove,
+      indexOfTheItemToMove !== 0
+        ? indexOfTheItemToMove - 1
+        : indexOfTheItemToMove,
+    );
+    setFavoriterState(newState);
+  };
+
+  const handleMoveDown = (itemToMoveDown: Entry) => {
+    const indexOfTheItemToMove = favoriterState.findIndex(
+      (item) => item === itemToMoveDown,
+    );
+    const newState = arrayMoveImmutable(
+      favoriterState,
+      indexOfTheItemToMove,
+      indexOfTheItemToMove !== favoriterState.length
+        ? indexOfTheItemToMove + 1
+        : indexOfTheItemToMove,
+    );
+    setFavoriterState(newState);
+  };
+
+  const handleOpenMenue = (itemToOpen: Entry) => {
+    const newArray = favoriterState.map((item) => {
+      const newItem = item;
+      newItem.menueIsOpen = false;
+      if (item === itemToOpen) newItem.menueIsOpen = true;
+      return newItem;
+    });
+    setFavoriterState(newArray);
+  };
+
+  const handleCloseMenue = (itemToClose: Entry) => {
+    const newArray = favoriterState.map((item) => {
+      const newItem = item;
+      newItem.menueIsOpen = false;
+      if (item === itemToClose) newItem.menueIsOpen = false;
+      return newItem;
+    });
+    setFavoriterState(newArray);
+  };
+
+  const closeAllMenues = () => {
+    const newArray = favoriterState.map((item) => {
+      const newItem = item;
+      newItem.menueIsOpen = false;
+      return newItem;
+    });
+    setFavoriterState(newArray);
+  };
+
+  const ListItemMenue = ({ item }: { item: Entry }) => {
+    return (
+      <div
+        className={`${
+          item.menueIsOpen ? "" : "translate-x-[calc(100%-36px)]"
+        } absolute right-0 flex h-full overflow-hidden rounded-lg shadow transition-all `}
+      >
+        <button
+          onClick={() => {
+            item.menueIsOpen ? handleCloseMenue(item) : handleOpenMenue(item);
+          }}
+          className="bg-slate-50 px-2 hover:bg-slate-100"
+        >
+          <ChevronUpIcon
+            className={`${
+              item.menueIsOpen ? "rotate-90" : "-rotate-90"
+            } h-5 w-5 transition-all`}
+          />
+        </button>
+        <div className="flex flex-col items-stretch justify-center bg-white">
+          <button
+            onClick={() => handleMoveUp(item)}
+            className=" w-full flex-1 px-2 hover:bg-slate-100"
+          >
+            <ChevronUpIcon className="h-5 w-5" />
+          </button>
+          <button
+            onClick={() => handleMoveDown(item)}
+            className="w-full flex-1 px-2 hover:bg-slate-100"
+          >
+            <ChevronUpIcon className="h-5 w-5 rotate-180" />
+          </button>
+        </div>
+
+        <button
+          onClick={() => handleRename(item)}
+          className=" items-center justify-center bg-white px-4  hover:bg-slate-100"
+        >
+          <PencilIcon className="h-5 w-5" />
+        </button>
+        <button
+          className="items-center justify-center bg-white px-4 hover:bg-slate-100"
+          onClick={() => handleSuperFav(item)}
+        >
+          {item.default ? (
+            <HeartIconSolid className="h-5 w-5" />
+          ) : (
+            <HeartIcon className="h-5 w-5" />
+          )}
+        </button>
+        <button
+          onClick={() => handleRemoveFav(item)}
+          className=" items-center justify-center bg-white px-4  hover:bg-slate-100"
+        >
+          <TrashIcon className="h-5 w-5" />
+        </button>
+      </div>
+    );
   };
 
   function ListItem({ item }: { item: Entry }) {
@@ -127,7 +239,10 @@ export default function FavNav() {
       >
         <Link
           href={item.pathname}
-          onClick={() => setIsOpen(false)}
+          onClick={() => {
+            setIsOpen(false);
+            closeAllMenues();
+          }}
           className="w-full px-4 py-2 text-left hover:bg-slate-100"
         >
           <div>
@@ -138,42 +253,7 @@ export default function FavNav() {
           </div>
           <div className="text-sm text-slate-300">{item.pathname}</div>
         </Link>
-        <div className="absolute right-0 flex h-full overflow-hidden rounded-lg shadow">
-          <div className="flex flex-col items-stretch justify-center bg-white">
-            <button
-              onClick={() => handleMoveUp(item)}
-              className=" w-full flex-1 px-2 hover:bg-slate-100"
-            >
-              <ChevronUpIcon className="h-5 w-5" />
-            </button>
-            <button className=" w-full flex-1 px-2 hover:bg-slate-100">
-              <ChevronUpIcon className="h-5 w-5 rotate-180" />
-            </button>
-          </div>
-
-          <button
-            onClick={() => handleRename(item)}
-            className=" items-center justify-center bg-white px-4  hover:bg-slate-100"
-          >
-            <PencilIcon className="h-5 w-5" />
-          </button>
-          <button
-            className="items-center justify-center bg-white px-4 hover:bg-slate-100"
-            onClick={() => handleSuperFav(item)}
-          >
-            {item.default ? (
-              <HeartIconSolid className="h-5 w-5" />
-            ) : (
-              <HeartIcon className="h-5 w-5" />
-            )}
-          </button>
-          <button
-            onClick={() => handleRemoveFav(item)}
-            className=" items-center justify-center bg-white px-4  hover:bg-slate-100"
-          >
-            <TrashIcon className="h-5 w-5" />
-          </button>
-        </div>
+        <ListItemMenue item={item} />
       </div>
     );
   }
@@ -187,8 +267,8 @@ export default function FavNav() {
       <div className="mx-auto flex max-w-sm flex-col rounded-t-xl shadow">
         <button
           onClick={() => {
-            console.log("clicked");
             setIsOpen(!isOpen);
+            closeAllMenues();
           }}
           className="relative z-10 flex w-full items-center justify-center gap-1 overflow-hidden rounded-t-xl border border-slate-100 bg-gradient-to-t from-slate-100 to-white py-5 text-center outline-2 outline-offset-2 outline-slate-400 focus:outline [&>svg]:hover:w-5"
         >
@@ -209,7 +289,7 @@ export default function FavNav() {
           )}
           <div className="relative mt-4 flex max-h-[40dvh] flex-col gap-2 overflow-auto border-y-2 border-slate-200 px-1 py-4">
             {favoriterState!.map((item: any) => {
-              return <ListItem key={0} item={item} />;
+              return <ListItem key={item.pathname} item={item} />;
             })}
             {favoriterState.length === 0 && (
               <div className=" text-center text-slate-500">

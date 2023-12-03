@@ -33,6 +33,23 @@ Eftersom att backenden och frontend-koden är coupled i nextjs så blir det lite
 
 **Backend routen är** "/api/[Komun]/[Skola]/[ShemaID]"
 
+bild (genererad med chatGPT) för illustrera:
+
+```
++----------------------+   +-------------------------+
+|                      |   |                         |
+|   [Komun]            |   |   api                   |
+|     |                |   |    |                    |
+|   [Skola]            |   |   [Komun]               |
+|     |                |   |    |                    |
+|   [ShemaID]          |   |   [Skola]               |
+|                      |   |    |                    |
+|   (Frontend logic)   |   |   [ShemaID]             |
+|                      |   |                         |
+|                      |   |   (Backend logic)       |
++----------------------+   +-------------------------+
+```
+
 Routern kan inte veta att "api" inte är ett dynamisk värde för [komun]. Eftersom varje del av "path"en är dynamisk så kan routern bara hitta skilnad på frontend-routen och backend-routen genom att se att backend routen har ett extra slash.
 
 Next.js misslyckas ibland att hitta rätt route, så man får en "fetch failed" error på i dev miljön, men på aws så funkar det.
@@ -146,3 +163,7 @@ För hosting använder jag AWS amplify, med _nästan_ default inställningarna f
 - [x] Bug fix "/" i bread crums nav
 - [x] Fix prettier config, add import sort
 - [x] Bygga ut något "genväg" system som låter dig ha koll på de 5 senaste scheman du kollade på, och dina "favorit"-scheman, och låta dig välja ett "default"-schema, dit ska man bli redirectad om man går till base-url:en. Det blir nog bäst att lagra det i local storage (förutom "default"-schemat), cookies har en gräns på 4000 tecken, och om man lagrar hela adresser så kan det blir mycket.
+
+```
+
+```

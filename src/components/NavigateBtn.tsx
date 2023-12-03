@@ -1,7 +1,5 @@
 import Link from "next/link";
 
-import { Ripples } from "react-ripples-continued";
-
 import { ArrowRightIcon } from "@heroicons/react/24/solid";
 
 /**
@@ -28,7 +26,6 @@ export default function NavigateBtn({
     >
       <div>{namn}</div>
       <ArrowRightIcon className="h-5 w-0 transition-all" />
-      <Ripples color="black" opacity={0.3} blur={2} on="mouseDown" />
     </Link>
   );
 }

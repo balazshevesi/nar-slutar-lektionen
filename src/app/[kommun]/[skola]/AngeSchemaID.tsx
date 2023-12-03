@@ -3,7 +3,6 @@
 import { useRouter } from "next/navigation";
 
 import { useState } from "react";
-import { Ripples } from "react-ripples-continued";
 
 import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
 
@@ -39,7 +38,6 @@ export default function AngeSchemaID({ skola }: { skola: string }) {
           className="relative flex h-full w-20 items-center justify-center gap-1 overflow-hidden rounded-xl border border-slate-100 bg-gradient-to-t from-slate-100 to-white py-2 text-center shadow outline-2 outline-offset-2 outline-slate-400 focus:outline"
         >
           <MagnifyingGlassIcon className="h-5 w-5" />
-          <Ripples color="black" opacity={0.3} blur={2} on="mouseDown" />
         </button>
       </div>
     </>

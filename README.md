@@ -35,9 +35,9 @@ Eftersom att backenden och frontend-koden är coupled i nextjs så blir det lite
 
 **Backend routen är** "/api/[Komun]/[Skola]/[ShemaID]"
 
-bild (genererad med chatGPT) för illustrera:
 
 ```
+bild (genererad med chatGPT) för illustrera:
 +----------------------+   +-------------------------+
 |                      |   |                         |
 |   [Komun]            |   |   api                   |

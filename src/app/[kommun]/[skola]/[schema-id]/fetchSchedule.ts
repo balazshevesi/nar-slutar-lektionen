@@ -1,6 +1,9 @@
 import { revalidatePath } from "next/cache";
 
-import removeQuotes from "@/app/api/utils/removeQoutes";
+import getKey from "@/utils/scheduleFetching/getKey";
+import getSignature from "@/utils/scheduleFetching/getSignature";
+import getTimetable from "@/utils/scheduleFetching/getTimetable";
+import getUnitGuidFromSkola from "@/utils/scheduleFetching/getUnitGuidFromSkola";
 
 export interface FetchSchedule {
   schedule: { komun: string; skola: string; schemaId: string };
@@ -8,26 +11,38 @@ export interface FetchSchedule {
 }
 export default async function fetchSchedule(options: FetchSchedule) {
   revalidatePath("/");
-  const response = await fetch(
-    `${removeQuotes(process.env.DOMAIN!)}/api/${options.schedule.komun}/${
-      options.schedule.skola
-    }/${options.schedule.schemaId}`,
-    {
-      method: "post",
-      body: JSON.stringify({
-        year: options.date.year,
-        week: options.date.week,
-        dayOfTheWeek: options.date.dayOfTheWeek,
-      }),
-    },
+  const unitGuid = await getUnitGuidFromSkola(
+    decodeURI(options.schedule.skola),
   );
-  const data = await response.json();
+  const komun = decodeURI(options.schedule.komun);
+  const skola = decodeURI(options.schedule.skola);
+  const schemaId = decodeURI(options.schedule.schemaId);
+  const year = options.date.year;
+  const week = options.date.week;
+  const dayOfTheWeek = options.date.dayOfTheWeek;
 
-  try {
-    const schemaIDIsInvalid =
-      data.timetable.validation[0].message === "Felaktigt ID";
-    if (schemaIDIsInvalid) return "Felaktigt ID";
-  } catch {}
+  /**
+   * * hard coded for älmhult
+   *   TODO make dynamic
+   * */
 
-  return data;
+  let timetable;
+  if (komun === "Älmhult") {
+    const signature = await getSignature(schemaId);
+    const key = await getKey();
+    timetable = await getTimetable(
+      signature,
+      key,
+      year,
+      week,
+      dayOfTheWeek,
+      unitGuid,
+    );
+    try {
+      const schemaIDIsInvalid =
+        timetable.validation[0].message === "Felaktigt ID";
+      if (schemaIDIsInvalid) return "Felaktigt ID";
+    } catch {}
+  }
+  return { komun, skola, schemaId, timetable: timetable || null };
 }

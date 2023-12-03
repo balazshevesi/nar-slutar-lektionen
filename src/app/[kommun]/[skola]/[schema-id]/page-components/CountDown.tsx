@@ -1,12 +1,12 @@
-import FelaktigID from "@/app/[kommun]/[skola]/[schema-id]/page-components/FelaktigID";
+import addDaysToDate from "@/utils/addDaysToDate";
+import getCurrentWeekNumber from "@/utils/getCurrentWeekNumber";
+import getNextMondayIfWeekend from "@/utils/getNextMondayIfWeekend";
+import removeQuotes from "@/utils/removeQoutes";
 
-import CountdownTimer from "./CountDownTimer";
 import fetchSchedule from "../fetchSchedule";
 import { FetchSchedule } from "../fetchSchedule";
-import addDaysToDate from "@/app/api/utils/addDaysToDate";
-import getNextMondayIfWeekend from "@/app/api/utils/getNextMondayIfWeekend";
-import removeQuotes from "@/app/api/utils/removeQoutes";
-import getCurrentWeekNumber from "@/app/utils/getCurrentWeekNumber";
+import CountdownTimer from "./CountDownTimer";
+import FelaktigID from "@/app/[kommun]/[skola]/[schema-id]/page-components/FelaktigID";
 
 export interface CountDownInterface {
   komun: string;
@@ -107,7 +107,6 @@ export default async function CountDown({
         scheduleDate: Date;
       }
   > {
-    //! BUG on AWS amplify?? but works locally??
     if (recursionCount > 7) {
       return "couldn't find any lessons for the comming 7 days";
     }
@@ -123,10 +122,9 @@ export default async function CountDown({
     };
     const response = await fetchSchedule(options);
     if (response == "Felaktigt ID") return "Felaktigt ID";
-    //* bug is caused by not finding lessonInfo... problem is from response
-    const lessonInfo = response.timetable.data.lessonInfo;
+    const lessonInfo =
+      "timetable" in response ? response.timetable.data.lessonInfo : "";
     if (!lessonInfo) {
-      //* potential source of bug
       return getValidSchedule(todaysDate, recursionCount + 1);
     }
     return { lessonInfo, scheduleDate: scheduleDate };

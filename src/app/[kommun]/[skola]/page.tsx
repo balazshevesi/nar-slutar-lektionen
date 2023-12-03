@@ -1,10 +1,11 @@
 // import { revalidatePath } from "next/cache";
+import getUnitGuidFromSkola from "@/utils/scheduleFetching/getUnitGuidFromSkola";
+
 import NavigateBtn from "@/components/NavigateBtn";
 import Bread from "@/components/layout/Bread";
 import Section from "@/components/layout/Section";
 
 import AngeSchemaID from "@/app/[kommun]/[skola]/AngeSchemaID";
-import getUnitGuidFromSkola from "@/app/api/utils/getUnitGuidFromSkola";
 
 export default async function Page({
   params,

@@ -27,6 +27,8 @@ Appen utnyttjar next.js 14s app router. Appen har bara tre client komponenter, d
 
 ### Routingen
 
+#### Gammal
+
 Eftersom att backenden och frontend-koden är coupled i nextjs så blir det lite konstigt med dynamiska routes.
 
 **Frontend routen är** "[Komun]/[Skola]/[ShemaID]"
@@ -61,6 +63,10 @@ En lösning på detta hade vart att hosta backenden på en seperat server, men d
 En annan lösning hade vart att lägga till en statisk route för frontenden, typ "frontend/[Komun]/[Skola]/[ShemaID]", men då kommer url:en vara mycket mindre intuitiv.
 
 En annan lösning hade vart att flytta backenden till en server komponent (vilket jag tror att egentligen borde göra)
+
+#### Ny
+
+Jag tog bort API mappen (typ bara en fil). nu kör jag requesten i en serverkomponent istället.
 
 ## skola24as API
 

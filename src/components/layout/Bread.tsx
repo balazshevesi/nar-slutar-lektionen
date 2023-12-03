@@ -12,7 +12,7 @@ export default function Bread() {
 
   if (!kommun && !skola && !schemaId)
     return (
-      <div className="p-2 pt-5 text-center italic text-slate-500">
+      <div className="p-2 pt-8 text-center italic text-slate-500">
         Välkommen till{" "}
         <span className="font-mono underline">när-slutar-lektionen.net</span>
       </div>

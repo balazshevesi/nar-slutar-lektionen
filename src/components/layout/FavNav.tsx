@@ -15,8 +15,8 @@ import {
 } from "@heroicons/react/24/outline";
 import { HeartIcon as HeartIconSolid } from "@heroicons/react/24/solid";
 
-import { setCookie } from "../../app/utils/cookeis";
-import { deleteCookie } from "../../app/utils/cookeis";
+import { setCookie } from "../../utils/client/cookeis";
+import { deleteCookie } from "../../utils/client/cookeis";
 import { arrayMoveImmutable } from "array-move";
 
 interface Entry {

@@ -49,28 +49,30 @@ export default async function Page({
   const klassLista = await fetchKlassLista();
 
   return (
-    <Section>
+    <>
       <Bread />
-      <AngeSchemaID skola={skola} />
-      <div className=" mt-8 flex flex-col items-center gap-2">
-        <div
-          className=" text-center text-sm opacity-70"
-          //@ts-ignore
-          style={{ textWrap: "balance" }}
-        >
-          (OBS, använd helst ditt personliga schema ID, hemsidan kan visa fel om
-          det finnns överlappande lektioner)
+      <Section>
+        <AngeSchemaID skola={skola} />
+        <div className=" mt-8 flex flex-col items-center gap-2">
+          <div
+            className=" text-center text-sm opacity-70"
+            //@ts-ignore
+            style={{ textWrap: "balance" }}
+          >
+            (OBS, använd helst ditt personliga schema ID, hemsidan kan visa fel
+            om det finnns överlappande lektioner)
+          </div>
+          {klassLista.map((item: any, i: number) => {
+            return (
+              <NavigateBtn
+                namn={item.groupName}
+                routeName={`./${skola}/${item.groupName}`}
+                key={item.groupName}
+              />
+            );
+          })}
         </div>
-        {klassLista.map((item: any, i: number) => {
-          return (
-            <NavigateBtn
-              namn={item.groupName}
-              routeName={`./${skola}/${item.groupName}`}
-              key={item.groupName}
-            />
-          );
-        })}
-      </div>
-    </Section>
+      </Section>
+    </>
   );
 }

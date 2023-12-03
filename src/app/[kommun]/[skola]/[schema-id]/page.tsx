@@ -15,11 +15,13 @@ export default function Page({
   const schemaId = params["schema-id"];
 
   return (
-    <Section>
+    <>
       <Bread />
-      <Suspense fallback={<h3 className="font-mono">hämtar schema...</h3>}>
-        <CountDown komun={komun} skola={skola} schemaId={schemaId} />
-      </Suspense>
-    </Section>
+      <Section>
+        <Suspense fallback={<h3 className="font-mono">hämtar schema...</h3>}>
+          <CountDown komun={komun} skola={skola} schemaId={schemaId} />
+        </Suspense>
+      </Section>
+    </>
   );
 }

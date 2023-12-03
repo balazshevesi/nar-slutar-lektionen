@@ -23,20 +23,22 @@ export default async function Page({ params }: { params: { kommun: string } }) {
   const listOfUnits = data.data.getTimetableViewerUnitsResponse.units;
 
   return (
-    <Section>
+    <>
       <Bread />
-      <h2 className="mb-2 text-lg font-medium">Välj din skola:</h2>
-      <div className=" flex flex-col gap-2">
-        {listOfUnits.map((unit: any) => {
-          return (
-            <NavigateBtn
-              key={0}
-              namn={unit.unitId}
-              routeName={`${kommun}/${unit.unitId}`}
-            />
-          );
-        })}
-      </div>
-    </Section>
+      <Section>
+        <h2 className="mb-2 text-lg font-medium">Välj din skola:</h2>
+        <div className=" flex flex-col gap-2">
+          {listOfUnits.map((unit: any) => {
+            return (
+              <NavigateBtn
+                key={0}
+                namn={unit.unitId}
+                routeName={`${kommun}/${unit.unitId}`}
+              />
+            );
+          })}
+        </div>
+      </Section>
+    </>
   );
 }

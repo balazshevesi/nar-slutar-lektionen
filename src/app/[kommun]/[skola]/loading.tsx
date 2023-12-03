@@ -1,13 +1,4 @@
-import Bread from "@/components/layout/Bread";
-import Section from "@/components/layout/Section";
+import GlobalLoadingPage from "@/components/layout/GlobalLoadingPage";
 
-export default function Loading() {
-  return (
-    <>
-      <Bread />
-      <Section>
-        <h3 className="font-mono">Laddar...</h3>
-      </Section>
-    </>
-  );
-}
+const Loading = () => <GlobalLoadingPage />;
+export default Loading;

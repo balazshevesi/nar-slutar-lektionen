@@ -25,7 +25,7 @@ export default function CountdownTimer({
     days: 0,
     hours: 0,
     minutes: 0,
-    seconds: 1,
+    seconds: 0,
   });
 
   const formatTimeUnit = (unit: number, singular: string, plural: string) => {

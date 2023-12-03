@@ -19,7 +19,7 @@ export default function Bread() {
     );
 
   return (
-    <div className="w-full overflow-auto p-2 pt-5 text-center font-mono text-sm font-semibold italic text-slate-500">
+    <div className="w-full overflow-auto p-2 pt-8 text-center font-mono text-sm font-semibold italic text-slate-500">
       <div className="mx-auto flex w-fit items-center gap-1">
         <Link href={"/"} className="hover:underline hover:opacity-80">
           när-slutar-lektionen.net

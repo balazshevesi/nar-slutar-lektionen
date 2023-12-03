@@ -4,6 +4,9 @@ import { Ripples } from "react-ripples-continued";
 
 import { ArrowRightIcon } from "@heroicons/react/24/solid";
 
+/**
+ * * "namn" 𝘮𝘶𝘴𝘵 be included in the "routeName"
+ */
 export default function NavigateBtn({
   namn,
   routeName,

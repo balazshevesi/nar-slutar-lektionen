@@ -2,25 +2,12 @@ import Section from "@/components/layout/Section";
 
 import NavigateBtn from "../../components/NavigateBtn";
 import Bread from "../../components/layout/Bread";
+import fetchSkolor from "./fetchSkolor";
 
 export default async function Page({ params }: { params: { kommun: string } }) {
   const kommun = params.kommun;
 
-  const response = await fetch(
-    "https://web.skola24.se/api/services/skola24/get/timetable/viewer/units",
-    {
-      method: "post",
-      headers: {
-        "Content-Type": "application/json",
-        "X-Scope": "8a22163c-8662-4535-9050-bc5e1923df48",
-      },
-      body: JSON.stringify({
-        getTimetableViewerUnitsRequest: { hostName: "almhult.skola24.se" },
-      }),
-    },
-  );
-  const data = await response.json();
-  const listOfUnits = data.data.getTimetableViewerUnitsResponse.units;
+  const listOfUnits = await fetchSkolor("almhult.skola24.se");
 
   return (
     <>

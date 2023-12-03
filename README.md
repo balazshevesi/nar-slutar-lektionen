@@ -153,12 +153,11 @@ För hosting använder jag AWS amplify, med _nästan_ default inställningarna f
 
 ## TODO
 
-- [ ] Standardisera layouted med componenter typ
-- [ ] Bestäm URL, sedan köp (.net eller .se ???)
-- [ ] Fixa finare loading screens
-- [ ] Fixa bread crums så att den är med i layout.tsx, för snyggare loading states
-- [ ] Write tests g (bruhhhh dunno howw?)
+- [x] Standardisera layouted med componenter typ
+- [x] Bestäm URL, sedan köp (.net eller .se ???)
+- [x] Fixa finare loading screens
 
+- [x] Fixa bread crums så att den är med i layout.tsx, för snyggare loading states (de hadde behövt vara klient komponenter om de är med i layout (annars updaterar den inte sig mellan route updateringar), så jag valde att inte göra det)
 - [x] Fixa så att det händer nått när countdownen når 0 (typ ladda om fliken)
 - [x] Fixa så att man kan flytta favoriterna upp och ner
 - [x] Make folder structure better
@@ -169,7 +168,3 @@ För hosting använder jag AWS amplify, med _nästan_ default inställningarna f
 - [x] Bug fix "/" i bread crums nav
 - [x] Fix prettier config, add import sort
 - [x] Bygga ut något "genväg" system som låter dig ha koll på de 5 senaste scheman du kollade på, och dina "favorit"-scheman, och låta dig välja ett "default"-schema, dit ska man bli redirectad om man går till base-url:en. Det blir nog bäst att lagra det i local storage (förutom "default"-schemat), cookies har en gräns på 4000 tecken, och om man lagrar hela adresser så kan det blir mycket.
-
-```
-
-```

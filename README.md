@@ -15,9 +15,114 @@
 - **Linting:** ESlint, med inställningarna som Next.js kommer med
 - **Språk:** Typescript
 
+## Design Val
+
+### Server komponenter
+
+Appen utnyttjar next.js 14s app router. Appen har bara tre client komponenter, det är för att de _måste_ vara client side. Det är
+
+- "FavNav" (genvägarna)
+- "CountDownTimer" (timern)
+- "AngeSchemaID" (sök-input).
+
+### Routingen
+
+Eftersom att backenden och frontend-koden är coupled i nextjs så blir det lite konstigt med dynamiska routes.
+
+**Frontend routen är** "[Komun]/[Skola]/[ShemaID]"
+
+**Backend routen är** "/api/[Komun]/[Skola]/[ShemaID]"
+
+Routern kan inte veta att "api" inte är ett dynamisk värde för [komun]. Eftersom varje del av "path"en är dynamisk så kan routern bara hitta skilnad på frontend-routen och backend-routen genom att se att backend routen har ett extra slash.
+
+Next.js misslyckas ibland att hitta rätt route, så man får en "fetch failed" error på i dev miljön, men på aws så funkar det.
+
+I praktiken betyder det att frontenden inte kan gå "djupare", alltså den är begränsad till tre sub-directories.
+
+En lösning på detta hade vart att hosta backenden på en seperat server, men då kan frontenden ta längretid att svara.
+
+En annan lösning hade vart att lägga till en statisk route för frontenden, typ "frontend/[Komun]/[Skola]/[ShemaID]", men då kommer url:en vara mycket mindre intuitiv.
+
+En annan lösning hade vart att flytta backenden till en server komponent (vilket jag tror att egentligen borde göra)
+
 ## skola24as API
 
-Skola24as API är odkumenterad så jag var tvungen att "reverse-engeneer"a delar av den, den är skit noga med att skickar headersen, så därför var jag tjungen att ibland använda axios, och ibland fetch.
+Skola24as API är odkumenterad så jag var tvungen att "reverse-engeneer"a delar av den. Detta gjorde jag med Chrome Dev Tools.
+
+### Vad jag hittade
+
+För att hämta schema ifrån Skola24a behöver man göra tre api anrop. Dessa kommer ge cors erros om de görs av webläsaren, så man är tjungen att göra de på backenden. [Min end point](src/app/api/[kommun]/[skola]/[schema-id]/route.ts)
+
+Jag har bara implementerat Älmhult, men det borde vara ganska enkelt att byta kommun.
+
+#### [1. Först behöver man hämta en "signatur"](src/app/api/utils/getSignature.ts)
+
+**Endpoint**: https://web.skola24.se/api/encrypt/signature
+
+**Method**: post
+
+**Headers**:
+
+- "Content-Type": "application/json",
+- "X-Scope": "8a22163c-8662-4535-9050-bc5e1923df48",
+
+**body**:
+
+- "signature" : "[schemaID]"
+
+#### [2. Sedan behöver man hämta en "key"](src/app/api/utils/getKey.ts)
+
+**Endpoint**: https://web.skola24.se/api/get/timetable/render/key
+
+**Method**: post
+
+**Headers**:
+
+- "Content-Type": "application/json",
+- "X-Scope": "8a22163c-8662-4535-9050-bc5e1923df48",
+
+**body**: {}
+
+Denna request fungerar _inte_ med en javascripts fetch, man behöver axios eller något annat. Jag vet inte exakt varför, men jag misstänker att det har med headers att göra.
+
+Bodyn _måste_ inkluderas trots att den är tom
+
+#### [3. Sedan är det dags att hämta schemat](src/app/api/utils/getTimetable.ts)
+
+**Endpoint**: https://web.skola24.se/api/render/timetable
+
+**Method**: post
+
+**Headers**:
+
+- "Content-Type": "application/json",
+- "X-Scope": "8a22163c-8662-4535-9050-bc5e1923df48",
+
+**Body**:
+
+- renderKey: ["key", ifrån steg 2],
+- selection: ["signatur", ifrån steg 1],
+- scheduleDay: [vecko dag, 1 = måndag, 5 = fredag, ger error på 6 och 7],
+- week: [vecka],
+- year: [år],
+- host: [kommunens skola24 adress. för Älmhult är det: "almhult.skola24.se"],
+- unitGuid: [ett id som representerar "skolan" eller "enheten", för Älmhult är det: "OTU1MGZkNTktZGYzMi1mMTRkLWJhZDUtYzI4YWI0MDliZGU3"],
+- schoolYear: [jag *tror* att det ska vara ett hård-kodat värde: "bb76aa4b-03d4-4c97-83ca-5dc08bd00b1c"],
+- startDate: null,
+- endDate: null,
+- blackAndWhite: false,
+- width: 125,
+- height: 550,
+- selectionType: 4,
+- showHeader: false,
+- periodText: "",
+- privateFreeTextMode: false,
+- privateSelectionMode: null,
+- customerKey: "",
+
+Se källkoden för att få "unitGuid" för din skola, och andra detailer.
+
+- [getUnitGuidFromSkola.ts](src/app/api/utils/getUnitGuidFromSkola.ts)
 
 ## Hosting
 

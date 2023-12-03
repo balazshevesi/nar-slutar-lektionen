@@ -12,7 +12,6 @@ export default async function getKey() {
         },
       },
     );
-
     return response.data.data.key;
   } catch (error) {
     console.error("Error in getKey:", error);

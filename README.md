@@ -35,7 +35,6 @@ Eftersom att backenden och frontend-koden är coupled i nextjs så blir det lite
 
 **Backend routen är** "/api/[Komun]/[Skola]/[ShemaID]"
 
-
 ```
 bild (genererad med chatGPT) för illustrera:
 +----------------------+   +-------------------------+
@@ -74,11 +73,11 @@ Skola24as API är odkumenterad så jag var tvungen att "reverse-engeneer"a delar
 
 ### Vad jag hittade
 
-För att hämta schema ifrån Skola24a behöver man göra tre api anrop. Dessa kommer ge cors erros om de görs av webläsaren, så man är tjungen att göra de på backenden. [Min end point](src/app/api/[kommun]/[skola]/[schema-id]/route.ts)
+För att hämta schema ifrån Skola24a behöver man göra tre api anrop. Dessa kommer ge cors erros om de görs av webläsaren, så man är tjungen att göra de på backenden.
 
-Jag har bara implementerat Älmhult, men det borde vara ganska enkelt att byta kommun.
+Jag har bara implementerat Älmhult, men det borde vara ganska enkelt att byta komun.
 
-#### [1. Först behöver man hämta en "signatur"](src/app/api/utils/getSignature.ts)
+#### [1. Först behöver man hämta en "signatur"](src/utils/scheduleFetching/getSignature.ts)
 
 **Endpoint**: https://web.skola24.se/api/encrypt/signature
 
@@ -93,7 +92,7 @@ Jag har bara implementerat Älmhult, men det borde vara ganska enkelt att byta k
 
 - "signature" : "[schemaID]"
 
-#### [2. Sedan behöver man hämta en "key"](src/app/api/utils/getKey.ts)
+#### [2. Sedan behöver man hämta en "key"](src/utils/scheduleFetching/getKey.ts)
 
 **Endpoint**: https://web.skola24.se/api/get/timetable/render/key
 
@@ -110,7 +109,7 @@ Denna request fungerar _inte_ med en javascripts fetch, man behöver axios eller
 
 Bodyn _måste_ inkluderas trots att den är tom
 
-#### [3. Sedan är det dags att hämta schemat](src/app/api/utils/getTimetable.ts)
+#### [3. Sedan är det dags att hämta schemat](src/app/[kommun]/[skola]/[schema-id]/fetchSchedule.ts)
 
 **Endpoint**: https://web.skola24.se/api/render/timetable
 
@@ -121,7 +120,7 @@ Bodyn _måste_ inkluderas trots att den är tom
 - "Content-Type": "application/json",
 - "X-Scope": "8a22163c-8662-4535-9050-bc5e1923df48",
 
-**Body**:
+**body**:
 
 - renderKey: ["key", ifrån steg 2],
 - selection: ["signatur", ifrån steg 1],
@@ -145,7 +144,11 @@ Bodyn _måste_ inkluderas trots att den är tom
 
 Se källkoden för att få "unitGuid" för din skola, och andra detailer.
 
-- [getUnitGuidFromSkola.ts](src/app/api/utils/getUnitGuidFromSkola.ts)
+Här är min implementation av API anropen:
+
+[Mapp med util funktioner för att hämta "pussel bitarna" (signatur och key)](src/utils/scheduleFetching)
+
+[Fil som sätter ihop "pussel bitarna"](src/app/[kommun]/[skola]/[schema-id]/fetchSchedule.ts)
 
 ## Hosting
 

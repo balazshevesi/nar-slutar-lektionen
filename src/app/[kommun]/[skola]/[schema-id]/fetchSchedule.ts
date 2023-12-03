@@ -12,11 +12,11 @@ export interface FetchSchedule {
 export default async function fetchSchedule(options: FetchSchedule) {
   revalidatePath("/");
   const unitGuid = await getUnitGuidFromSkola(
-    decodeURI(options.schedule.skola),
+    decodeURIComponent(options.schedule.skola),
   );
-  const komun = decodeURI(options.schedule.komun);
-  const skola = decodeURI(options.schedule.skola);
-  const schemaId = decodeURI(options.schedule.schemaId);
+  const komun = decodeURIComponent(options.schedule.komun);
+  const skola = decodeURIComponent(options.schedule.skola);
+  const schemaId = decodeURIComponent(options.schedule.schemaId);
   const year = options.date.year;
   const week = options.date.week;
   const dayOfTheWeek = options.date.dayOfTheWeek;

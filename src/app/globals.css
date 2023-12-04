@@ -22,3 +22,30 @@
 .heroicon-sw-1\.2 path {
   stroke-width: 1.2 !important;
 }
+
+@keyframes onLoadFavNavKeyFrame {
+  from {
+    scale: 0;
+    transform-origin: bottom;
+  }
+  to {
+    scale: 1;
+    transform-origin: bottom;
+  }
+}
+.AnimateOnLoadFavNav {
+  animation: onLoadFavNavKeyFrame 200ms ease-in-out;
+}
+
+@keyframes onLoadKeyFrame {
+  from {
+    scale: 0;
+  }
+  to {
+    scale: 1;
+  }
+}
+
+.AnimateOnLoadKeyFrame {
+  animation: onLoadKeyFrame 100ms ease-in-out;
+}

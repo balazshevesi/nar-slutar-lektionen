@@ -19,7 +19,7 @@ import { setCookie } from "../../utils/client/cookeis";
 import { deleteCookie } from "../../utils/client/cookeis";
 import { arrayMoveImmutable } from "array-move";
 
-interface Entry {
+export interface Entry {
   kod: string;
   namn: string;
   pathname: string;
@@ -38,7 +38,6 @@ export default function FavNav() {
   );
   const currentCode = pathname.split("/")[3];
   const [isOpen, setIsOpen] = useState(false);
-  const [selecteTab, setSelecteTab] = useState("Favoriter");
 
   const currentAdressIsAlredyFav = (() => {
     return (
@@ -56,7 +55,14 @@ export default function FavNav() {
     const superFavPathname = favoriterState.filter((item) => item.default);
     superFavPathname.length === 0 && deleteCookie("superFav");
     superFavPathname.length > 0 &&
-      setCookie("superFav", encodeURI(superFavPathname[0].pathname));
+      setCookie(
+        "superFav",
+        JSON.stringify({
+          pathname: encodeURI(superFavPathname[0].pathname),
+          kod: superFavPathname[0].kod,
+          namn: superFavPathname[0].namn,
+        }),
+      );
   }, [favoriterState]);
 
   const handleAddFav = () => {
@@ -262,7 +268,7 @@ export default function FavNav() {
     <div
       className={`${
         isOpen ? "translate-y-0" : "translate-y-[calc(100%-66px)]"
-      } bottom fixed bottom-0 z-50 mx-auto w-full justify-end px-2 transition-all lg:right-4 lg:w-[24rem]`}
+      } bottom AnimateOnLoadFavNav fixed bottom-0 z-50 mx-auto w-full justify-end px-2 transition-all lg:right-4 lg:w-[24rem]`}
     >
       <div className="mx-auto mr-auto flex max-w-sm flex-col rounded-t-xl shadow">
         <button

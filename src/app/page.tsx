@@ -1,7 +1,13 @@
+import dynamic from "next/dynamic";
+
 import Section from "@/components/layout/Section";
 
 import NavigateBtn from "../components/NavigateBtn";
 import Bread from "../components/layout/Bread";
+
+const SuperFavRedirect = dynamic(() => import("./SuperFavRedirect"), {
+  ssr: false,
+});
 
 export default function Home() {
   return (
@@ -13,6 +19,7 @@ export default function Home() {
           <NavigateBtn namn="Älmhult" routeName="/Älmhult" />
         </div>
       </Section>
+      <SuperFavRedirect />
     </>
   );
 }

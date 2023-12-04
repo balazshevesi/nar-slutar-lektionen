@@ -3,7 +3,7 @@ import Link from "next/link";
 
 import { ChevronRightIcon } from "@heroicons/react/24/outline";
 
-export default function Bread() {
+export default function TopNav() {
   const headersList = headers();
   const pathname = headersList.get("x-pathname") || "";
   const kommun = pathname.split("/")[1];

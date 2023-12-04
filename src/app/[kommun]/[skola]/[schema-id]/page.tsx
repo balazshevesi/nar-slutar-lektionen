@@ -1,9 +1,9 @@
 import { Suspense } from "react";
 
 import BouncingText from "@/components/BouncingText";
-import Bread from "@/components/layout/Bread";
 import GlobalLoadingPage from "@/components/layout/GlobalLoadingPage";
 import Section from "@/components/layout/Section";
+import TopNav from "@/components/layout/TopNav";
 
 import CountDown from "./page-components/CountDown";
 
@@ -18,7 +18,7 @@ export default function Page({
 
   return (
     <>
-      <Bread />
+      <TopNav />
       <Section>
         <Suspense
           fallback={

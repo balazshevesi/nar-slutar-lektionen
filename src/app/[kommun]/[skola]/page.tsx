@@ -2,8 +2,8 @@
 import { Suspense } from "react";
 
 import BouncingText from "@/components/BouncingText";
-import Bread from "@/components/layout/Bread";
 import Section from "@/components/layout/Section";
+import TopNav from "@/components/layout/TopNav";
 
 import KlassLista from "./KlassLista";
 import AngeSchemaID from "@/app/[kommun]/[skola]/AngeSchemaID";
@@ -18,7 +18,7 @@ export default function Page({
 
   return (
     <>
-      <Bread />
+      <TopNav />
       <Section>
         <AngeSchemaID skola={skola} />
         <div className=" mt-8 flex flex-col items-center gap-2">

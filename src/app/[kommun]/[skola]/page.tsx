@@ -1,9 +1,10 @@
 // import { revalidatePath } from "next/cache";
 import { Suspense } from "react";
 
-import BouncingText from "@/components/BouncingText";
+import Title2 from "@/components/general/Title2";
 import Section from "@/components/layout/Section";
 import TopNav from "@/components/layout/TopNav";
+import BouncingText from "@/components/special/BouncingText";
 
 import KlassLista from "./KlassLista";
 import AngeSchemaID from "@/app/[kommun]/[skola]/AngeSchemaID";
@@ -18,12 +19,12 @@ export default function Page({
 
   return (
     <>
-      <TopNav />
       <Section>
         <AngeSchemaID skola={skola} />
-        <div className=" mt-8 flex flex-col items-center gap-2">
+        <div className=" mt-12 flex w-full flex-col items-center gap-2">
+          <Title2>Eller välj schema:</Title2>
           <div
-            className=" text-center text-sm opacity-70"
+            className=" pb-4 text-center text-sm opacity-70"
             //@ts-ignore
             style={{ textWrap: "balance" }}
           >

@@ -6,9 +6,11 @@ import { useState } from "react";
 
 import { getCookie } from "@/utils/client/cookeis";
 
-import NavigateBtn from "@/components/NavigateBtn";
+import NavigateBtn from "@/components/general/NavigateBtn";
+import Section from "@/components/layout/Section";
 
 import { useInterval } from "usehooks-ts";
+import Title2 from "@/components/general/Title2";
 
 export default function SuperFavRedirect() {
   const [superFavString, setSuperFavString] = useState(getCookie("superFav"));
@@ -26,10 +28,10 @@ export default function SuperFavRedirect() {
       // >
       //   gå till &quot;{superFav.namn}&quot; ?
       // </Link>
-      <div className=" mx-auto w-fit">
-        <h2 className="mb-2 text-center text-lg font-medium">Din favorit:</h2>
+      <Section>
+        <Title2>Din favorit:</Title2>
         <NavigateBtn routeName={superFav.pathname} namn={"" + superFav.namn} />
-      </div>
+      </Section>
     );
   else return null;
 }

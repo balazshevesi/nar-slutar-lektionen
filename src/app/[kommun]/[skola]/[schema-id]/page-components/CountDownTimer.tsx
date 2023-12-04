@@ -2,6 +2,8 @@
 
 import React, { useState, useEffect } from "react";
 
+import Title2 from "@/components/general/Title2";
+
 import { metadataGlobal } from "../../../../../metadata";
 
 // import { metadata } from "../layout";
@@ -84,9 +86,9 @@ export default function CountdownTimer({
 
   return (
     <div>
-      <h2 className=" text-xl">
+      <Title2 className="text-xl">
         {isCurrentLesson ? "Lektionen slutar om" : "Nästa lektion börjar om"}
-      </h2>
+      </Title2>
       <br />
       <div>{formatTimeUnit(timeLeft.days, "dag", "dagar")}</div>
       <div>{formatTimeUnit(timeLeft.hours, "timme", "timmar")}</div>

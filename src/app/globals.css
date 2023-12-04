@@ -49,3 +49,16 @@
 .AnimateOnLoadKeyFrame {
   animation: onLoadKeyFrame 100ms ease-in-out;
 }
+
+@keyframes onLoadKeyFrame {
+  from {
+    scale: 0;
+  }
+  to {
+    scale: 1;
+  }
+}
+
+.AnimateOnLoadKeyFrame {
+  animation: onLoadKeyFrame 100ms ease-in-out;
+}

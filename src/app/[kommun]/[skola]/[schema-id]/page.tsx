@@ -1,9 +1,9 @@
 import { Suspense } from "react";
 
-import BouncingText from "@/components/BouncingText";
 import GlobalLoadingPage from "@/components/layout/GlobalLoadingPage";
 import Section from "@/components/layout/Section";
 import TopNav from "@/components/layout/TopNav";
+import BouncingText from "@/components/special/BouncingText";
 
 import CountDown from "./page-components/CountDown";
 
@@ -18,7 +18,6 @@ export default function Page({
 
   return (
     <>
-      <TopNav />
       <Section>
         <Suspense
           fallback={

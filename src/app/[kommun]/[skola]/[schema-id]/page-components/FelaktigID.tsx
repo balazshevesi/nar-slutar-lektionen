@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import NavigateBtn from "../../../../../components/NavigateBtn";
+import NavigateBtn from "../../../../../components/general/NavigateBtn";
 
 export default function FelaktigID({
   komun,

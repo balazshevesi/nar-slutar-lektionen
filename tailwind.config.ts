@@ -25,6 +25,9 @@ const config: Config = {
     "flex",
   ],
 
-  plugins: [require("tailwindcss-animation-delay")],
+  plugins: [
+    require("tailwindcss-animation-delay"),
+    require("tailwindcss-animated"),
+  ],
 };
 export default config;

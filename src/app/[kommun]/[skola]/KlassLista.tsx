@@ -1,7 +1,7 @@
 import sleep from "@/utils/debug/sleep";
 import getUnitGuidFromSkola from "@/utils/scheduleFetching/getUnitGuidFromSkola";
 
-import NavigateBtn from "@/components/NavigateBtn";
+import NavigateBtn from "@/components/general/NavigateBtn";
 
 import fetchKlassLista from "./fetchKlassLista";
 

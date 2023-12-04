@@ -50,19 +50,6 @@ export default function FavNav() {
   useEffect(() => {
     //local storage sync
     localStorage.setItem("favoriter", JSON.stringify(favoriterState));
-
-    //cookies sync
-    const superFavPathname = favoriterState.filter((item) => item.default);
-    superFavPathname.length === 0 && deleteCookie("superFav");
-    superFavPathname.length > 0 &&
-      setCookie(
-        "superFav",
-        JSON.stringify({
-          pathname: encodeURI(superFavPathname[0].pathname),
-          kod: superFavPathname[0].kod,
-          namn: superFavPathname[0].namn,
-        }),
-      );
   }, [favoriterState]);
 
   const handleAddFav = () => {
@@ -83,30 +70,6 @@ export default function FavNav() {
       (item: Entry) => item.pathname !== itemThatWereRemovingFromFav.pathname,
     );
     confirmation && setFavoriterState(newFavs);
-  };
-
-  const handleSuperFav = (itemThatWereMakingSuperFav: Entry) => {
-    // Check if the superFav has changed
-    const superFavHasChanged = !favoriterState.some(
-      (item: Entry) =>
-        item.pathname === itemThatWereMakingSuperFav.pathname && item.default,
-    );
-    if (superFavHasChanged) {
-      const updatedFavs = favoriterState.map((item: Entry) => {
-        if (item.pathname === itemThatWereMakingSuperFav.pathname) {
-          return { ...item, default: true };
-        } else {
-          return { ...item, default: false };
-        }
-      });
-      setFavoriterState(updatedFavs);
-    } else {
-      const newFavs = favoriterState.map((item: Entry) => {
-        item.default = false;
-        return item;
-      });
-      setFavoriterState(newFavs);
-    }
   };
 
   const handleRename = (itemToRename: Entry) => {
@@ -216,16 +179,6 @@ export default function FavNav() {
           className=" items-center justify-center bg-white px-4 hover:bg-slate-100 dark:bg-black dark:hover:bg-slate-800"
         >
           <PencilIcon className="h-5 w-5" />
-        </button>
-        <button
-          className="items-center justify-center bg-white px-4 hover:bg-slate-100 dark:bg-black dark:hover:bg-slate-800"
-          onClick={() => handleSuperFav(item)}
-        >
-          {item.default ? (
-            <HeartIconSolid className="h-5 w-5" />
-          ) : (
-            <HeartIcon className="h-5 w-5" />
-          )}
         </button>
         <button
           onClick={() => handleRemoveFav(item)}

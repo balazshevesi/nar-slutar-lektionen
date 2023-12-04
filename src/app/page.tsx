@@ -6,10 +6,6 @@ import Section from "@/components/layout/Section";
 import NavigateBtn from "../components/general/NavigateBtn";
 import TopNav from "../components/layout/TopNav";
 
-const SuperFavRedirect = dynamic(() => import("./SuperFavRedirect"), {
-  ssr: false,
-});
-
 export default function Home() {
   return (
     <>
@@ -19,7 +15,6 @@ export default function Home() {
           <NavigateBtn namn="Älmhult" routeName="/Älmhult" />
         </div>
       </Section>
-      <SuperFavRedirect />
     </>
   );
 }

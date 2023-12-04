@@ -218,50 +218,46 @@ export default function FavNav() {
   }
 
   return (
-    <div className="  p-2">
-      <div
-        className={`${
-          isOpen ? "translate-y-0" : "translate-y-[calc(100%-66px)]"
-        } bottom fixed bottom-0 z-50 mx-auto w-full justify-end px-2 transition-transform lg:right-4 lg:w-[24rem]`}
-      >
-        <div className="mx-auto mr-auto flex max-w-sm animate-fade-up flex-col rounded-t-xl shadow animate-duration-[400ms] animate-once animate-ease-out">
-          <button
-            onClick={() => {
-              setIsOpen(!isOpen);
-              closeAllMenues();
-            }}
-            className="relative z-10 flex w-full items-center justify-center gap-1 overflow-hidden rounded-t-xl border border-slate-100 bg-gradient-to-t from-slate-100 to-white py-5 text-center outline-2 outline-offset-2 outline-primary focus:outline dark:border-slate-700 dark:bg-gradient-to-t dark:from-slate-800 dark:to-slate-900 [&>svg]:hover:w-5"
-          >
-            <p>Genvägar</p>{" "}
-            <ChevronUpIcon
-              className={`${
-                isOpen && "rotate-180"
-              } h-5 w-5 transition-transform`}
-            />
-          </button>
-          <nav className="relative z-0 bg-slate-100 p-4 dark:bg-slate-800">
-            {currentCode && !currentAdressIsAlredyFav && (
-              <button
-                onClick={handleAddFav}
-                className="mb-4 flex w-full items-center justify-center gap-2 rounded-lg bg-white py-1 text-center shadow dark:bg-black"
-              >
-                <p>Lägg till &quot;{currentCode}&quot;</p>
-                <PlusIcon className="h-5 w-5" />
-              </button>
+    <div
+      className={`${
+        isOpen ? "translate-y-0" : "translate-y-[calc(100%-66px)]"
+      } fixed bottom-0 z-50 mx-auto w-full justify-center px-2  transition-transform lg:right-4 lg:w-[24rem]`}
+    >
+      <div className="mx-auto max-w-md animate-fade-up flex-col rounded-t-xl  shadow animate-duration-[400ms] animate-once animate-ease-out">
+        <button
+          onClick={() => {
+            setIsOpen(!isOpen);
+            closeAllMenues();
+          }}
+          className="relative z-10 flex w-full items-center justify-center gap-1 overflow-hidden rounded-t-xl border border-slate-100 bg-gradient-to-t from-slate-100 to-white py-5 text-center outline-2 outline-offset-2 outline-primary focus:outline dark:border-slate-700 dark:bg-gradient-to-t dark:from-slate-800 dark:to-slate-900 [&>svg]:hover:w-5"
+        >
+          <p>Genvägar</p>{" "}
+          <ChevronUpIcon
+            className={`${isOpen && "rotate-180"} h-5 w-5 transition-transform`}
+          />
+        </button>
+        <nav className="relative z-0 bg-slate-100 p-4 dark:bg-slate-800">
+          {currentCode && !currentAdressIsAlredyFav && (
+            <button
+              onClick={handleAddFav}
+              className="mb-4 flex w-full items-center justify-center gap-2 rounded-lg bg-white py-1 text-center shadow dark:bg-black"
+            >
+              <p>Lägg till &quot;{currentCode}&quot;</p>
+              <PlusIcon className="h-5 w-5" />
+            </button>
+          )}
+          <ul className="relative mt-4 flex max-h-[40dvh] flex-col gap-2 overflow-auto border-y-2 border-slate-200 px-1 py-4 dark:border-slate-700">
+            {favoriterState!.map((item: any) => {
+              return <ListItem key={item.pathname} item={item} />;
+            })}
+            {favoriterState.length === 0 && (
+              <li className=" text-center text-slate-500">
+                Det ser ganska tomt ut här :( <br /> <br />
+                Gå till ett schema för att kunna lägga till genvägar
+              </li>
             )}
-            <ul className="relative mt-4 flex max-h-[40dvh] flex-col gap-2 overflow-auto border-y-2 border-slate-200 px-1 py-4 dark:border-slate-700">
-              {favoriterState!.map((item: any) => {
-                return <ListItem key={item.pathname} item={item} />;
-              })}
-              {favoriterState.length === 0 && (
-                <li className=" text-center text-slate-500">
-                  Det ser ganska tomt ut här :( <br /> <br />
-                  Gå till ett schema för att kunna lägga till genvägar
-                </li>
-              )}
-            </ul>
-          </nav>
-        </div>
+          </ul>
+        </nav>
       </div>
     </div>
   );

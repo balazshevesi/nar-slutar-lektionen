@@ -224,13 +224,13 @@ export default function FavNav() {
           isOpen ? "translate-y-0" : "translate-y-[calc(100%-66px)]"
         } bottom fixed bottom-0 z-50 mx-auto w-full justify-end px-2 transition-transform lg:right-4 lg:w-[24rem]`}
       >
-        <div className="animate-fade-up animate-once animate-duration-[400ms] animate-ease-out mx-auto mr-auto flex max-w-sm flex-col rounded-t-xl shadow">
+        <div className="mx-auto mr-auto flex max-w-sm animate-fade-up flex-col rounded-t-xl shadow animate-duration-[400ms] animate-once animate-ease-out">
           <button
             onClick={() => {
               setIsOpen(!isOpen);
               closeAllMenues();
             }}
-            className="relative z-10 flex w-full items-center justify-center gap-1 overflow-hidden rounded-t-xl border border-slate-100 bg-gradient-to-t from-slate-100 to-white py-5 text-center outline-2 outline-offset-2 focus:outline dark:border-slate-700 dark:bg-gradient-to-t dark:from-slate-800 dark:to-slate-900 [&>svg]:hover:w-5"
+            className="relative z-10 flex w-full items-center justify-center gap-1 overflow-hidden rounded-t-xl border border-slate-100 bg-gradient-to-t from-slate-100 to-white py-5 text-center outline-2 outline-offset-2 outline-primary focus:outline dark:border-slate-700 dark:bg-gradient-to-t dark:from-slate-800 dark:to-slate-900 [&>svg]:hover:w-5"
           >
             <p>Genvägar</p>{" "}
             <ChevronUpIcon

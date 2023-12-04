@@ -36,7 +36,7 @@ export default function TopNav() {
     //   Välkommen till{" "}
     //   <span className="font-mono underline">när-slutar-lektionen.net</span>
     // </div>
-    <div className="sticky top-0 z-50 w-full gap-1 overflow-hidden border-b border-slate-100 bg-gradient-to-t from-slate-100 to-white py-4 shadow-md outline-2 outline-offset-2 outline-slate-400 focus:outline dark:border-slate-700 dark:from-slate-800 dark:to-slate-900 dark:text-white dark:outline-slate-500 [&>svg]:hover:w-5">
+    <div className="sticky top-0 z-50 w-full gap-1 overflow-hidden border-b border-slate-100 bg-gradient-to-t from-slate-100 to-white py-4 shadow-md  dark:border-slate-700 dark:from-slate-800 dark:to-slate-900 dark:text-white [&>svg]:hover:w-5">
       <div className=" relative mx-auto flex max-w-5xl items-end overflow-auto whitespace-nowrap px-6 text-sm">
         <span className="font-mono text-base underline">
           <Link href="/">när-slutar-lektionen.net</Link>

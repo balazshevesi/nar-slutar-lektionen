@@ -33,7 +33,7 @@ export default function RootLayout({
         <body className={`${inter.className} ${isDarkMode && "dark"}`}>
           <div
             className={
-              "h-[100dvh] w-full overflow-auto bg-white text-black selection:bg-sky-600/50 dark:bg-black dark:text-white dark:selection:bg-purple-600/50"
+              "h-[100dvh] w-full overflow-auto bg-gradient-to-tr from-white to-slate-200 text-black selection:bg-sky-600/50 dark:from-slate-800 dark:to-black dark:text-white dark:selection:bg-purple-600/50"
             }
           >
             <TopNav />

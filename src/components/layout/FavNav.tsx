@@ -230,7 +230,7 @@ export default function FavNav() {
               setIsOpen(!isOpen);
               closeAllMenues();
             }}
-            className="relative z-10 flex w-full items-center justify-center gap-1 overflow-hidden rounded-t-xl border border-slate-100 bg-gradient-to-t from-slate-100 to-white py-5 text-center outline-2 outline-offset-2 outline-slate-400 focus:outline dark:border-slate-700 dark:bg-gradient-to-t dark:from-slate-800 dark:to-slate-900 dark:outline-slate-500 [&>svg]:hover:w-5"
+            className="relative z-10 flex w-full items-center justify-center gap-1 overflow-hidden rounded-t-xl border border-slate-100 bg-gradient-to-t from-slate-100 to-white py-5 text-center outline-2 outline-offset-2 focus:outline dark:border-slate-700 dark:bg-gradient-to-t dark:from-slate-800 dark:to-slate-900 [&>svg]:hover:w-5"
           >
             <p>Genvägar</p>{" "}
             <ChevronUpIcon

@@ -8,7 +8,11 @@ const config: Config = {
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        primary: "#a855f7",
+      },
+    },
   },
   safelist: [
     "animation-delay-none",

@@ -156,10 +156,11 @@ För hosting använder jag AWS amplify, med _nästan_ default inställningarna f
 
 ## TODO
 
+- [ ] Lägg till flera komuner?
+
 - [x] Standardisera layouted med componenter typ
 - [x] Bestäm URL, sedan köp (.net eller .se ???)
 - [x] Fixa finare loading screens
-
 - [x] Fixa bread crums så att den är med i layout.tsx, för snyggare loading states (de hadde behövt vara klient komponenter om de är med i layout (annars updaterar den inte sig mellan route updateringar), så jag valde att inte göra det)
 - [x] Fixa så att det händer nått när countdownen når 0 (typ ladda om fliken)
 - [x] Fixa så att man kan flytta favoriterna upp och ner

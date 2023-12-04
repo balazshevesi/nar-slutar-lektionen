@@ -19,7 +19,7 @@ export default function Title2({
       {children}
       <div
         aria-hidden
-        className=" mt-2 h-0.5 w-full rounded-full bg-slate-100 dark:bg-slate-800"
+        className=" mt-2 h-0.5 w-full rounded-full bg-slate-200 dark:bg-slate-800"
       ></div>
     </h2>
   );

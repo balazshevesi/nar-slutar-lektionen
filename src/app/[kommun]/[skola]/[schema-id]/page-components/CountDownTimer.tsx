@@ -41,7 +41,9 @@ export default function CountdownTimer({
     const nowAdjusted = new Date(now.getTime() - timeOffsetInMS);
     const difference = targetDate.getTime() - nowAdjusted.getTime();
 
-    if (!Math.round(difference / 1000)) document.location.reload();
+    //* refresh window
+    if (!Math.round(difference / 1000))
+      setInterval(() => document.location.reload(), 1000);
 
     if (difference > 0) {
       const days = Math.floor(difference / (1000 * 60 * 60 * 24));

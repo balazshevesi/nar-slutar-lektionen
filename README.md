@@ -124,7 +124,7 @@ Bodyn _måste_ inkluderas trots att den är tom
 
 - renderKey: ["key", ifrån steg 2],
 - selection: ["signatur", ifrån steg 1],
-- scheduleDay: [vecko dag, 1 = måndag, 5 = fredag, ger error på 6 och 7],
+- scheduleDay: [vecko dag, 1 = måndag, 5 = fredag, ger error på 6 och 7, 0 verkar ge hela veckan],
 - week: [vecka],
 - year: [år],
 - host: [kommunens skola24 adress. för Älmhult är det: "almhult.skola24.se"],

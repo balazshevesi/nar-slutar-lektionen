@@ -6,7 +6,7 @@ import removeQuotes from "@/utils/removeQoutes";
 import fetchSchedule from "../fetchSchedule";
 import { FetchSchedule } from "../fetchSchedule";
 import CountdownTimer from "./CountDownTimer";
-import FelaktigID from "@/app/[kommun]/[skola]/[schema-id]/page-components/FelaktigID";
+import FelaktigtID from "@/app/[kommun]/[skola]/[schema-id]/page-components/FelaktigtID";
 
 export interface CountDownInterface {
   komun: string;
@@ -132,7 +132,7 @@ export default async function CountDown({
 
   let schedule = await getValidSchedule(todaysDate);
   if (schedule === "Felaktigt ID") {
-    return <FelaktigID komun={komun} skola={skola} />;
+    return <FelaktigtID komun={komun} skola={skola} />;
   } else if (schedule === "couldn't find any lessons for the comming 7 days") {
     return <div>Det ser ut som att du har lov!</div>;
   }
@@ -151,7 +151,7 @@ export default async function CountDown({
     nextDay.setHours(1, 0, 0, 0);
     schedule = await getValidSchedule(nextDay);
     if (schedule === "Felaktigt ID") {
-      return <FelaktigID komun={komun} skola={skola} />;
+      return <FelaktigtID komun={komun} skola={skola} />;
     } else if (
       schedule === "couldn't find any lessons for the comming 7 days"
     ) {

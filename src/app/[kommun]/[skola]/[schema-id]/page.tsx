@@ -1,8 +1,6 @@
 import { Suspense } from "react";
 
-import GlobalLoadingPage from "@/components/layout/GlobalLoadingPage";
 import Section from "@/components/layout/Section";
-import TopNav from "@/components/layout/TopNav";
 import BouncingText from "@/components/special/BouncingText";
 
 import CountDown from "./page-components/CountDown";
@@ -12,9 +10,9 @@ export default function Page({
 }: {
   params: { kommun: string; skola: string; "schema-id": string };
 }) {
-  const komun = params.kommun;
-  const skola = params.skola;
-  const schemaId = params["schema-id"];
+  const komun = decodeURIComponent(params.kommun);
+  const skola = decodeURIComponent(params.skola);
+  const schemaId = decodeURIComponent(params["schema-id"]);
 
   return (
     <>

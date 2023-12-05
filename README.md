@@ -156,7 +156,10 @@ För hosting använder jag AWS amplify, med _nästan_ default inställningarna f
 
 ## TODO
 
-- [ ] Lägg till flera komuner?
+- [ ] Lägg till flera komuner? (behöver lägga till nån typ av sök funktion isåfall) (det ser ju ut som att VARENDA komun i sverige har skola24 scheman, så det blir nog bara att kötta in en fet lista med de)
+- [ ] Kötta upp reklamer dock??? lär endå bli lite pengar
+- [ ] Göra "schoolYear" värdet dynamiskt, (det ändras varje skol år)
+- [ ] Kanske tom göra den till en komplet skola24 schema viewer typp
 
 - [x] Standardisera layouted med componenter typ
 - [x] Bestäm URL, sedan köp (.net eller .se ???)

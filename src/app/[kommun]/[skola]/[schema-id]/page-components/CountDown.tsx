@@ -1,7 +1,7 @@
 import addDaysToDate from "@/utils/addDaysToDate";
 import getCurrentWeekNumber from "@/utils/getCurrentWeekNumber";
 import getNextMondayIfWeekend from "@/utils/getNextMondayIfWeekend";
-import removeQuotes from "@/utils/removeQoutes";
+import removeQuotes from "@/utils/sanitize/removeQoutes";
 
 import fetchSchedule from "../fetchSchedule";
 import { FetchSchedule } from "../fetchSchedule";
@@ -94,7 +94,7 @@ export default async function CountDown({
 
   todaysDate.setHours(
     todaysDate.getHours() + Number(removeQuotes(process.env.ADJUST_TIME!)),
-  ); //correct by .env
+  ); //correct by .env (the server could have a different time than the swedish time)
 
   //TODO abstract and write test
   async function getValidSchedule(

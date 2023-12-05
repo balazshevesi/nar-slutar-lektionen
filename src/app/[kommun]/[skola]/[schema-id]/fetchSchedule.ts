@@ -12,6 +12,7 @@ export interface FetchSchedule {
 export default async function fetchSchedule(options: FetchSchedule) {
   revalidatePath("/");
   const unitGuid = await getUnitGuidFromSkola(
+    decodeURIComponent(options.schedule.komun),
     decodeURIComponent(options.schedule.skola),
   );
   const komun = decodeURIComponent(options.schedule.komun);
@@ -21,28 +22,23 @@ export default async function fetchSchedule(options: FetchSchedule) {
   const week = options.date.week;
   const dayOfTheWeek = options.date.dayOfTheWeek;
 
-  /**
-   * * hard coded for älmhult
-   *   TODO make dynamic
-   * */
+  const signature = await getSignature(schemaId);
+  const key = await getKey();
+  const timetable = await getTimetable(
+    komun,
+    signature,
+    key,
+    year,
+    week,
+    dayOfTheWeek,
+    unitGuid,
+  );
+  try {
+    const schemaIDIsInvalid =
+      timetable.validation[0].message === "Felaktigt ID";
+    if (schemaIDIsInvalid) return "Felaktigt ID";
+  } catch {}
+  console.log("timetable", timetable);
 
-  let timetable;
-  if (komun === "Älmhult") {
-    const signature = await getSignature(schemaId);
-    const key = await getKey();
-    timetable = await getTimetable(
-      signature,
-      key,
-      year,
-      week,
-      dayOfTheWeek,
-      unitGuid,
-    );
-    try {
-      const schemaIDIsInvalid =
-        timetable.validation[0].message === "Felaktigt ID";
-      if (schemaIDIsInvalid) return "Felaktigt ID";
-    } catch {}
-  }
   return { komun, skola, schemaId, timetable: timetable || null };
 }

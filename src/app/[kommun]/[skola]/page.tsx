@@ -14,8 +14,8 @@ export default function Page({
 }: {
   params: { kommun: string; skola: string };
 }) {
-  const kommun = params.kommun;
-  const skola = params.skola;
+  const komun = decodeURIComponent(params.kommun);
+  const skola = decodeURIComponent(params.skola);
 
   return (
     <>
@@ -38,7 +38,7 @@ export default function Page({
               </BouncingText>
             }
           >
-            <KlassLista skola={skola} />
+            <KlassLista komun={komun} skola={skola} />
           </Suspense>
         </div>
       </Section>

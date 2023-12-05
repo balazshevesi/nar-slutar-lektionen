@@ -13,6 +13,7 @@ export default async function fetchSkolor(hostName: string) {
     },
   );
   const data = await response.json();
+  console.log("data", JSON.stringify(data));
   const listOfUnits = data.data.getTimetableViewerUnitsResponse.units;
 
   return listOfUnits;

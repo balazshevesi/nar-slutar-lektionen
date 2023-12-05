@@ -1,10 +1,8 @@
-import dynamic from "next/dynamic";
-
 import Title2 from "@/components/general/Title2";
 import Section from "@/components/layout/Section";
 
 import NavigateBtn from "../components/general/NavigateBtn";
-import TopNav from "../components/layout/TopNav";
+import kommuner from "@/data/komuner";
 
 export default function Home() {
   return (
@@ -13,6 +11,15 @@ export default function Home() {
         <Title2>Välj din kommun:</Title2>
         <div className="flex w-full flex-col gap-2">
           <NavigateBtn namn="Älmhult" routeName="/Älmhult" />
+          {kommuner.map((item) => {
+            return (
+              <NavigateBtn
+                routeName={"/" + item.namn}
+                namn={item.namn}
+                key={item.namn}
+              />
+            );
+          })}
         </div>
       </Section>
     </>

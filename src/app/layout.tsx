@@ -25,7 +25,6 @@ export default function RootLayout({
   const isDarkMode = isDarkModeCookie
     ? JSON.parse(isDarkModeCookie?.value)
     : false;
-  console.log("isDarkMode", isDarkMode);
 
   return (
     <>

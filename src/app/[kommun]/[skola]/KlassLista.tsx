@@ -5,9 +5,16 @@ import NavigateBtn from "@/components/general/NavigateBtn";
 
 import fetchKlassLista from "./fetchKlassLista";
 
-export default async function KlassLista({ skola }: { skola: string }) {
-  const unitGuid = await getUnitGuidFromSkola(decodeURIComponent(skola));
-  const klassLista = await fetchKlassLista(unitGuid);
+export default async function KlassLista({
+  komun,
+  skola,
+}: {
+  komun: string;
+  skola: string;
+}) {
+  console.log("decodeURIComponent(skola)", decodeURIComponent(skola));
+  const unitGuid = await getUnitGuidFromSkola(komun, decodeURIComponent(skola));
+  const klassLista = await fetchKlassLista(komun, unitGuid);
   return klassLista.map((item: any, i: number) => {
     return (
       <NavigateBtn

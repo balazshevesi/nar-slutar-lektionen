@@ -21,7 +21,7 @@ export default function Page({
     <>
       <Section>
         <AngeSchemaID skola={skola} />
-        <div className=" mt-12 flex w-full flex-col items-center gap-2">
+        <div className=" mt-20 flex w-full flex-col items-center gap-2">
           <Title2>Eller välj schema:</Title2>
           <div
             className=" pb-4 text-center text-sm opacity-70"

@@ -2,6 +2,7 @@ import sleep from "@/utils/debug/sleep";
 import getUnitGuidFromSkola from "@/utils/scheduleFetching/getUnitGuidFromSkola";
 
 import NavigateBtn from "@/components/general/NavigateBtn";
+import ListContainer, { ListItem } from "@/components/layout/ListContainer";
 
 import fetchKlassLista from "./fetchKlassLista";
 
@@ -14,13 +15,15 @@ export default async function KlassLista({
 }) {
   const unitGuid = await getUnitGuidFromSkola(komun, decodeURIComponent(skola));
   const klassLista = await fetchKlassLista(komun, unitGuid);
-  return klassLista.map((item: any, i: number) => {
-    return (
-      <NavigateBtn
-        namn={item.groupName}
-        routeName={`./${skola}/${item.groupName}`}
-        key={item.groupName}
-      />
-    );
+
+  console.log("klassLista", klassLista);
+
+  const listItems: ListItem[] = klassLista.map((item: any) => {
+    const newItem = item;
+    newItem.route = `/${komun}/${skola}/${item.groupName}`;
+    newItem.namn = item.groupName;
+    return newItem;
   });
+
+  return <ListContainer listItems={listItems} stuff="klasser" />;
 }

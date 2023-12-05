@@ -19,11 +19,7 @@
 
 ### Server komponenter
 
-Appen utnyttjar next.js 14s app router. Appen har bara tre client komponenter, det är för att de _måste_ vara client side. Det är
-
-- "FavNav" (genvägarna)
-- "CountDownTimer" (timern)
-- "AngeSchemaID" (sök-input).
+Appen utnyttjar next.js 14s app router. All data fetching sker med hjälp av de. Det är bara de interaktiva grejerna som är klient komponenter
 
 ### Routingen
 

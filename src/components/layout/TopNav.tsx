@@ -31,19 +31,14 @@ export default function TopNav() {
   const schemaId = pathname.split("/")[3];
 
   return (
-    // <div className="p-2 pt-8 text-center italic text-slate-500">
-    //   <DarkModeToggle />
-    //   Välkommen till{" "}
-    //   <span className="font-mono underline">när-slutar-lektionen.net</span>
-    // </div>
-    <div className="sticky top-0 z-50 w-full gap-1 overflow-hidden border-b border-slate-100 bg-gradient-to-t from-slate-100 to-white py-4 shadow-md  dark:border-slate-700 dark:from-slate-800 dark:to-slate-900 dark:text-white [&>svg]:hover:w-5">
-      <div className=" relative mx-auto flex max-w-5xl items-end overflow-auto whitespace-nowrap px-6 text-sm">
+    <div className="sticky top-0 z-50 w-full gap-1 overflow-hidden border-b border-slate-100 bg-gradient-to-t from-slate-100 to-white shadow-md  dark:border-slate-700 dark:from-slate-800 dark:to-slate-900 dark:text-white [&>svg]:hover:w-5">
+      <div className=" relative mx-auto flex max-w-5xl items-end overflow-auto whitespace-nowrap px-6 py-5 text-sm">
         <span className="font-mono text-base underline">
           <Link href="/">när-slutar-lektionen.net</Link>
         </span>
         <div className="flex gap-2 px-4 font-medium">
           {komun && (
-            <div className="animate-fade-right animate-once animate-duration-[400ms] animate-ease-out flex items-center gap-2">
+            <div className="flex animate-fade-right items-center gap-2 animate-duration-[400ms] animate-once animate-ease-out">
               <ChevronRightIcon className="heroicon-sw-3 h-4 w-4 opacity-50" />
               <Link
                 href={`/${komun}`}
@@ -54,7 +49,7 @@ export default function TopNav() {
             </div>
           )}
           {skola && (
-            <div className="animate-fade-right animate-once animate-duration-[400ms] animate-ease-out flex items-center gap-2">
+            <div className="flex animate-fade-right items-center gap-2 animate-duration-[400ms] animate-once animate-ease-out">
               <ChevronRightIcon className="heroicon-sw-3 h-4 w-4 opacity-50" />
               <Link
                 href={`/${komun}/${skola}`}
@@ -65,7 +60,7 @@ export default function TopNav() {
             </div>
           )}
           {skola && schemaId && (
-            <div className="animate-fade-right animate-once animate-duration-[400ms] animate-ease-out flex items-center gap-2">
+            <div className="flex animate-fade-right items-center gap-2 animate-duration-[400ms] animate-once animate-ease-out">
               <ChevronRightIcon className="heroicon-sw-3 h-4 w-4 opacity-50" />
               <Link
                 href={`/${komun}/${skola}/${schemaId}`}

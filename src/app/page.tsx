@@ -1,26 +1,22 @@
 import Title2 from "@/components/general/Title2";
+import ListContainer, { ListItem } from "@/components/layout/ListContainer";
 import Section from "@/components/layout/Section";
 
 import NavigateBtn from "../components/general/NavigateBtn";
 import kommuner from "@/data/komuner";
 
 export default function Home() {
+  const listItems: ListItem[] = kommuner.map((item: any) => {
+    const newItem = item;
+    newItem.route = `/${item.namn}`;
+    return newItem;
+  });
+
   return (
     <>
       <Section>
         <Title2>Välj din kommun:</Title2>
-        <div className="flex w-full flex-col gap-2">
-          <NavigateBtn namn="Älmhult" routeName="/Älmhult" />
-          {kommuner.map((item) => {
-            return (
-              <NavigateBtn
-                routeName={"/" + item.namn}
-                namn={item.namn}
-                key={item.namn}
-              />
-            );
-          })}
-        </div>
+        <ListContainer autoFocus listItems={listItems} stuff="komuner" />
       </Section>
     </>
   );

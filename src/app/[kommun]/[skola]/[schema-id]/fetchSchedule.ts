@@ -1,6 +1,8 @@
 import { revalidatePath } from "next/cache";
 
+import { komunToSkola24 } from "@/utils/sanitize/komunToSkola24";
 import getKey from "@/utils/scheduleFetching/getKey";
+import getSchoolYear from "@/utils/scheduleFetching/getSchoolYear";
 import getSignature from "@/utils/scheduleFetching/getSignature";
 import getTimetable from "@/utils/scheduleFetching/getTimetable";
 import getUnitGuidFromSkola from "@/utils/scheduleFetching/getUnitGuidFromSkola";
@@ -22,9 +24,11 @@ export default async function fetchSchedule(options: FetchSchedule) {
   const week = options.date.week;
   const dayOfTheWeek = options.date.dayOfTheWeek;
 
+  const schoolYear = await getSchoolYear(`${komunToSkola24(komun)}.skola24.se`);
   const signature = await getSignature(schemaId);
   const key = await getKey();
   const timetable = await getTimetable(
+    schoolYear,
     komun,
     signature,
     key,

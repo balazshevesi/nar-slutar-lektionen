@@ -12,7 +12,6 @@ export default async function KlassLista({
   komun: string;
   skola: string;
 }) {
-  console.log("decodeURIComponent(skola)", decodeURIComponent(skola));
   const unitGuid = await getUnitGuidFromSkola(komun, decodeURIComponent(skola));
   const klassLista = await fetchKlassLista(komun, unitGuid);
   return klassLista.map((item: any, i: number) => {

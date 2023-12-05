@@ -1,6 +1,7 @@
 import { komunToSkola24 } from "../sanitize/komunToSkola24";
 
 export default async function getTimetable(
+  schoolYear: string,
   komun: string,
   signature: string,
   key: string,
@@ -27,7 +28,7 @@ export default async function getTimetable(
 
           host: `${komunToSkola24(komun)}.skola24.se`,
           unitGuid: unitGuid,
-          schoolYear: "bb76aa4b-03d4-4c97-83ca-5dc08bd00b1c", //! Hård kodat värde, det kommer vara något annat i ht 2024
+          schoolYear: schoolYear, //! Hård kodat värde, det kommer vara något annat i ht 2024
           startDate: null,
           endDate: null,
           blackAndWhite: false,

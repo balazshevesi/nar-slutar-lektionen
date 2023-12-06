@@ -20,9 +20,8 @@ export default async function getSchoolYear(hostName: string) {
     }
 
     const data = await response.json();
-    console.log("dataaaaaaa", data);
     return data.data.activeSchoolYears[0].guid;
   } catch (error) {
-    console.error("Error in getSignature:", error);
+    console.error("Error in getSchoolYear:", error);
   }
 }

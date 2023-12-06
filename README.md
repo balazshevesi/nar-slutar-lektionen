@@ -69,7 +69,7 @@ Skola24as API är odkumenterad så jag var tvungen att "reverse-engeneer"a delar
 
 ### Vad jag hittade
 
-För att hämta schema ifrån Skola24a behöver man göra tre api anrop. Dessa kommer ge cors erros om de görs av webläsaren, så man är tjungen att göra de på backenden.
+För att hämta schema ifrån Skola24a behöver man göra fyra api anrop. Dessa kommer ge cors erros om de görs av webläsaren, så man är tjungen att göra de på backenden.
 
 Jag har bara implementerat Älmhult, men det borde vara ganska enkelt att byta komun.
 
@@ -88,7 +88,24 @@ Jag har bara implementerat Älmhult, men det borde vara ganska enkelt att byta k
 
 - "signature" : "[schemaID]"
 
-#### [2. Sedan behöver man hämta en "key"](src/utils/scheduleFetching/getKey.ts)
+#### [2. Sedan behöver man hämta "schoolyear"](/src/utils/scheduleFetching/getSchoolYear.ts)
+
+**Endpoint**: https://web.skola24.se/api/get/active/school/years
+
+**Method**: post
+
+**Headers**:
+
+- "Content-Type": "application/json",
+- "X-Scope": "8a22163c-8662-4535-9050-bc5e1923df48",
+
+**body**:
+
+- "hostName" : "almhult.skola24.se" //byt ut "almhult" för din komun
+- "checkSchoolYearsFeatures" : false
+
+
+#### [3. Sedan behöver man hämta en "key"](src/utils/scheduleFetching/getKey.ts)
 
 **Endpoint**: https://web.skola24.se/api/get/timetable/render/key
 
@@ -105,7 +122,7 @@ Denna request fungerar _inte_ med en javascripts fetch, man behöver axios eller
 
 Bodyn _måste_ inkluderas trots att den är tom
 
-#### [3. Sedan är det dags att hämta schemat](src/app/[kommun]/[skola]/[schema-id]/fetchSchedule.ts)
+#### [4. Sedan är det dags att hämta schemat](src/app/[kommun]/[skola]/[schema-id]/fetchSchedule.ts)
 
 **Endpoint**: https://web.skola24.se/api/render/timetable
 
@@ -118,14 +135,14 @@ Bodyn _måste_ inkluderas trots att den är tom
 
 **body**:
 
-- renderKey: ["key", ifrån steg 2],
+- renderKey: ["key", ifrån steg 3],
 - selection: ["signatur", ifrån steg 1],
 - scheduleDay: [vecko dag, 1 = måndag, 5 = fredag, ger error på 6 och 7, 0 verkar ge hela veckan],
 - week: [vecka],
 - year: [år],
 - host: [kommunens skola24 adress. för Älmhult är det: "almhult.skola24.se"],
 - unitGuid: [ett id som representerar "skolan" eller "enheten", för Älmhult är det: "OTU1MGZkNTktZGYzMi1mMTRkLWJhZDUtYzI4YWI0MDliZGU3"],
-- schoolYear: [jag *tror* att det ska vara ett hård-kodat värde: "bb76aa4b-03d4-4c97-83ca-5dc08bd00b1c"],
+- schoolYear: [värdet ifrån steg 2],
 - startDate: null,
 - endDate: null,
 - blackAndWhite: false,

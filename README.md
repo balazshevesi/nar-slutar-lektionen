@@ -90,6 +90,8 @@ Jag har bara implementerat Älmhult, men det borde vara ganska enkelt att byta k
 
 #### [2. Sedan behöver man hämta "schoolyear"](/src/utils/scheduleFetching/getSchoolYear.ts)
 
+En schoolYear är som en typ av id för läsåret. Varje kommun har ett unikt schoolyear.
+
 **Endpoint**: https://web.skola24.se/api/get/active/school/years
 
 **Method**: post

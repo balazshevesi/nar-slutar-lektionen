@@ -53,19 +53,12 @@ export default function CountdownTimer({
       const minutes = Math.floor((difference / 1000 / 60) % 60);
       const seconds = Math.floor((difference / 1000) % 60);
 
-      document.title = `${formatTimeUnit(
-        days,
-        "dag",
-        "dagar",
-      )} ${formatTimeUnit(hours, "timme", "timmar")} ${formatTimeUnit(
-        minutes,
-        "minut",
-        "minuter",
-      )} ${formatTimeUnit(minutes, "minut", "minuter")} ${formatTimeUnit(
-        seconds,
-        "sekund",
-        "sekunder",
-      )}`;
+      //* docTitle
+      const docTitleDagar = formatTimeUnit(days, "dag", "dagar");
+      const docTitleTimmar = formatTimeUnit(hours, "timme", "timmar");
+      const docTitleMinuter = formatTimeUnit(minutes, "minut", "minuter");
+      const docTitleSekunder = formatTimeUnit(seconds, "sekund", "sekunder");
+      document.title = `${docTitleDagar} ${docTitleTimmar} ${docTitleMinuter} ${docTitleSekunder} `;
 
       setTimeLeft({ days, hours, minutes, seconds });
     } else {

@@ -168,25 +168,3 @@ Här är min implementation av API anropen:
 ## Hosting
 
 För hosting använder jag AWS amplify, med _nästan_ default inställningarna för next.js, jag har bara bytt build imagen till "Amazon Linux:2023 image" och laggt till " - nvm use 18" i build commands. Jag har gjort de ändringarna eftersom den inte ville bygga annars.
-
-## TODO
-
-- [ ] Lägg till flera komuner? (behöver lägga till nån typ av sök funktion isåfall) (det ser ju ut som att VARENDA komun i sverige har skola24 scheman, så det blir nog bara att kötta in en fet lista med de)
-- [ ] Kötta upp reklamer dock??? lär endå bli lite pengar
-- [ ] Göra "schoolYear" värdet dynamiskt, (det ändras varje skol år)
-- [ ] Kanske tom göra den till en komplet skola24 schema viewer typp
-
-- [x] Standardisera layouted med componenter typ
-- [x] Bestäm URL, sedan köp (.net eller .se ???)
-- [x] Fixa finare loading screens
-- [x] Fixa bread crums så att den är med i layout.tsx, för snyggare loading states (de hadde behövt vara klient komponenter om de är med i layout (annars updaterar den inte sig mellan route updateringar), så jag valde att inte göra det)
-- [x] Fixa så att det händer nått när countdownen når 0 (typ ladda om fliken)
-- [x] Fixa så att man kan flytta favoriterna upp och ner
-- [x] Make folder structure better
-- [x] Fix local storage ssr stuffs (fixed by diabling ssr)
-- [x] BUG fix servern är fuckaddd (funkar på render dock??, kanske borde setta upp nån api som jag kan "logga till" eftersom det typ är omöjligt att logga på amplify) (bug med date objekt)
-- [x] BUG FIX: när servern renderar CountDown komponenten så använder den inte samma tid som klienten (jag _tror_ att det är fixat nu, på render borde det fungera)
-- [x] Det ska egentligen gå att använda "/" i namn, man behöver bara encode:a namnet _först_, sedan lägga den i URLen
-- [x] Bug fix "/" i bread crums nav
-- [x] Fix prettier config, add import sort
-- [x] Bygga ut något "genväg" system som låter dig ha koll på de 5 senaste scheman du kollade på, och dina "favorit"-scheman, och låta dig välja ett "default"-schema, dit ska man bli redirectad om man går till base-url:en. Det blir nog bäst att lagra det i local storage (förutom "default"-schemat), cookies har en gräns på 4000 tecken, och om man lagrar hela adresser så kan det blir mycket.

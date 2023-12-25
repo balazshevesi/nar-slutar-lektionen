@@ -42,7 +42,6 @@ export default async function fetchSchedule(options: FetchSchedule) {
       timetable.validation[0].message === "Felaktigt ID";
     if (schemaIDIsInvalid) return "Felaktigt ID";
   } catch {}
-  console.log("timetable", timetable);
 
   return { komun, skola, schemaId, timetable: timetable || null };
 }

@@ -16,8 +16,6 @@ export default async function KlassLista({
   const unitGuid = await getUnitGuidFromSkola(komun, decodeURIComponent(skola));
   const klassLista = await fetchKlassLista(komun, unitGuid);
 
-  console.log("klassLista", klassLista);
-
   const listItems: ListItem[] = klassLista.map((item: any) => {
     const newItem = item;
     newItem.route = `/${komun}/${skola}/${item.groupName}`;

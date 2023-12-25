@@ -12,8 +12,6 @@ export default async function Page({ params }: { params: { kommun: string } }) {
 
   const listOfUnits = await fetchSkolor(`${komunToSkola24(komun)}.skola24.se`);
 
-  console.log("listOfUnits", listOfUnits);
-
   const listItems: ListItem[] = listOfUnits.map((item: any) => {
     const newItem = item;
     newItem.route = `/${komun}/${item.unitId}`;

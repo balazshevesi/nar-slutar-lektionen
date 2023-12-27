@@ -2,6 +2,36 @@
 
 "När slutar lektionen?" Är bland de vanligaste frågorna man ställer i skolan. Detta projekt ska besvara frågan. Det är en relativt enkel webb-app byggd med React och Next.js.
 
+OBS: Inte alla scheman fungerar korrekt eftersom att vissa skolor väljer att inte använda skola24s tjänster trots att de har köpt in de.
+
+## Hur man använder appen
+
+### Välj din kommun
+
+![hemskärm](/imgs/readme/pages/homescreen.png "hemskärm")
+
+### Välj din skola
+
+![välj din skola](/imgs/readme/pages/väljskola.png "välj din skola")
+
+### Ange ditt schema id
+
+![ange ditt schema id](/imgs/readme/pages/angeschemaid.png "ange ditt schema id")
+
+### Räkna ner
+
+![count down](/imgs/readme/pages/countdown.png "räkna ner")
+
+### Använd dark mode
+
+![count down i dark mode](/imgs/readme/pages/countdowndark.png "använd dark mode")
+
+### Svara schema i genvägar
+
+![genvägar tomt](/imgs/readme/widgets/genvägar/genvägartomt.png "svara schema i genvägar")
+
+![genvägar te21 tillagt](/imgs/readme/widgets/genvägar/genvägarte21.png "svara schema i genvägar")
+
 ## Stack
 
 ### Production dependencies
@@ -105,7 +135,6 @@ En schoolYear är som en typ av id för läsåret. Varje kommun har ett unikt sc
 
 - "hostName" : "almhult.skola24.se" //byt ut "almhult" för din komun
 - "checkSchoolYearsFeatures" : false
-
 
 #### [3. Sedan behöver man hämta en "key"](src/utils/scheduleFetching/getKey.ts)
 

@@ -26,13 +26,13 @@ OBS: Inte alla scheman fungerar korrekt eftersom att vissa skolor väljer att in
 
 ![count down i dark mode](/imgs/readme/pages/countdowndark.png "använd dark mode")
 
-### Svara schema i genvägar
+### Spara schema i genvägar
 
 ![genvägar tomt](/imgs/readme/widgets/genvägar/genvägartomt.png "svara schema i genvägar")
 
 ![genvägar te21 tillagt](/imgs/readme/widgets/genvägar/genvägarte21.png "svara schema i genvägar")
 
-## Stack
+## Tech-Stack
 
 ### Production dependencies
 
@@ -91,7 +91,7 @@ En annan lösning hade vart att flytta backenden till en server komponent (vilke
 
 #### Ny
 
-Jag tog bort API mappen (typ bara en fil). nu kör jag requesten i en serverkomponent istället.
+Jag tog bort API mappen (typ bara en fil). nu kör jag requestsen i serverkomponenter istället.
 
 ## skola24as API
 
@@ -197,3 +197,13 @@ Här är min implementation av API anropen:
 ## Hosting
 
 För hosting använder jag AWS amplify, med _nästan_ default inställningarna för next.js, jag har bara bytt build imagen till "Amazon Linux:2023 image" och laggt till " - nvm use 18" i build commands. Jag har gjort de ändringarna eftersom den inte ville bygga annars.
+
+## Projektplan and rapport
+
+Jag valde att bygga detta som ett projekt till kursen "teknik specialisering" (TEKTEK00S) [länk till skolverkets hemsida](https://www.skolverket.se/undervisning/gymnasieskolan/laroplan-program-och-amnen-i-gymnasieskolan/gymnasieprogrammen/program/gymnasieingenjor---vidareutbildning-i-form-av-ett-fjarde-tekniskt-ar;jsessionid=532015DC21C3C52A0D018832804C8BA9?url=-996270488%2Fsyllabuscw%2Fjsp%2Fsubject.htm%3FsubjectCode%3DTEK%26courseCode%3DTEKTEK00S%26lang%3D%26tos%3Dgy&sv.url=12.189c87ae1623366ff3738d9#anchor_TEKTEK00S)
+
+[Läs projektplanen](https://docs.google.com/document/d/1rBdQZsH2nr4DTf1uHy5NT9x7SsOZKTwEdwRVmA8y-Uo/edit?usp=sharing)
+
+[Läs rapporten](https://docs.google.com/document/d/1pqbqXavDd5imzPtROEYdAQcy4M8G9sKpvyfnodd--x8/edit?usp=sharing)
+
+OBS att jag försökte skriva rapporten med lite enklare språk så att även de som inte är insatta i programmering ska fatta.

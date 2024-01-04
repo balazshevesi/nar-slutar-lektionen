@@ -22,16 +22,28 @@ interface Lesson {
   timeEnd: string;
   dayOfWeekNumber: number;
   blockName: string;
-  timeStartDate?: Date;
-  timeEndDate?: Date;
 }
 
-function getCurrentOrNextLesson(lessons: Lesson[], todaysDate: Date) {
+interface LessonWithTimestamp extends Lesson {
+  timeStartDate: Date;
+  timeEndDate: Date;
+}
+
+/**
+ * given a list of lessons and todays date, will determine which
+ * lesson we're currently having, or the next one we will have
+ *
+ * here we could implement a way to handle overlapping lessons
+ */
+function determineCurrentOrNextLesson(
+  lessons: LessonWithTimestamp[],
+  todaysDate: Date,
+) {
   const now = new Date(todaysDate);
 
   for (const lesson of lessons) {
-    const startTime = new Date(lesson.timeStartDate!);
-    const endTime = new Date(lesson.timeEndDate!);
+    const startTime = new Date(lesson.timeStartDate);
+    const endTime = new Date(lesson.timeEndDate);
 
     if (now >= startTime && now <= endTime) {
       // Current lesson found
@@ -49,11 +61,14 @@ function getCurrentOrNextLesson(lessons: Lesson[], todaysDate: Date) {
       new Date(b.timeStartDate!).getTime(),
   );
 
-  const nextLesson = upcomingLessons.length > 0 ? upcomingLessons[0] : null;
+  const nextLesson = upcomingLessons[0];
 
   return { lesson: nextLesson, isCurrentLesson: false };
 }
 
+/**
+ * takes a list of lessons and maps js Dates objexts to them
+ */
 function mapDateToLessonTimes(date: Date, lessonInfo: Lesson[]) {
   const timeZoneOffset = date.getTimezoneOffset() * 60000; // Offset in milliseconds
 
@@ -77,17 +92,70 @@ function mapDateToLessonTimes(date: Date, lessonInfo: Lesson[]) {
       ...lesson,
       timeStartDate,
       timeEndDate,
-    };
+    } as LessonWithTimestamp;
   });
 
   return mapped;
 }
 
-export default async function CountDown({
-  komun,
-  skola,
-  schemaId,
-}: CountDownInterface) {
+/**
+ * returns the schedule that matches with the paramerts.
+ * if no lesson are found for the given day, it will recursively check the next and the next
+ */
+async function getValidSchedule(
+  todaysDate: Date,
+  recursionCount = 0,
+  komun: string,
+  skola: string,
+  schemaId: string,
+): Promise<
+  | "couldn't find any lessons for the comming 7 days"
+  | "Felaktigt ID"
+  | {
+      lessonInfo: Lesson[];
+      scheduleDate: Date;
+    }
+> {
+  //stops recursionCount
+  if (recursionCount > 7)
+    return "couldn't find any lessons for the comming 7 days";
+
+  //define scheduleDate, the js Date from which the schedule will be taken from
+  const intrementedScheduleDate = addDaysToDate(todaysDate, recursionCount);
+  const scheduleDate = getNextMondayIfWeekend(intrementedScheduleDate);
+
+  //define the options for the fetch we're gonna make
+  const options: FetchSchedule = {
+    schedule: { komun: komun, skola: skola, schemaId: schemaId },
+    date: {
+      year: intrementedScheduleDate.getFullYear(),
+      week: getCurrentWeekNumber(intrementedScheduleDate),
+      dayOfTheWeek: intrementedScheduleDate.getDay() || 7,
+    },
+  };
+
+  //fetch using the "fetchSchedule" utility function
+  const data = await fetchSchedule(options);
+  if (data == "Felaktigt ID") return "Felaktigt ID";
+
+  //if there is no lessonInfo, in other words, if there are no lessons for that day: get the nextday
+  if (!("timetable" in data) || !data.timetable.data.lessonInfo) {
+    return getValidSchedule(
+      todaysDate,
+      recursionCount + 1,
+      komun,
+      skola,
+      schemaId,
+    );
+  }
+  const lessonInfo = data.timetable.data.lessonInfo;
+  return { lessonInfo, scheduleDate };
+}
+
+/**
+ *  get todays date and adjust it based on the server time
+ */
+function getTodaysDate() {
   const now = new Date(); //creates new date object
   const timeOffsetInMS = now.getTimezoneOffset() * 60000;
   const todaysDate = new Date(now.getTime() - timeOffsetInMS); //corrects for the right timezon
@@ -95,78 +163,38 @@ export default async function CountDown({
   todaysDate.setHours(
     todaysDate.getHours() + Number(removeQuotes(process.env.ADJUST_TIME!)),
   ); //correct by .env (the server could have a different time than the swedish time)
+  return todaysDate;
+}
 
-  //TODO abstract and write test
-  async function getValidSchedule(
-    todaysDate: Date,
-    recursionCount = 0,
-  ): Promise<
-    | "couldn't find any lessons for the comming 7 days"
-    | "Felaktigt ID"
-    | {
-        lessonInfo: any;
-        scheduleDate: Date;
-      }
-  > {
-    if (recursionCount > 7) {
-      return "couldn't find any lessons for the comming 7 days";
-    }
-    const scheduleDate = getNextMondayIfWeekend(todaysDate);
-    const intrementedScheduleDate = addDaysToDate(scheduleDate, recursionCount);
-    const options: FetchSchedule = {
-      schedule: { komun: komun, skola: skola, schemaId: schemaId },
-      date: {
-        year: intrementedScheduleDate.getFullYear(),
-        week: getCurrentWeekNumber(intrementedScheduleDate),
-        dayOfTheWeek: intrementedScheduleDate.getDay() || 7,
-      },
-    };
-    const response = await fetchSchedule(options);
-    if (response == "Felaktigt ID") return "Felaktigt ID";
-    const lessonInfo =
-      "timetable" in response ? response.timetable.data.lessonInfo : "";
-    if (!lessonInfo) {
-      return getValidSchedule(todaysDate, recursionCount + 1);
-    }
-    return { lessonInfo, scheduleDate: scheduleDate };
-  }
+export default async function CountDown({
+  komun,
+  skola,
+  schemaId,
+}: CountDownInterface) {
+  const todaysDate = getTodaysDate();
 
-  let schedule = await getValidSchedule(todaysDate);
-  if (schedule === "Felaktigt ID") {
+  const schedule = await getValidSchedule(
+    todaysDate,
+    0,
+    komun,
+    skola,
+    schemaId,
+  );
+
+  if (schedule === "Felaktigt ID")
     return <FelaktigtID komun={komun} skola={skola} />;
-  } else if (schedule === "couldn't find any lessons for the comming 7 days") {
+  else if (schedule === "couldn't find any lessons for the comming 7 days")
     return <DetSerUt />;
-  }
 
-  let scheduleMappedTimes = mapDateToLessonTimes(
+  const scheduleMappedTimes = mapDateToLessonTimes(
     schedule.scheduleDate,
     schedule.lessonInfo,
   );
-  let currentOrNextLesson = getCurrentOrNextLesson(
+
+  const currentOrNextLesson = determineCurrentOrNextLesson(
     scheduleMappedTimes,
     todaysDate,
   );
-
-  if (!currentOrNextLesson.lesson) {
-    const nextDay = addDaysToDate(todaysDate, 1);
-    nextDay.setHours(1, 0, 0, 0);
-    schedule = await getValidSchedule(nextDay);
-    if (schedule === "Felaktigt ID") {
-      return <FelaktigtID komun={komun} skola={skola} />;
-    } else if (
-      schedule === "couldn't find any lessons for the comming 7 days"
-    ) {
-      return <DetSerUt />;
-    }
-    scheduleMappedTimes = mapDateToLessonTimes(
-      schedule.scheduleDate,
-      schedule.lessonInfo,
-    );
-    currentOrNextLesson = getCurrentOrNextLesson(
-      scheduleMappedTimes,
-      todaysDate,
-    );
-  }
 
   return (
     <div className=" w-full max-w-md text-center font-mono text-lg">

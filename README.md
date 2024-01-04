@@ -196,7 +196,7 @@ POST https://web.skola24.se/api/render/timetable
   year: "[år]",
   host: "[komun namn]".skola24.se,
   unitGuid: "[unitGuid, ifrån steg 4]",
-  schoolYear: "schoolYear, ifrån steg 3"
+  schoolYear: "[schoolYear, ifrån steg 3]",
   startDate: null,
   endDate: null,
   blackAndWhite: false,

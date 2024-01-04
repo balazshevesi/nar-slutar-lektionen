@@ -1,45 +1,25 @@
-# När slutar lektionen?
+<h1 align="center">
+    <a href="https://www.xn--nr-slutar-lektionen-gwb.net/">när-slutar-lektionen.net ⏳</a>
+</h1>
+<h3 align="center">
+  "När slutar lektionen?" Är den vanligaste frågan man ställer i skolan. Detta projekt är ett svar
+</h3>
 
-"När slutar lektionen?" Är bland de vanligaste frågorna man ställer i skolan. Detta projekt ska besvara frågan. Det är en relativt enkel webb-app byggd med React och Next.js som hämtar schema information ifrån skola24as odukumenterade API.
+![showcase .gif](/imgs/showcase.gif "showcase .gif")
 
-OBS: Inte alla scheman fungerar korrekt eftersom att vissa skolor väljer att inte använda skola24s tjänster trots att de har köpt in de.
+OBS att inte alla scheman fungerar korrekt eftersom att vissa skolor väljer att inte använda skola24s tjänster trots att de har köpt in de.
 
-## Hur man använder appen
+---
 
-### Välj din kommun
+## Tech Stack
 
-![hemskärm](/imgs/readme/pages/homescreen.png "hemskärm")
+## Production
 
-### Välj din skola
-
-![välj din skola](/imgs/readme/pages/väljskola.png "välj din skola")
-
-### Ange ditt schema id
-
-![ange ditt schema id](/imgs/readme/pages/angeschemaid.png "ange ditt schema id")
-
-### Räkna ner
-
-![count down](/imgs/readme/pages/countdown.png "räkna ner")
-
-### Använd dark mode
-
-![count down i dark mode](/imgs/readme/pages/countdowndark.png "använd dark mode")
-
-### Spara schema i genvägar
-
-![genvägar tomt](/imgs/readme/widgets/genvägar/genvägartomt.png "svara schema i genvägar")
-
-![genvägar te21 tillagt](/imgs/readme/widgets/genvägar/genvägarte21.png "svara schema i genvägar")
-
-## Tech-Stack
-
-### Production dependencies
-
+- **Framework:** React.js
 - **Meta Framework:** Next.js, med app router och server komponenter
 - **Styling:** TailwindCSS
 
-### Development dependencies
+## Development
 
 - **Code Formating:** Prettier, med import-sort-plugin och tailwind-plugin
 - **Linting:** ESlint, med inställningarna som Next.js kommer med

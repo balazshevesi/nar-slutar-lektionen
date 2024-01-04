@@ -180,12 +180,14 @@ POST https://web.skola24.se/api/services/skola24/get/timetable/viewer/units
 POST https://web.skola24.se/api/render/timetable
 ```
 
+### Headers
+
 | key            | value                                  |
 | -------------- | -------------------------------------- |
 | `Content-Type` | `application/json`                     |
 | `X-Scope`      | `8a22163c-8662-4535-9050-bc5e1923df48` |
 
-### body
+### Body
 
 ```js
 {

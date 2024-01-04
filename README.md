@@ -15,17 +15,17 @@ OBS att inte alla scheman fungerar korrekt eftersom att vissa skolor väljer att
 
 # Innehåll
 
-- [Tech Stack](#🧑‍💻-tech-stack)
+- [Tech Stack](#-tech-stack)
 
-- [Server Komponenter](#🖥️-server-komponenter)
+- [Server Komponenter](#-server-komponenter)
 
-- [Hosting](#🛜-hosting)
+- [Hosting](#-hosting)
 
-- [Skola24s API](#👾-skola24as-api)
+- [Skola24s API](#-skola24as-api)
 
-- [Projektplan och rapport](#📚-projektplan-och-rapport)
+- [Projektplan och rapport](#-projektplan-och-rapport)
 
-- [Framtid](#📚-projektplan-och-rapport)
+- [Framtid](#-projektplan-och-rapport)
 
 ## 🧑‍💻 Tech Stack
 

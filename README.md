@@ -232,9 +232,3 @@ OBS att jag försökte skriva rapporten med lite enklare språk så att även de
 - [ ] Kanske kötta upp reklamer om sidan blir mer populär
 
 - [ ] Kanske bygga ut mitt eget schema vy grej
-
-- [ ] Skriva-om Skola24as API i readme filen
-
-```
-
-```

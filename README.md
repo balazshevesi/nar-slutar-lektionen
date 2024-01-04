@@ -2,78 +2,50 @@
     <a href="https://www.xn--nr-slutar-lektionen-gwb.net/">när-slutar-lektionen.net ⏳</a>
 </h1>
 <h3 align="center">
-  "När slutar lektionen?" Är den vanligaste frågan man ställer i skolan. Detta projekt är ett svar
+  "När slutar lektionen?" är den vanligaste frågan man ställer i skolan. Detta är ett svar
 </h3>
 
-![showcase .gif](/imgs/showcase.gif "showcase .gif")
+<a href="https://www.xn--nr-slutar-lektionen-gwb.net">
+  <img src=https://raw.githubusercontent.com/Balazs-topg/nar-slutar-lektionen/main/imgs/showcase.gif>
+</a>
 
 OBS att inte alla scheman fungerar korrekt eftersom att vissa skolor väljer att inte använda skola24s tjänster trots att de har köpt in de.
 
 ---
 
-## Tech Stack
+# Innehåll
 
-## Production
+- [Tech Stack](#🧑‍💻-tech-stack)
 
-- **Framework:** React.js
-- **Meta Framework:** Next.js, med app router och server komponenter
-- **Styling:** TailwindCSS
+- [Server Komponenter](#🖥️-server-komponenter)
 
-## Development
+- [Hosting](#🛜-hosting)
 
-- **Code Formating:** Prettier, med import-sort-plugin och tailwind-plugin
-- **Linting:** ESlint, med inställningarna som Next.js kommer med
-- **Språk:** Typescript
+- [Skola24s API](#👾-skola24as-api)
 
-## Design Val
+- [Projektplan och rapport](#📚-projektplan-och-rapport)
 
-### Server komponenter
+- [Framtid](#📚-projektplan-och-rapport)
 
-Appen utnyttjar next.js 14s app router. All data fetching sker med hjälp av de. Det är bara de interaktiva grejerna som är klient komponenter
+## 🧑‍💻 Tech Stack
 
-### Routingen
+### Production
 
-#### Gammal
+- **Framework:** [React.js](https://react.dev/)
+- **Meta Framework:** [Next.js](https://nextjs.org/), med app router och server komponenter
+- **Styling:** [TailwindCSS](https://tailwindcss.com/)
 
-Eftersom att backenden och frontend-koden är coupled i nextjs så blir det lite konstigt med dynamiska routes.
+### Development
 
-**Frontend routen är** "[Komun]/[Skola]/[ShemaID]"
+- **Code Formating:** [Prettier](https://prettier.io/), med [import-sort-plugin](https://www.npmjs.com/package/@trivago/prettier-plugin-sort-imports) och [tailwind-plugin](https://github.com/tailwindlabs/prettier-plugin-tailwindcss)
+- **Linting:** [ESlint](https://eslint.org/), med inställningarna som Next.js kommer med
+- **Språk:** [Typescript](https://www.typescriptlang.org/)
 
-**Backend routen är** "/api/[Komun]/[Skola]/[ShemaID]"
+## 🖥️ Server komponenter
 
-```
-bild (genererad med chatGPT) för att illustrera:
-+----------------------+   +-------------------------+
-|                      |   |                         |
-|   [Komun]            |   |   api                   |
-|     |                |   |    |                    |
-|   [Skola]            |   |   [Komun]               |
-|     |                |   |    |                    |
-|   [ShemaID]          |   |   [Skola]               |
-|                      |   |    |                    |
-|   (Frontend logic)   |   |   [ShemaID]             |
-|                      |   |                         |
-|                      |   |   (Backend logic)       |
-+----------------------+   +-------------------------+
-```
+Appen utnyttjar next.js 14s app router. All data fetching sker med hjälp av de. Det är bara de interaktiva grejerna som är [klient komponenter](https://react.dev/reference/react/use-client)
 
-Routern kan inte veta att "api" inte är ett dynamisk värde för [komun]. Eftersom varje del av "path"en är dynamisk så kan routern bara hitta skilnad på frontend-routen och backend-routen genom att se att backend routen har ett extra slash.
-
-Next.js misslyckas ibland att hitta rätt route, så man får en "fetch failed" error på i dev miljön, men på aws så funkar det.
-
-I praktiken betyder det att frontenden inte kan gå "djupare", alltså den är begränsad till tre sub-directories.
-
-En lösning på detta hade vart att hosta backenden på en seperat server, men då kan frontenden ta längretid att svara.
-
-En annan lösning hade vart att lägga till en statisk route för frontenden, typ "frontend/[Komun]/[Skola]/[ShemaID]", men då kommer url:en vara mycket mindre intuitiv.
-
-En annan lösning hade vart att flytta backenden till en server komponent (vilket jag tror att egentligen borde göra)
-
-#### Ny
-
-Jag tog bort API mappen (typ bara en fil). nu kör jag requestsen i serverkomponenter istället.
-
-## skola24as API
+## 👾 Skola24as API
 
 Skola24as API är odkumenterad så jag var tvungen att "reverse-engeneer"a delar av den. Detta gjorde jag med Chrome Dev Tools.
 
@@ -174,11 +146,11 @@ Här är min implementation av API anropen:
 
 [Fil som sätter ihop "pussel bitarna"](src/app/[kommun]/[skola]/[schema-id]/fetchSchedule.ts)
 
-## Hosting
+## 🛜 Hosting
 
-För hosting använder jag AWS amplify, med _nästan_ default inställningarna för next.js, jag har bara bytt build imagen till "Amazon Linux:2023 image" och laggt till " - nvm use 18" i build commands. Jag har gjort de ändringarna eftersom den inte ville bygga annars.
+För hosting använder jag [AWS amplify](https://aws.amazon.com/amplify/), med _nästan_ default inställningarna för next.js, jag har bara bytt build imagen till "Amazon Linux:2023 image" och laggt till " - nvm use 18" i build commands. Jag har gjort de ändringarna eftersom den inte ville bygga annars.
 
-## Projektplan and rapport
+## 📚 Projektplan och rapport
 
 Jag valde att bygga detta som ett projekt till kursen "teknik specialisering" (TEKTEK00S) [länk till skolverkets hemsida](https://www.skolverket.se/undervisning/gymnasieskolan/laroplan-program-och-amnen-i-gymnasieskolan/gymnasieprogrammen/program/gymnasieingenjor---vidareutbildning-i-form-av-ett-fjarde-tekniskt-ar;jsessionid=532015DC21C3C52A0D018832804C8BA9?url=-996270488%2Fsyllabuscw%2Fjsp%2Fsubject.htm%3FsubjectCode%3DTEK%26courseCode%3DTEKTEK00S%26lang%3D%26tos%3Dgy&sv.url=12.189c87ae1623366ff3738d9#anchor_TEKTEK00S)
 
@@ -187,3 +159,11 @@ Jag valde att bygga detta som ett projekt till kursen "teknik specialisering" (T
 [Läs rapporten](https://docs.google.com/document/d/1pqbqXavDd5imzPtROEYdAQcy4M8G9sKpvyfnodd--x8/edit?usp=sharing)
 
 OBS att jag försökte skriva rapporten med lite enklare språk så att även de som inte är insatta i programmering ska fatta.
+
+## 🔮 Framtid
+
+- [ ] Kanske kötta upp reklamer om sidan blir mer populär
+
+- [ ] Kanske bygga ut mitt eget schema vy grej
+
+- [ ] Skriva-om Skola24as API i readme filen

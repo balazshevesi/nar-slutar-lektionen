@@ -5,11 +5,12 @@
   "När slutar lektionen?" är den vanligaste frågan man ställer i skolan. Detta är ett svar
 </h3>
 
-<a href="https://www.xn--nr-slutar-lektionen-gwb.net">
+<a align="center" href="https://www.xn--nr-slutar-lektionen-gwb.net">
   <img src=https://raw.githubusercontent.com/Balazs-topg/nar-slutar-lektionen/main/imgs/showcase.gif>
 </a>
 
 ---
+
 OBS att inte alla scheman fungerar korrekt eftersom att vissa skolor väljer att inte använda skola24s tjänster trots att de har köpt in de.
 
 # Innehåll
@@ -40,7 +41,7 @@ OBS att inte alla scheman fungerar korrekt eftersom att vissa skolor väljer att
 - **Linting:** [ESlint](https://eslint.org/), med inställningarna som Next.js kommer med
 - **Språk:** [Typescript](https://www.typescriptlang.org/)
 
-# 🖥️ Server komponenter
+# 🖥 Server komponenter
 
 Appen utnyttjar next.js 14s app router. All data fetching sker med hjälp av de. Det är bara de interaktiva grejerna som är [klient komponenter](https://react.dev/reference/react/use-client)
 

@@ -9,9 +9,8 @@
   <img src=https://raw.githubusercontent.com/Balazs-topg/nar-slutar-lektionen/main/imgs/showcase.gif>
 </a>
 
-OBS att inte alla scheman fungerar korrekt eftersom att vissa skolor väljer att inte använda skola24s tjänster trots att de har köpt in de.
-
 ---
+OBS att inte alla scheman fungerar korrekt eftersom att vissa skolor väljer att inte använda skola24s tjänster trots att de har köpt in de.
 
 # Innehåll
 
@@ -27,35 +26,35 @@ OBS att inte alla scheman fungerar korrekt eftersom att vissa skolor väljer att
 
 - [Framtid](#-projektplan-och-rapport)
 
-## 🧑‍💻 Tech Stack
+# 🧑‍💻 Tech Stack
 
-### Production
+## Production
 
 - **Framework:** [React.js](https://react.dev/)
 - **Meta Framework:** [Next.js](https://nextjs.org/), med app router och server komponenter
 - **Styling:** [TailwindCSS](https://tailwindcss.com/)
 
-### Development
+## Development
 
 - **Code Formating:** [Prettier](https://prettier.io/), med [import-sort-plugin](https://www.npmjs.com/package/@trivago/prettier-plugin-sort-imports) och [tailwind-plugin](https://github.com/tailwindlabs/prettier-plugin-tailwindcss)
 - **Linting:** [ESlint](https://eslint.org/), med inställningarna som Next.js kommer med
 - **Språk:** [Typescript](https://www.typescriptlang.org/)
 
-## 🖥️ Server komponenter
+# 🖥️ Server komponenter
 
 Appen utnyttjar next.js 14s app router. All data fetching sker med hjälp av de. Det är bara de interaktiva grejerna som är [klient komponenter](https://react.dev/reference/react/use-client)
 
-## 👾 Skola24as API
+# 👾 Skola24as API
 
 Skola24as API är odkumenterad så jag var tvungen att "reverse-engeneer"a delar av den. Detta gjorde jag med Chrome Dev Tools.
 
-### Vad jag hittade
+## Vad jag hittade
 
 För att hämta schema ifrån Skola24a behöver man göra fyra api anrop. Dessa kommer ge cors erros om de görs av webläsaren, så man är tjungen att göra de på backenden.
 
 Jag har bara implementerat Älmhult, men det borde vara ganska enkelt att byta komun.
 
-#### [1. Först behöver man hämta en "signatur"](src/utils/scheduleFetching/getSignature.ts)
+### [1. Först behöver man hämta en "signatur"](src/utils/scheduleFetching/getSignature.ts)
 
 **Endpoint**: https://web.skola24.se/api/encrypt/signature
 
@@ -70,7 +69,7 @@ Jag har bara implementerat Älmhult, men det borde vara ganska enkelt att byta k
 
 - "signature" : "[schemaID]"
 
-#### [2. Sedan behöver man hämta "schoolyear"](/src/utils/scheduleFetching/getSchoolYear.ts)
+### [2. Sedan behöver man hämta "schoolyear"](/src/utils/scheduleFetching/getSchoolYear.ts)
 
 En schoolYear är som en typ av id för läsåret. Varje kommun har ett unikt schoolyear.
 
@@ -88,7 +87,7 @@ En schoolYear är som en typ av id för läsåret. Varje kommun har ett unikt sc
 - "hostName" : "almhult.skola24.se" //byt ut "almhult" för din komun
 - "checkSchoolYearsFeatures" : false
 
-#### [3. Sedan behöver man hämta en "key"](src/utils/scheduleFetching/getKey.ts)
+### [3. Sedan behöver man hämta en "key"](src/utils/scheduleFetching/getKey.ts)
 
 **Endpoint**: https://web.skola24.se/api/get/timetable/render/key
 
@@ -105,7 +104,7 @@ Denna request fungerar _inte_ med en javascripts fetch, man behöver axios eller
 
 Bodyn _måste_ inkluderas trots att den är tom
 
-#### [4. Sedan är det dags att hämta schemat](src/app/[kommun]/[skola]/[schema-id]/fetchSchedule.ts)
+### [4. Sedan är det dags att hämta schemat](src/app/[kommun]/[skola]/[schema-id]/fetchSchedule.ts)
 
 **Endpoint**: https://web.skola24.se/api/render/timetable
 
@@ -146,11 +145,11 @@ Här är min implementation av API anropen:
 
 [Fil som sätter ihop "pussel bitarna"](src/app/[kommun]/[skola]/[schema-id]/fetchSchedule.ts)
 
-## 🛜 Hosting
+# 🛜 Hosting
 
 För hosting använder jag [AWS amplify](https://aws.amazon.com/amplify/), med _nästan_ default inställningarna för next.js, jag har bara bytt build imagen till "Amazon Linux:2023 image" och laggt till " - nvm use 18" i build commands. Jag har gjort de ändringarna eftersom den inte ville bygga annars.
 
-## 📚 Projektplan och rapport
+# 📚 Projektplan och rapport
 
 Jag valde att bygga detta som ett projekt till kursen "teknik specialisering" (TEKTEK00S) [länk till skolverkets hemsida](https://www.skolverket.se/undervisning/gymnasieskolan/laroplan-program-och-amnen-i-gymnasieskolan/gymnasieprogrammen/program/gymnasieingenjor---vidareutbildning-i-form-av-ett-fjarde-tekniskt-ar;jsessionid=532015DC21C3C52A0D018832804C8BA9?url=-996270488%2Fsyllabuscw%2Fjsp%2Fsubject.htm%3FsubjectCode%3DTEK%26courseCode%3DTEKTEK00S%26lang%3D%26tos%3Dgy&sv.url=12.189c87ae1623366ff3738d9#anchor_TEKTEK00S)
 
@@ -160,7 +159,7 @@ Jag valde att bygga detta som ett projekt till kursen "teknik specialisering" (T
 
 OBS att jag försökte skriva rapporten med lite enklare språk så att även de som inte är insatta i programmering ska fatta.
 
-## 🔮 Framtid
+# 🔮 Framtid
 
 - [ ] Kanske kötta upp reklamer om sidan blir mer populär
 

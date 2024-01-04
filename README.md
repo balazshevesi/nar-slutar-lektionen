@@ -64,102 +64,152 @@ Appen utnyttjar next.js 14s app router. All data fetching sker med hjälp av de.
 
 Skola24as API är odkumenterad så jag var tvungen att "reverse-engeneer"a delar av den. Detta gjorde jag med Chrome Dev Tools.
 
-## Vad jag hittade
+Här är min implementation av API anropen:
 
-För att hämta schema ifrån Skola24a behöver man göra fyra api anrop. Dessa kommer ge cors erros om de görs av webläsaren, så man är tjungen att göra de på backenden.
+[Mapp med util funktioner för att hämta pussel bitarna](src/utils/scheduleFetching)
 
-Jag har bara implementerat Älmhult, men det borde vara ganska enkelt att byta komun.
+[Fil som sätter ihop pussel bitarna](src/app/[kommun]/[skola]/[schema-id]/fetchSchedule.ts)
 
-### [1. Först behöver man hämta en "signatur"](src/utils/scheduleFetching/getSignature.ts)
+## [1. Först behöver man hämta en "signatur"](src/utils/scheduleFetching/getSignature.ts)
 
-**Endpoint**: https://web.skola24.se/api/encrypt/signature
+### Endpoint
 
-**Method**: post
+```http
+POST https://web.skola24.se/api/encrypt/signature
+```
 
-**Headers**:
+### Headers
 
-- "Content-Type": "application/json",
-- "X-Scope": "8a22163c-8662-4535-9050-bc5e1923df48",
+| key            | value                                  |
+| -------------- | -------------------------------------- |
+| `Content-Type` | `application/json`                     |
+| `X-Scope`      | `8a22163c-8662-4535-9050-bc5e1923df48` |
 
-**body**:
+### Body
 
-- "signature" : "[schemaID]"
+```js
+{
+  signature: "[schemaID]";
+}
+```
 
-### [2. Sedan behöver man hämta "schoolyear"](/src/utils/scheduleFetching/getSchoolYear.ts)
+## [2. Sedan behöver man hämta en "key"](src/utils/scheduleFetching/getKey.ts)
 
-En schoolYear är som en typ av id för läsåret. Varje kommun har ett unikt schoolyear.
+### Endpoint
 
-**Endpoint**: https://web.skola24.se/api/get/active/school/years
+```http
+POST https://web.skola24.se/api/get/timetable/render/key
+```
 
-**Method**: post
+### Headers
 
-**Headers**:
+| key            | value                                  |
+| -------------- | -------------------------------------- |
+| `Content-Type` | `application/json`                     |
+| `X-Scope`      | `8a22163c-8662-4535-9050-bc5e1923df48` |
 
-- "Content-Type": "application/json",
-- "X-Scope": "8a22163c-8662-4535-9050-bc5e1923df48",
+### Body
 
-**body**:
+```js
+{
+}
+```
 
-- "hostName" : "almhult.skola24.se" //byt ut "almhult" för din komun
-- "checkSchoolYearsFeatures" : false
+Bodyn _måste_ inkluderas trots att den ska vara tom
 
-### [3. Sedan behöver man hämta en "key"](src/utils/scheduleFetching/getKey.ts)
-
-**Endpoint**: https://web.skola24.se/api/get/timetable/render/key
-
-**Method**: post
-
-**Headers**:
-
-- "Content-Type": "application/json",
-- "X-Scope": "8a22163c-8662-4535-9050-bc5e1923df48",
-
-**body**: {}
+### OBS
 
 Denna request fungerar _inte_ med en javascripts fetch, man behöver axios eller något annat. Jag vet inte exakt varför, men jag misstänker att det har med headers att göra.
 
-Bodyn _måste_ inkluderas trots att den är tom
+## [3. Sedan behöver man hämta "schoolyear"](/src/utils/scheduleFetching/getSchoolYear.ts)
 
-### [4. Sedan är det dags att hämta schemat](src/app/[kommun]/[skola]/[schema-id]/fetchSchedule.ts)
+### Endpoint
 
-**Endpoint**: https://web.skola24.se/api/render/timetable
+```http
+POST https://web.skola24.se/api/get/active/school/years
+```
 
-**Method**: post
+### Headers
 
-**Headers**:
+| key            | value                                  |
+| -------------- | -------------------------------------- |
+| `Content-Type` | `application/json`                     |
+| `X-Scope`      | `8a22163c-8662-4535-9050-bc5e1923df48` |
 
-- "Content-Type": "application/json",
-- "X-Scope": "8a22163c-8662-4535-9050-bc5e1923df48",
+### Body
 
-**body**:
+```js
+{
+  getTimetableViewerUnitsRequest: {
+    hostName: "[komun - namn]".skola24.se;
+  }
+  checkSchoolYearsFeatures: false;
+}
+```
 
-- renderKey: ["key", ifrån steg 3],
-- selection: ["signatur", ifrån steg 1],
-- scheduleDay: [vecko dag, 1 = måndag, 5 = fredag, ger error på 6 och 7, 0 verkar ge hela veckan],
-- week: [vecka],
-- year: [år],
-- host: [kommunens skola24 adress. för Älmhult är det: "almhult.skola24.se"],
-- unitGuid: [ett id som representerar "skolan" eller "enheten", för Älmhult är det: "OTU1MGZkNTktZGYzMi1mMTRkLWJhZDUtYzI4YWI0MDliZGU3"],
-- schoolYear: [värdet ifrån steg 2],
-- startDate: null,
-- endDate: null,
-- blackAndWhite: false,
-- width: 125,
-- height: 550,
-- selectionType: 4,
-- showHeader: false,
-- periodText: "",
-- privateFreeTextMode: false,
-- privateSelectionMode: null,
-- customerKey: "",
+## [4. Sedan behöver man hämta "unitGuid"](/src/utils/scheduleFetching/getUnitGuidFromSkola.ts)
 
-Se källkoden för att få "unitGuid" för din skola, och andra detailer.
+### Endpoint
 
-Här är min implementation av API anropen:
+```http
+POST https://web.skola24.se/api/services/skola24/get/timetable/viewer/units
+```
 
-[Mapp med util funktioner för att hämta "pussel bitarna" (signatur och key)](src/utils/scheduleFetching)
+### Headers
 
-[Fil som sätter ihop "pussel bitarna"](src/app/[kommun]/[skola]/[schema-id]/fetchSchedule.ts)
+| key            | value                                  |
+| -------------- | -------------------------------------- |
+| `Content-Type` | `application/json`                     |
+| `X-Scope`      | `8a22163c-8662-4535-9050-bc5e1923df48` |
+
+### Body
+
+```js
+{
+  getTimetableViewerUnitsRequest: {
+    hostName: [komun - namn].skola24.se;
+  }
+}
+```
+
+## [5. Sedan är det dags att hämta schemat](src/app/[kommun]/[skola]/[schema-id]/fetchSchedule.ts)
+
+### Endpoint
+
+```http
+POST https://web.skola24.se/api/render/timetable
+```
+
+| key            | value                                  |
+| -------------- | -------------------------------------- |
+| `Content-Type` | `application/json`                     |
+| `X-Scope`      | `8a22163c-8662-4535-9050-bc5e1923df48` |
+
+### body
+
+```js
+{
+  renderKey: "[key ifrån steg 2]",
+  selection: "[signatur ifrån steg 1]",
+  scheduleDay: "[vecko dag, representerad av en siffra]",
+  week: "[vecka]",
+  year: "[år]",
+  host: "[komun namn]".skola24.se,
+  unitGuid: "[unitGuid, ifrån steg 4]",
+  schoolYear: "schoolYear, ifrån steg 3"
+  startDate: null,
+  endDate: null,
+  blackAndWhite: false,
+  width: 125,
+  height: 550,
+  selectionType: 4,
+  showHeader: false,
+  periodText: "",
+  privateFreeTextMode: false,
+  privateSelectionMode: null,
+  customerKey: "",
+}
+```
 
 # 🛜 Hosting
 
@@ -182,3 +232,7 @@ OBS att jag försökte skriva rapporten med lite enklare språk så att även de
 - [ ] Kanske bygga ut mitt eget schema vy grej
 
 - [ ] Skriva-om Skola24as API i readme filen
+
+```
+
+```

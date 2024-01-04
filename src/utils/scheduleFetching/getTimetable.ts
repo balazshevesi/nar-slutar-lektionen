@@ -28,7 +28,7 @@ export default async function getTimetable(
 
           host: `${komunToSkola24(komun)}.skola24.se`,
           unitGuid: unitGuid,
-          schoolYear: schoolYear, //! Hård kodat värde, det kommer vara något annat i ht 2024
+          schoolYear: schoolYear,
           startDate: null,
           endDate: null,
           blackAndWhite: false,

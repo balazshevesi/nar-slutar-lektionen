@@ -149,6 +149,16 @@ async function getValidSchedule(
     );
   }
   const lessonInfo = data.timetable.data.lessonInfo;
+  const mappedLessonInfo = mapDateToLessonTimes(scheduleDate, lessonInfo);
+  if (!determineCurrentOrNextLesson(mappedLessonInfo, todaysDate).lesson) {
+    return getValidSchedule(
+      todaysDate,
+      recursionCount + 1,
+      komun,
+      skola,
+      schemaId,
+    );
+  }
   return { lessonInfo, scheduleDate };
 }
 
@@ -196,8 +206,10 @@ export default async function CountDown({
     todaysDate,
   );
 
+  console.log("currentOrNextLessoncurrentOrNextLesson", currentOrNextLesson);
+
   return (
-    <div className=" w-full max-w-md text-center font-mono text-lg">
+    <div className="w-full max-w-md text-center font-mono text-lg">
       <CountdownTimer
         isCurrentLesson={currentOrNextLesson.isCurrentLesson}
         targetDate={

@@ -62,7 +62,7 @@ Appen utnyttjar server komponenterna i next.js 14s app router. All data fetching
 
 # 👾 Skola24as API
 
-Skola24as API är odkumenterad så jag var tvungen att "reverse-engeneer"a delar av den. Detta gjorde jag med Chrome Dev Tools.
+Skola24as API är odkumenterad så jag var tvungen att "reverse-engeneer"a delar av den. Detta gjorde jag med Chrome Dev Tools och Thunder Client (liknar Postman).
 
 Här är min implementation av API anropen:
 

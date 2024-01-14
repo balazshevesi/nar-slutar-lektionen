@@ -58,7 +58,7 @@ OBS att inte alla scheman fungerar korrekt eftersom att vissa skolor väljer att
 
 # 🖥 Server komponenter
 
-Appen utnyttjar next.js 14s app router. All data fetching sker med hjälp av de. Det är bara de interaktiva grejerna som är [klient komponenter](https://react.dev/reference/react/use-client)
+Appen utnyttjar server komponenterna i next.js 14s app router. All data fetching sker med hjälp av de. Det är bara de interaktiva grejerna som är [klient komponenter](https://react.dev/reference/react/use-client)
 
 # 👾 Skola24as API
 

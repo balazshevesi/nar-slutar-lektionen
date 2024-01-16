@@ -6,7 +6,7 @@
 </h3>
 
 <a align="center" href="https://www.xn--nr-slutar-lektionen-gwb.net">
-  <img src=https://raw.githubusercontent.com/Balazs-topg/nar-slutar-lektionen/main/imgs/showcase.gif>
+  <img src=https://raw.githubusercontent.com/Balazs-topg/nar-slutar-lektionen/main/readme-assets/showcase.gif>
 </a>
 
 <div align="center">

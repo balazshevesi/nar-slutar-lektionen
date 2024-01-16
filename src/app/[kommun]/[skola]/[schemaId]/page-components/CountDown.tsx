@@ -148,7 +148,10 @@ async function getValidSchedule(
       schemaId,
     );
   }
+  
   const lessonInfo = data.timetable.data.lessonInfo;
+
+  //incase there are no more lessons for today, fetch the lessons for the next day
   const mappedLessonInfo = mapDateToLessonTimes(scheduleDate, lessonInfo);
   if (!determineCurrentOrNextLesson(mappedLessonInfo, todaysDate).lesson) {
     return getValidSchedule(

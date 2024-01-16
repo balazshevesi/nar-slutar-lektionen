@@ -8,11 +8,11 @@ import CountDown from "./page-components/CountDown";
 export default function Page({
   params,
 }: {
-  params: { kommun: string; skola: string; "schema-id": string };
+  params: { kommun: string; skola: string; schemaId: string };
 }) {
   const komun = decodeURIComponent(params.kommun);
   const skola = decodeURIComponent(params.skola);
-  const schemaId = decodeURIComponent(params["schema-id"]);
+  const schemaId = decodeURIComponent(params["schemaId"]);
 
   return (
     <>

@@ -38,6 +38,8 @@ OBS att inte alla scheman fungerar korrekt eftersom att vissa skolor väljer att
 
 - [Skola24s API](#-skola24as-api)
 
+- [CORS](#-CORS)
+
 - [Projektplan och rapport](#-projektplan-och-rapport)
 
 - [Framtid](#-projektplan-och-rapport)
@@ -212,6 +214,10 @@ POST https://web.skola24.se/api/render/timetable
   customerKey: "",
 }
 ```
+
+# 🤮 CORS
+
+Om man försöker anropa Skola24as api ifrån webläsaren så kommer man få CORS error, så man är tvungen att göra anropen i en annan miljö.
 
 # 🛜 Hosting
 

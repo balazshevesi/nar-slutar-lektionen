@@ -7,7 +7,7 @@ import fetchSchedule from "../fetchSchedule";
 import { FetchSchedule } from "../fetchSchedule";
 import CountdownTimer from "./CountDownTimer";
 import DetSerUt from "./DetSerUt";
-import FelaktigtID from "@/app/[kommun]/[skola]/[schema-id]/page-components/FelaktigtID";
+import FelaktigtID from "./FelaktigtID";
 
 export interface CountDownInterface {
   komun: string;
@@ -148,7 +148,7 @@ async function getValidSchedule(
       schemaId,
     );
   }
-  
+
   const lessonInfo = data.timetable.data.lessonInfo;
 
   //incase there are no more lessons for today, fetch the lessons for the next day

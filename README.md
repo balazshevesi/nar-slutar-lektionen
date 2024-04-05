@@ -143,7 +143,7 @@ POST https://web.skola24.se/api/get/active/school/years
 ```js
 {
   getTimetableViewerUnitsRequest: {
-    hostName: "[komun - namn]".skola24.se;
+    hostName: "[kommun - namn]".skola24.se;
   }
   checkSchoolYearsFeatures: false;
 }
@@ -169,7 +169,7 @@ POST https://web.skola24.se/api/services/skola24/get/timetable/viewer/units
 ```js
 {
   getTimetableViewerUnitsRequest: {
-    hostName: [komun - namn].skola24.se;
+    hostName: [kommun - namn].skola24.se;
   }
 }
 ```
@@ -198,7 +198,7 @@ POST https://web.skola24.se/api/render/timetable
   scheduleDay: "[vecko dag, representerad av en siffra]",
   week: "[vecka]",
   year: "[år]",
-  host: "[komun namn]".skola24.se,
+  host: "[kommun namn]".skola24.se,
   unitGuid: "[unitGuid, ifrån steg 4]",
   schoolYear: "[schoolYear, ifrån steg 3]",
   startDate: null,

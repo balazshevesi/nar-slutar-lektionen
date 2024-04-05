@@ -14,7 +14,7 @@ export default function Page({
 }: {
   params: { kommun: string; skola: string };
 }) {
-  const komun = decodeURIComponent(params.kommun);
+  const kommun = decodeURIComponent(params.kommun);
   const skola = decodeURIComponent(params.skola);
 
   return (
@@ -29,7 +29,7 @@ export default function Page({
             style={{ textWrap: "balance" }}
           >
             (OBS, använd helst ditt personliga schema ID, hemsidan kan visa fel
-            om det finnns överlappande lektioner)
+            om det finns överlappande lektioner)
           </div>
           <Suspense
             fallback={
@@ -38,7 +38,7 @@ export default function Page({
               </BouncingText>
             }
           >
-            <KlassLista komun={komun} skola={skola} />
+            <KlassLista kommun={kommun} skola={skola} />
           </Suspense>
         </div>
       </Section>

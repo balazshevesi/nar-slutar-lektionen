@@ -1,7 +1,7 @@
-import { komunToSkola24 } from "@/utils/sanitize/komunToSkola24";
+import { kommunToSkola24 } from "@/utils/sanitize/kommunToSkola24";
 
 export default async function getUnitGuidFromSkola(
-  komun: string,
+  kommun: string,
   skola: string,
 ) {
   const listOfUnitsResponse = await fetch(
@@ -14,7 +14,7 @@ export default async function getUnitGuidFromSkola(
       },
       body: JSON.stringify({
         getTimetableViewerUnitsRequest: {
-          hostName: `${komunToSkola24(komun)}.skola24.se`,
+          hostName: `${kommunToSkola24(kommun)}.skola24.se`,
         },
       }),
     },

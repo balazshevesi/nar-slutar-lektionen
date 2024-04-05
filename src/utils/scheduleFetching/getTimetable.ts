@@ -1,8 +1,8 @@
-import { komunToSkola24 } from "../sanitize/komunToSkola24";
+import { kommunToSkola24 } from "../sanitize/kommunToSkola24";
 
 export default async function getTimetable(
   schoolYear: string,
-  komun: string,
+  kommun: string,
   signature: string,
   key: string,
   year: number,
@@ -26,7 +26,7 @@ export default async function getTimetable(
           week: week,
           year: year,
 
-          host: `${komunToSkola24(komun)}.skola24.se`,
+          host: `${kommunToSkola24(kommun)}.skola24.se`,
           unitGuid: unitGuid,
           schoolYear: schoolYear,
           startDate: null,

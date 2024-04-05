@@ -1,4 +1,4 @@
-export function komunToSkola24(namn: string): string {
+export function kommunToSkola24(namn: string): string {
   // Define a mapping for special characters
   const specialChars: { [key: string]: string } = {
     å: "a",

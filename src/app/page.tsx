@@ -3,7 +3,7 @@ import ListContainer, { ListItem } from "@/components/layout/ListContainer";
 import Section from "@/components/layout/Section";
 
 import NavigateBtn from "../components/general/NavigateBtn";
-import kommuner from "@/data/komuner";
+import kommuner from "@/data/kommuner";
 
 export default function Home() {
   const listItems: ListItem[] = kommuner.map((item: any) => {
@@ -16,7 +16,7 @@ export default function Home() {
     <>
       <Section>
         <Title2>Välj din kommun:</Title2>
-        <ListContainer autoFocus listItems={listItems} stuff="komuner" />
+        <ListContainer autoFocus listItems={listItems} stuff="kommuner" />
       </Section>
     </>
   );

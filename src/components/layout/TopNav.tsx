@@ -26,7 +26,7 @@ export default function TopNav() {
   // const pathname = headersList.get("x-pathname") || "";
   const pathname = usePathname();
 
-  const komun = pathname.split("/")[1];
+  const kommun = pathname.split("/")[1];
   const skola = pathname.split("/")[2];
   const schemaId = pathname.split("/")[3];
 
@@ -37,14 +37,14 @@ export default function TopNav() {
           <Link href="/">när-slutar-lektionen.net</Link>
         </span>
         <div className="flex gap-2 px-4 font-medium">
-          {komun && (
+          {kommun && (
             <div className="flex animate-fade-right items-center gap-2 animate-duration-[400ms] animate-once animate-ease-out">
               <ChevronRightIcon className="heroicon-sw-3 h-4 w-4 opacity-50" />
               <Link
-                href={`/${komun}`}
+                href={`/${kommun}`}
                 className="hover:underline hover:opacity-80"
               >
-                {decodeURIComponent(komun)}
+                {decodeURIComponent(kommun)}
               </Link>
             </div>
           )}
@@ -52,7 +52,7 @@ export default function TopNav() {
             <div className="flex animate-fade-right items-center gap-2 animate-duration-[400ms] animate-once animate-ease-out">
               <ChevronRightIcon className="heroicon-sw-3 h-4 w-4 opacity-50" />
               <Link
-                href={`/${komun}/${skola}`}
+                href={`/${kommun}/${skola}`}
                 className="hover:underline hover:opacity-80"
               >
                 {decodeURIComponent(skola)}
@@ -63,7 +63,7 @@ export default function TopNav() {
             <div className="flex animate-fade-right items-center gap-2 animate-duration-[400ms] animate-once animate-ease-out">
               <ChevronRightIcon className="heroicon-sw-3 h-4 w-4 opacity-50" />
               <Link
-                href={`/${komun}/${skola}/${schemaId}`}
+                href={`/${kommun}/${skola}/${schemaId}`}
                 className="hover:underline hover:opacity-80"
               >
                 {decodeURIComponent(schemaId)}

@@ -10,7 +10,7 @@ import DetSerUt from "./DetSerUt";
 import FelaktigtID from "./FelaktigtID";
 
 export interface CountDownInterface {
-  komun: string;
+  kommun: string;
   skola: string;
   schemaId: string;
 }
@@ -105,7 +105,7 @@ function mapDateToLessonTimes(date: Date, lessonInfo: Lesson[]) {
 async function getValidSchedule(
   todaysDate: Date,
   recursionCount = 0,
-  komun: string,
+  kommun: string,
   skola: string,
   schemaId: string,
 ): Promise<
@@ -126,7 +126,7 @@ async function getValidSchedule(
 
   //define the options for the fetch we're gonna make
   const options: FetchSchedule = {
-    schedule: { komun: komun, skola: skola, schemaId: schemaId },
+    schedule: { kommun: kommun, skola: skola, schemaId: schemaId },
     date: {
       year: intrementedScheduleDate.getFullYear(),
       week: getCurrentWeekNumber(intrementedScheduleDate),
@@ -143,7 +143,7 @@ async function getValidSchedule(
     return getValidSchedule(
       todaysDate,
       recursionCount + 1,
-      komun,
+      kommun,
       skola,
       schemaId,
     );
@@ -157,7 +157,7 @@ async function getValidSchedule(
     return getValidSchedule(
       todaysDate,
       recursionCount + 1,
-      komun,
+      kommun,
       skola,
       schemaId,
     );
@@ -180,7 +180,7 @@ function getTodaysDate() {
 }
 
 export default async function CountDown({
-  komun,
+  kommun,
   skola,
   schemaId,
 }: CountDownInterface) {
@@ -189,13 +189,13 @@ export default async function CountDown({
   const schedule = await getValidSchedule(
     todaysDate,
     0,
-    komun,
+    kommun,
     skola,
     schemaId,
   );
 
   if (schedule === "Felaktigt ID")
-    return <FelaktigtID komun={komun} skola={skola} />;
+    return <FelaktigtID kommun={kommun} skola={skola} />;
   else if (schedule === "couldn't find any lessons for the comming 7 days")
     return <DetSerUt />;
 
@@ -208,8 +208,6 @@ export default async function CountDown({
     scheduleMappedTimes,
     todaysDate,
   );
-
-  console.log("currentOrNextLessoncurrentOrNextLesson", currentOrNextLesson);
 
   return (
     <div className="w-full max-w-md text-center font-mono text-lg">

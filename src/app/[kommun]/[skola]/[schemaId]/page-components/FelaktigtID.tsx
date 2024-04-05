@@ -5,16 +5,16 @@ import Title2 from "@/components/general/Title2";
 import NavigateBtn from "../../../../../components/general/NavigateBtn";
 
 export default function FelaktigtID({
-  komun,
+  kommun,
   skola,
 }: {
-  komun: string;
+  kommun: string;
   skola: string;
 }) {
   return (
     <div className=" w-full">
       <Title2>Ditt schema id är felaktigt</Title2>
-      <NavigateBtn routeName={`/${komun}/${skola}`} namn="Testa igen?" />
+      <NavigateBtn routeName={`/${kommun}/${skola}`} namn="Testa igen?" />
     </div>
   );
 }

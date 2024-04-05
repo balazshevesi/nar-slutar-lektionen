@@ -1,4 +1,4 @@
-import { komunToSkola24 } from "@/utils/sanitize/komunToSkola24";
+import { kommunToSkola24 } from "@/utils/sanitize/kommunToSkola24";
 
 import Title2 from "@/components/general/Title2";
 import ListContainer, { ListItem } from "@/components/layout/ListContainer";
@@ -8,13 +8,15 @@ import NavigateBtn from "../../components/general/NavigateBtn";
 import fetchSkolor from "./fetchSkolor";
 
 export default async function Page({ params }: { params: { kommun: string } }) {
-  const komun = decodeURIComponent(params.kommun);
+  const kommun = decodeURIComponent(params.kommun);
 
-  const listOfUnits = await fetchSkolor(`${komunToSkola24(komun)}.skola24.se`);
+  const listOfUnits = await fetchSkolor(
+    `${kommunToSkola24(kommun)}.skola24.se`,
+  );
 
   const listItems: ListItem[] = listOfUnits.map((item: any) => {
     const newItem = item;
-    newItem.route = `/${komun}/${item.unitId}`;
+    newItem.route = `/${kommun}/${item.unitId}`;
     newItem.namn = item.unitId;
     return newItem;
   });

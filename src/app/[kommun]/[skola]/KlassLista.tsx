@@ -7,18 +7,21 @@ import ListContainer, { ListItem } from "@/components/layout/ListContainer";
 import fetchKlassLista from "./fetchKlassLista";
 
 export default async function KlassLista({
-  komun,
+  kommun,
   skola,
 }: {
-  komun: string;
+  kommun: string;
   skola: string;
 }) {
-  const unitGuid = await getUnitGuidFromSkola(komun, decodeURIComponent(skola));
-  const klassLista = await fetchKlassLista(komun, unitGuid);
+  const unitGuid = await getUnitGuidFromSkola(
+    kommun,
+    decodeURIComponent(skola),
+  );
+  const klassLista = await fetchKlassLista(kommun, unitGuid);
 
   const listItems: ListItem[] = klassLista.map((item: any) => {
     const newItem = item;
-    newItem.route = `/${komun}/${skola}/${item.groupName}`;
+    newItem.route = `/${kommun}/${skola}/${item.groupName}`;
     newItem.namn = item.groupName;
     return newItem;
   });

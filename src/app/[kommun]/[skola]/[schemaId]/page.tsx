@@ -10,7 +10,7 @@ export default function Page({
 }: {
   params: { kommun: string; skola: string; schemaId: string };
 }) {
-  const komun = decodeURIComponent(params.kommun);
+  const kommun = decodeURIComponent(params.kommun);
   const skola = decodeURIComponent(params.skola);
   const schemaId = decodeURIComponent(params["schemaId"]);
 
@@ -24,7 +24,7 @@ export default function Page({
             </BouncingText>
           }
         >
-          <CountDown komun={komun} skola={skola} schemaId={schemaId} />
+          <CountDown kommun={kommun} skola={skola} schemaId={schemaId} />
         </Suspense>
       </Section>
     </>

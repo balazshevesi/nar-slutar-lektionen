@@ -28,8 +28,12 @@ export default function RootLayout({
     : false;
 
   return (
-    <PlausibleProvider domain="https://www.xn--nr-slutar-lektionen-gwb.net/">
-      <html lang="en">
+    <html lang="en">
+      <PlausibleProvider
+        domain="https://www.xn--nr-slutar-lektionen-gwb.net/"
+        trackLocalhost={true}
+        enabled={true}
+      >
         <body className={`${inter.className} ${isDarkMode && "dark"}`}>
           <div
             className={
@@ -46,7 +50,7 @@ export default function RootLayout({
             <FavNav />
           </div>
         </body>
-      </html>
-    </PlausibleProvider>
+      </PlausibleProvider>
+    </html>
   );
 }

@@ -30,10 +30,10 @@ interface LessonWithTimestamp extends Lesson {
 }
 
 /**
- * given a list of lessons and todays date, will determine which
- * lesson we're currently having, or the next one we will have
+ * Given a list of lessons and todays date, will determine which
+ * Lesson we're currently having, or the next one we will have
  *
- * here we could implement a way to handle overlapping lessons
+ * Here we could implement a way to handle overlapping lessons
  */
 function determineCurrentOrNextLesson(
   lessons: LessonWithTimestamp[],
@@ -67,7 +67,7 @@ function determineCurrentOrNextLesson(
 }
 
 /**
- * takes a list of lessons and maps js Dates objexts to them
+ * Takes a list of lessons and maps js Dates objects to them
  */
 function mapDateToLessonTimes(date: Date, lessonInfo: Lesson[]) {
   const timeZoneOffset = date.getTimezoneOffset() * 60000; // Offset in milliseconds
@@ -99,8 +99,8 @@ function mapDateToLessonTimes(date: Date, lessonInfo: Lesson[]) {
 }
 
 /**
- * returns the schedule that matches with the paramerts.
- * if no lesson are found for the given day, it will recursively check the next and the next
+ * Returns the schedule that matches with the parameters.
+ * If no lesson are found for the given day, it will recursively check the next and the next
  */
 async function getValidSchedule(
   todaysDate: Date,
@@ -166,7 +166,7 @@ async function getValidSchedule(
 }
 
 /**
- *  get todays date and adjust it based on the server time
+ *  Get todays date and adjust it based on the server time
  */
 function getTodaysDate() {
   const now = new Date(); //creates new date object

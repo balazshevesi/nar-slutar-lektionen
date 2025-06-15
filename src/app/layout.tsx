@@ -1,3 +1,4 @@
+import PlausibleProvider from "next-plausible";
 import dynamic from "next/dynamic";
 import { Inter } from "next/font/google";
 import { cookies } from "next/headers";
@@ -27,7 +28,7 @@ export default function RootLayout({
     : false;
 
   return (
-    <>
+    <PlausibleProvider domain="https://www.xn--nr-slutar-lektionen-gwb.net/">
       <html lang="en">
         <body className={`${inter.className} ${isDarkMode && "dark"}`}>
           <div
@@ -46,6 +47,6 @@ export default function RootLayout({
           </div>
         </body>
       </html>
-    </>
+    </PlausibleProvider>
   );
 }

@@ -1,5 +1,7 @@
 "use client";
 
+import { usePlausible } from "next-plausible";
+
 import React, { useState, useEffect } from "react";
 
 import Title2 from "@/components/general/Title2";
@@ -23,6 +25,7 @@ export default function CountdownTimer({
   targetDate,
   isCurrentLesson,
 }: CountDownProps) {
+  const plausible = usePlausible();
   const [timeLeft, setTimeLeft] = useState<TimeLeft>({
     days: 0,
     hours: 0,
@@ -68,6 +71,7 @@ export default function CountdownTimer({
   };
 
   useEffect(() => {
+    plausible("DisplayCountdown");
     calculateTimeLeft();
     const interval = setInterval(calculateTimeLeft, 1000);
     return () => {

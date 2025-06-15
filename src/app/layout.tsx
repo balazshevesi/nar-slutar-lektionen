@@ -30,7 +30,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <PlausibleProvider
-        domain="https://www.xn--nr-slutar-lektionen-gwb.net/"
+        domain="när-slutar-lektionen.net"
         trackLocalhost={true}
         enabled={true}
       >

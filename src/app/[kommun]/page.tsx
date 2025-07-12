@@ -4,7 +4,6 @@ import Title2 from "@/components/general/Title2";
 import ListContainer, { ListItem } from "@/components/layout/ListContainer";
 import Section from "@/components/layout/Section";
 
-import NavigateBtn from "../../components/general/NavigateBtn";
 import fetchSkolor from "./fetchSkolor";
 
 export default async function Page({ params }: { params: { kommun: string } }) {

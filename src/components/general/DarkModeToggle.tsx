@@ -7,7 +7,7 @@ import { getCookie, setCookie } from "@/utils/client/cookeis";
 import { SunIcon, MoonIcon } from "@heroicons/react/24/outline";
 
 export default function DarkModeToggle({ className }: { className?: string }) {
-  const [isDarkMode, setisDarkMode] = useState(
+  const [isDarkMode, setIsDarkMode] = useState(
     JSON.parse(getCookie("isDarkMode") || "false"),
   );
 
@@ -22,7 +22,12 @@ export default function DarkModeToggle({ className }: { className?: string }) {
   }, [isDarkMode]);
 
   return (
-    <button onClick={() => setisDarkMode(!isDarkMode)} className={className}>
+    <button
+      aria-label={isDarkMode ? "Switch to light-mode" : "Switch to dark-mode"}
+      title={isDarkMode ? "Switch to light-mode" : "Switch to dark-mode"}
+      onClick={() => setIsDarkMode(!isDarkMode)}
+      className={className}
+    >
       {isDarkMode ? (
         <SunIcon className="heroicon-sw-2 h-6 w-6" />
       ) : (

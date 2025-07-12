@@ -235,6 +235,8 @@ OBS att jag försökte skriva rapporten med lite enklare språk så att även de
 
 # 🔮 Framtid
 
+- [ ] Fixa ssr error
+
 - [ ] Kanske kötta upp reklamer om sidan blir mer populär
 
 - [ ] Kanske bygga ut mitt eget schema vy grej

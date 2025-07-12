@@ -13,10 +13,7 @@ import {
   HeartIcon,
   PencilIcon,
 } from "@heroicons/react/24/outline";
-import { HeartIcon as HeartIconSolid } from "@heroicons/react/24/solid";
 
-import { setCookie } from "../../utils/client/cookeis";
-import { deleteCookie } from "../../utils/client/cookeis";
 import { arrayMoveImmutable } from "array-move";
 
 export interface Entry {
@@ -39,7 +36,7 @@ export default function FavNav() {
   const currentCode = pathname.split("/")[3];
   const [isOpen, setIsOpen] = useState(false);
 
-  const currentAdressIsAlredyFav = (() => {
+  const currentAdressIsAlreadyFav = (() => {
     return (
       favoriterState.filter((item: any) => item.pathname === pathname).length >
       0
@@ -237,7 +234,7 @@ export default function FavNav() {
           />
         </button>
         <nav className="relative z-0 bg-slate-100 p-4 dark:bg-slate-800">
-          {currentCode && !currentAdressIsAlredyFav && (
+          {currentCode && !currentAdressIsAlreadyFav && (
             <button
               onClick={handleAddFav}
               className="mb-4 flex w-full items-center justify-center gap-2 rounded-lg bg-white py-1 text-center shadow dark:bg-black"

@@ -47,7 +47,7 @@ export default function CountdownTimer({
     const difference = targetDate.getTime() - nowAdjusted.getTime();
 
     //* refresh window
-    if (!Math.round(difference / 1000))
+    if (!Math.round(difference / 1000) && typeof window !== "undefined")
       setInterval(() => document.location.reload(), 1000);
 
     if (difference > 0) {
@@ -61,7 +61,9 @@ export default function CountdownTimer({
       const docTitleTimmar = formatTimeUnit(hours, "timme", "timmar");
       const docTitleMinuter = formatTimeUnit(minutes, "minut", "minuter");
       const docTitleSekunder = formatTimeUnit(seconds, "sekund", "sekunder");
-      document.title = `${docTitleDagar} ${docTitleTimmar} ${docTitleMinuter} ${docTitleSekunder} `;
+      if (typeof window !== "undefined") {
+        document.title = `${docTitleDagar} ${docTitleTimmar} ${docTitleMinuter} ${docTitleSekunder} `;
+      }
 
       setTimeLeft({ days, hours, minutes, seconds });
     } else {
@@ -76,7 +78,9 @@ export default function CountdownTimer({
     const interval = setInterval(calculateTimeLeft, 1000);
     return () => {
       //reset docTitle on unmount, could also be done in a template.tsx file tho
-      document.title = "" + metadataGlobal.title!;
+      if (typeof window !== "undefined") {
+        document.title = "" + metadataGlobal.title!;
+      }
       return clearInterval(interval);
     };
   }, [targetDate]);

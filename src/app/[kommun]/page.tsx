@@ -15,7 +15,7 @@ export default async function Page({ params }: { params: { kommun: string } }) {
 
   const listItems: ListItem[] = listOfUnits.map((item: any) => {
     const newItem = item;
-    newItem.route = `/${kommun}/${item.unitId}`;
+    newItem.route = `/${kommun}/${encodeURIComponent(item.unitId)}`;
     newItem.namn = item.unitId;
     return newItem;
   });
